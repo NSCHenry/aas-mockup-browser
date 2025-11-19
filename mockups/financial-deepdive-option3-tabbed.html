@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Financial Deep Dive - Tabbed</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+.tab { padding: 12px 24px; background: #252940; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.tab.active { background: #3b82f6; color: #fff; }
+.tab-content { display: none; max-width: 1600px; }
+.tab-content.active { display: block; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.chart-container { position: relative; height: 350px; margin-top: 16px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Financial Deep Dive - Tabbed Layout</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Click tabs to explore different metrics</div>
+</div>
+<div class="tabs">
+  <div class="tab active" onclick="showTab('revenue')">Revenue Analysis</div>
+  <div class="tab" onclick="showTab('margins')">Margins & Profitability</div>
+  <div class="tab" onclick="showTab('collections')">Collections Performance</div>
+</div>
+
+<!-- Revenue Tab -->
+<div id="revenue-tab" class="tab-content active">
+  <div class="metric-row">
+    <div class="metric"><div class="metric-label">Total Revenue</div><div class="metric-value value-green">$28.0M</div></div>
+    <div class="metric"><div class="metric-label">Michigan</div><div class="metric-value">$12.3M</div></div>
+    <div class="metric"><div class="metric-label">Indiana</div><div class="metric-value">$15.7M</div></div>
+    <div class="metric"><div class="metric-label">YoY Growth</div><div class="metric-value value-green">+23.4%</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="tile">
+      <div class="tile-title">Revenue by Contract Type</div>
+      <div class="chart-container"><canvas id="rev-type"></canvas></div>
+    </div>
+    <div class="tile">
+      <div class="tile-title">Revenue by Geography (Monthly)</div>
+      <div class="chart-container"><canvas id="rev-geo"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- Margins Tab -->
+<div id="margins-tab" class="tab-content">
+  <div class="metric-row">
+    <div class="metric"><div class="metric-label">Gross Margin</div><div class="metric-value">16.5%</div></div>
+    <div class="metric"><div class="metric-label">MI Margin</div><div class="metric-value">13.8%</div></div>
+    <div class="metric"><div class="metric-label">IN Margin</div><div class="metric-value value-green">18.5%</div></div>
+    <div class="metric"><div class="metric-label">EBITDA Margin</div><div class="metric-value">15.2%</div></div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Gross Margin by Top 15 ASCs</div>
+    <div class="chart-container"><canvas id="margin-asc"></canvas></div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">12-Month P&L Trend</div>
+    <div class="chart-container"><canvas id="pl-trend"></canvas></div>
+  </div>
+</div>
+
+<!-- Collections Tab -->
+<div id="collections-tab" class="tab-content">
+  <div class="metric-row">
+    <div class="metric"><div class="metric-label">Total Collections</div><div class="metric-value value-green">$17.2M</div></div>
+    <div class="metric"><div class="metric-label">Labor Floor</div><div class="metric-value">$15.0M</div></div>
+    <div class="metric"><div class="metric-label">Above Floor</div><div class="metric-value value-green">$2.2M</div></div>
+    <div class="metric"><div class="metric-label">Avg Subsidy %</div><div class="metric-value">18.2%</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="tile">
+      <div class="tile-title">Collections Waterfall</div>
+      <div class="chart-container"><canvas id="waterfall"></canvas></div>
+    </div>
+    <div class="tile">
+      <div class="tile-title">Subsidy Reliance by ASC Type</div>
+      <div class="chart-container"><canvas id="subsidy"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('rev-type'), {
+  type: 'bar',
+  data: { labels: ['True-Up\n(59%)', 'Fee-for-Service\n(22%)', 'Pure Billing\n(14%)', 'Labor Floor\n(5%)'], datasets: [{ data: [16.6, 6.2, 3.9, 1.4], backgroundColor: ['#3b82f6','#10b981','#f59e0b','#8b5cf6'] }] },
+  options: { ...cfg, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#9aa0a6' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$'+v+'M' } } } }
+});
+
+new Chart(document.getElementById('rev-geo'), {
+  type: 'bar',
+  data: { labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'], datasets: [
+    { label: 'Michigan', data: [1.0,1.0,1.05,1.1,1.0,1.05,1.1,1.15,1.1,1.2,1.25], backgroundColor: '#3b82f6' },
+    { label: 'Indiana', data: [1.2,1.25,1.3,1.35,1.3,1.4,1.45,1.5,1.55,1.6,1.65], backgroundColor: '#10b981' }
+  ]},
+  options: { ...cfg, scales: { x: { stacked: true, grid: { display: false }, ticks: { color: '#9aa0a6' } }, y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$'+v+'M' } } } }
+});
+
+new Chart(document.getElementById('margin-asc'), {
+  type: 'bar',
+  data: { labels: ['IU-1','IU-2','IU-3','IU-4','BNJ-1','Core-1','IU-5','Rive','Core-2','Troy','Green','Utica','Lafay','Evans','BNJ-2'], datasets: [{ data: [22.1,21.5,20.8,19.2,18.9,18.5,17.8,16.5,16.2,15.8,14.5,13.2,12.1,10.5,8.2], backgroundColor: ['#10b981','#10b981','#10b981','#4ade80','#4ade80','#4ade80','#4ade80','#3b82f6','#3b82f6','#3b82f6','#fbbf24','#fbbf24','#fbbf24','#ff6b6b','#ff6b6b'] }] },
+  options: { ...cfg, indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v+'%' } }, y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 10 } } } } }
+});
+
+new Chart(document.getElementById('pl-trend'), {
+  type: 'line',
+  data: { labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'], datasets: [
+    { label: 'Revenue', data: [2.1,2.2,2.25,2.35,2.45,2.3,2.45,2.55,2.65,2.65,2.8,2.9], borderColor: '#3b82f6', tension: 0.4, borderWidth: 3 },
+    { label: 'Gross Profit', data: [0.35,0.36,0.37,0.39,0.40,0.38,0.40,0.42,0.44,0.44,0.46,0.48], borderColor: '#10b981', tension: 0.4, borderWidth: 3 },
+    { label: 'EBITDA', data: [0.32,0.33,0.34,0.36,0.37,0.35,0.37,0.39,0.40,0.40,0.43,0.44], borderColor: '#f59e0b', tension: 0.4, borderWidth: 3 }
+  ]},
+  options: { ...cfg, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$'+v+'M' } } } }
+});
+
+new Chart(document.getElementById('waterfall'), {
+  type: 'bar',
+  data: { labels: ['Labor Floor\nGuarantee','MI Collections\nAbove Floor','IN Collections\nAbove Floor','Total\nCollections'], datasets: [{ data: [15.0,1.1,1.1,17.2], backgroundColor: ['#9aa0a6','#3b82f6','#10b981','#4ade80'] }] },
+  options: { ...cfg, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$'+v+'M' } } } }
+});
+
+new Chart(document.getElementById('subsidy'), {
+  type: 'bar',
+  data: { labels: ['IU Health\n(7 ASCs)','BNJ\n(4 ASCs)','Corewell\n(5 ASCs)','Others\n(10 ASCs)','Solaris\n(3 ASCs)'], datasets: [{ label: 'Avg Subsidy %', data: [10.5,16.2,17.8,19.5,28.2], backgroundColor: ['#10b981','#4ade80','#fbbf24','#fbbf24','#ff6b6b'] }] },
+  options: { ...cfg, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#9aa0a6' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v+'%' } } } }
+});
+
+function showTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById(tab + '-tab').classList.add('active');
+}
+</script>
+</body></html>

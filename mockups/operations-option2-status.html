@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Operations - Provider Allocation</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.layout { display: grid; grid-template-columns: 65% 35%; gap: 20px; max-width: 1800px; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.allocation-grid { display: grid; grid-template-columns: 150px repeat(5, 1fr); gap: 8px; margin-top: 16px; }
+.grid-header { font-size: 11px; color: #9aa0a6; font-weight: 600; padding: 8px; text-align: center; }
+.grid-label { font-size: 12px; color: #e8eaed; padding: 8px; font-weight: 500; }
+.provider-cell { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 10px; font-size: 11px; }
+.provider-name { font-weight: 600; margin-bottom: 4px; }
+.provider-type { color: #9aa0a6; font-size: 10px; }
+.provider-count { color: #4ade80; font-weight: 600; }
+.mda { border-left: 3px solid #3b82f6; }
+.crna { border-left: 3px solid #10b981; }
+.metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 28px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.chart-container { position: relative; height: 280px; margin-top: 16px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.stat-item { padding: 14px; background: rgba(255,255,255,0.02); border-radius: 6px; }
+.stat-label { font-size: 11px; color: #9aa0a6; margin-bottom: 6px; }
+.stat-value { font-size: 20px; font-weight: 600; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Operations - Provider Allocation</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Provider Distribution Across ASCs</div>
+</div>
+
+<div class="layout">
+  <div class="main-column">
+    <div class="tile">
+      <div class="tile-title">Top 15 ASCs - Provider Allocation This Week</div>
+      <div class="allocation-grid">
+        <div class="grid-header">ASC</div>
+        <div class="grid-header">Monday</div>
+        <div class="grid-header">Tuesday</div>
+        <div class="grid-header">Wednesday</div>
+        <div class="grid-header">Thursday</div>
+        <div class="grid-header">Friday</div>
+
+        <div class="grid-label">IU Health 1</div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Anderson</div><div class="provider-type">MDA • 8 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Anderson</div><div class="provider-type">MDA • 9 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Chen</div><div class="provider-type">MDA • 7 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Anderson</div><div class="provider-type">MDA • 8 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Chen</div><div class="provider-type">MDA • 6 cases</div></div>
+
+        <div class="grid-label">IU Health 2</div>
+        <div class="provider-cell crna"><div class="provider-name">Martinez CRNA</div><div class="provider-type">CRNA • 6 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Johnson CRNA</div><div class="provider-type">CRNA • 7 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Martinez CRNA</div><div class="provider-type">CRNA • 6 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Lee CRNA</div><div class="provider-type">CRNA • 5 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Johnson CRNA</div><div class="provider-type">CRNA • 7 cases</div></div>
+
+        <div class="grid-label">IU Greenwood</div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Patel</div><div class="provider-type">MDA • 9 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Patel</div><div class="provider-type">MDA • 8 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Williams</div><div class="provider-type">MDA • 7 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Patel</div><div class="provider-type">MDA • 9 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Williams</div><div class="provider-type">MDA • 8 cases</div></div>
+
+        <div class="grid-label">Corewell 1</div>
+        <div class="provider-cell crna"><div class="provider-name">Davis CRNA</div><div class="provider-type">CRNA • 7 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Brown CRNA</div><div class="provider-type">CRNA • 6 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Davis CRNA</div><div class="provider-type">CRNA • 8 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Wilson CRNA</div><div class="provider-type">CRNA • 5 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Brown CRNA</div><div class="provider-type">CRNA • 7 cases</div></div>
+
+        <div class="grid-label">Riverview</div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Thompson</div><div class="provider-type">MDA • 10 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Thompson</div><div class="provider-type">MDA • 11 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Rodriguez</div><div class="provider-type">MDA • 9 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Thompson</div><div class="provider-type">MDA • 10 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Rodriguez</div><div class="provider-type">MDA • 8 cases</div></div>
+
+        <div class="grid-label">BNJ Troy</div>
+        <div class="provider-cell crna"><div class="provider-name">Garcia CRNA</div><div class="provider-type">CRNA • 5 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Miller CRNA</div><div class="provider-type">CRNA • 6 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Garcia CRNA</div><div class="provider-type">CRNA • 7 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Clark CRNA</div><div class="provider-type">CRNA • 5 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Miller CRNA</div><div class="provider-type">CRNA • 6 cases</div></div>
+
+        <div class="grid-label">BNJ Utica</div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Kim</div><div class="provider-type">MDA • 7 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Kim</div><div class="provider-type">MDA • 8 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Singh</div><div class="provider-type">MDA • 6 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Kim</div><div class="provider-type">MDA • 7 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Singh</div><div class="provider-type">MDA • 8 cases</div></div>
+
+        <div class="grid-label">Solaris 1</div>
+        <div class="provider-cell crna"><div class="provider-name">Taylor CRNA</div><div class="provider-type">CRNA • 4 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Moore CRNA</div><div class="provider-type">CRNA • 5 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Taylor CRNA</div><div class="provider-type">CRNA • 6 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">White CRNA</div><div class="provider-type">CRNA • 4 cases</div></div>
+        <div class="provider-cell crna"><div class="provider-name">Moore CRNA</div><div class="provider-type">CRNA • 5 cases</div></div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Provider Utilization by Type (Last 30 Days)</div>
+      <div class="chart-container" style="height: 300px;">
+        <canvas id="utilization"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-column">
+    <div class="tile">
+      <div class="tile-title">Provider Summary</div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-label">Total Providers</div>
+          <div class="metric-value value-green">199</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">MDAs</div>
+          <div class="metric-value">52</div>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-label">CRNAs</div>
+          <div class="metric-value">147</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Avg Utilization</div>
+          <div class="metric-value value-green">87.3%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Geography Breakdown</div>
+      <div class="chart-container">
+        <canvas id="geography"></canvas>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Key Metrics This Week</div>
+      <div class="stat-grid">
+        <div class="stat-item">
+          <div class="stat-label">Total Cases</div>
+          <div class="stat-value value-green">1,847</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Coverage Rate</div>
+          <div class="stat-value value-green">98.7%</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Avg Cases/Provider</div>
+          <div class="stat-value">9.3</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">On-Time Starts</div>
+          <div class="stat-value value-green">94.2%</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">MI Cases</div>
+          <div class="stat-value">1,128</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">IN Cases</div>
+          <div class="stat-value">719</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Avg Case Duration</div>
+          <div class="stat-value">47 min</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Room Turnover</div>
+          <div class="stat-value">12 min</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Provider Type Distribution</div>
+      <div class="chart-container">
+        <canvas id="provider-type"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('utilization'), {
+  type: 'line',
+  data: {
+    labels: ['Week 1','Week 2','Week 3','Week 4','Week 5'],
+    datasets: [
+      { label: 'MDAs', data: [88.5, 89.2, 87.8, 88.9, 89.5], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', fill: true, tension: 0.4, borderWidth: 3 },
+      { label: 'CRNAs', data: [86.2, 87.5, 85.8, 87.2, 86.8], borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', fill: true, tension: 0.4, borderWidth: 3 }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, min: 80, max: 95 }
+    }
+  }
+});
+
+new Chart(document.getElementById('geography'), {
+  type: 'bar',
+  data: {
+    labels: ['Michigan', 'Indiana'],
+    datasets: [
+      { label: 'MDAs', data: [34, 18], backgroundColor: '#3b82f6' },
+      { label: 'CRNAs', data: [92, 55], backgroundColor: '#10b981' }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('provider-type'), {
+  type: 'doughnut',
+  data: {
+    labels: ['CRNAs (147)', 'MDAs (52)'],
+    datasets: [{
+      data: [147, 52],
+      backgroundColor: ['#10b981', '#3b82f6']
+    }]
+  },
+  options: { ...cfg }
+});
+</script>
+</body></html>

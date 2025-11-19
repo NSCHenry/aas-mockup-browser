@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Growth & Pipeline - CRM Table Layout</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.layout { display: grid; grid-template-columns: 70% 30%; gap: 20px; max-width: 1800px; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.filters { display: flex; gap: 12px; margin-bottom: 20px; }
+.filter-btn { padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #9aa0a6; cursor: pointer; font-size: 12px; }
+.filter-btn.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+.table-container { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+thead { background: rgba(255,255,255,0.05); }
+th { padding: 12px; text-align: left; font-weight: 600; color: #9aa0a6; font-size: 11px; text-transform: uppercase; }
+td { padding: 14px 12px; border-top: 1px solid rgba(255,255,255,0.05); }
+.stage-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.badge-awareness { background: rgba(59,130,246,0.2); color: #60a5fa; }
+.badge-interest { background: rgba(16,185,129,0.2); color: #34d399; }
+.badge-action { background: rgba(245,158,11,0.2); color: #fbbf24; }
+.badge-decision { background: rgba(236,72,153,0.2); color: #f472b6; }
+.value-amount { font-weight: 600; color: #4ade80; }
+.probability { font-size: 12px; color: #9aa0a6; }
+.deal-card { background: rgba(255,255,255,0.03); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.deal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.deal-name { font-weight: 600; font-size: 14px; }
+.deal-value { font-size: 18px; font-weight: 700; color: #4ade80; }
+.deal-detail { font-size: 12px; color: #9aa0a6; margin-bottom: 6px; }
+.deal-label { display: inline-block; width: 100px; }
+.activity-feed { max-height: 300px; overflow-y: auto; }
+.activity-item { padding: 12px; background: rgba(255,255,255,0.02); border-radius: 6px; margin-bottom: 8px; font-size: 12px; }
+.activity-date { color: #9aa0a6; font-size: 11px; }
+.metric { padding: 16px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 16px; }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 6px; }
+.metric-value { font-size: 28px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.chart-container { position: relative; height: 220px; margin-top: 16px; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Growth & Pipeline - CRM Table Layout</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • 30 Active Opportunities</div>
+</div>
+
+<div class="layout">
+  <div class="main-column">
+    <div class="tile">
+      <div class="tile-title">Active Opportunities</div>
+      <div class="filters">
+        <div class="filter-btn active">All (30)</div>
+        <div class="filter-btn">Awareness (15)</div>
+        <div class="filter-btn">Interest (8)</div>
+        <div class="filter-btn">Action (5)</div>
+        <div class="filter-btn">Decision (2)</div>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Opportunity</th>
+              <th>Stage</th>
+              <th>Value</th>
+              <th>Probability</th>
+              <th>Expected Close</th>
+              <th>Owner</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Riverview De Novo ASC</td>
+              <td><span class="stage-badge badge-decision">Decision</span></td>
+              <td><span class="value-amount">$1,200,000</span></td>
+              <td class="probability">90%</td>
+              <td>Nov 25, 2025</td>
+              <td>Sarah Chen</td>
+            </tr>
+            <tr>
+              <td>IU Health Indianapolis</td>
+              <td><span class="stage-badge badge-decision">Decision</span></td>
+              <td><span class="value-amount">$600,000</span></td>
+              <td class="probability">80%</td>
+              <td>Dec 10, 2025</td>
+              <td>Mike Johnson</td>
+            </tr>
+            <tr>
+              <td>Evansville Surgical Center</td>
+              <td><span class="stage-badge badge-action">Action</span></td>
+              <td><span class="value-amount">$450,000</span></td>
+              <td class="probability">65%</td>
+              <td>Jan 8, 2026</td>
+              <td>Sarah Chen</td>
+            </tr>
+            <tr>
+              <td>Troy Ortho Center</td>
+              <td><span class="stage-badge badge-action">Action</span></td>
+              <td><span class="value-amount">$520,000</span></td>
+              <td class="probability">60%</td>
+              <td>Jan 15, 2026</td>
+              <td>David Park</td>
+            </tr>
+            <tr>
+              <td>Utica Ambulatory Surgery</td>
+              <td><span class="stage-badge badge-action">Action</span></td>
+              <td><span class="value-amount">$680,000</span></td>
+              <td class="probability">70%</td>
+              <td>Feb 1, 2026</td>
+              <td>Sarah Chen</td>
+            </tr>
+            <tr>
+              <td>IU Greenwood Expansion</td>
+              <td><span class="stage-badge badge-action">Action</span></td>
+              <td><span class="value-amount">$410,000</span></td>
+              <td class="probability">65%</td>
+              <td>Feb 12, 2026</td>
+              <td>Mike Johnson</td>
+            </tr>
+            <tr>
+              <td>Detroit Metro ASC</td>
+              <td><span class="stage-badge badge-action">Action</span></td>
+              <td><span class="value-amount">$750,000</span></td>
+              <td class="probability">60%</td>
+              <td>Feb 28, 2026</td>
+              <td>Lisa Martinez</td>
+            </tr>
+            <tr>
+              <td>Fort Wayne Surgical</td>
+              <td><span class="stage-badge badge-interest">Interest</span></td>
+              <td><span class="value-amount">$820,000</span></td>
+              <td class="probability">45%</td>
+              <td>Mar 10, 2026</td>
+              <td>David Park</td>
+            </tr>
+            <tr>
+              <td>Kalamazoo Ortho ASC</td>
+              <td><span class="stage-badge badge-interest">Interest</span></td>
+              <td><span class="value-amount">$590,000</span></td>
+              <td class="probability">40%</td>
+              <td>Mar 20, 2026</td>
+              <td>Lisa Martinez</td>
+            </tr>
+            <tr>
+              <td>Bloomington Surgery Center</td>
+              <td><span class="stage-badge badge-interest">Interest</span></td>
+              <td><span class="value-amount">$640,000</span></td>
+              <td class="probability">50%</td>
+              <td>Apr 1, 2026</td>
+              <td>Sarah Chen</td>
+            </tr>
+            <tr>
+              <td>Grand Rapids ASC</td>
+              <td><span class="stage-badge badge-interest">Interest</span></td>
+              <td><span class="value-amount">$710,000</span></td>
+              <td class="probability">45%</td>
+              <td>Apr 8, 2026</td>
+              <td>Mike Johnson</td>
+            </tr>
+            <tr>
+              <td>South Bend Surgical</td>
+              <td><span class="stage-badge badge-interest">Interest</span></td>
+              <td><span class="value-amount">$550,000</span></td>
+              <td class="probability">40%</td>
+              <td>Apr 15, 2026</td>
+              <td>David Park</td>
+            </tr>
+            <tr>
+              <td>Ann Arbor Specialty Center</td>
+              <td><span class="stage-badge badge-interest">Interest</span></td>
+              <td><span class="value-amount">$620,000</span></td>
+              <td class="probability">45%</td>
+              <td>Apr 22, 2026</td>
+              <td>Lisa Martinez</td>
+            </tr>
+            <tr>
+              <td>Lafayette Surgical Group</td>
+              <td><span class="stage-badge badge-interest">Interest</span></td>
+              <td><span class="value-amount">$480,000</span></td>
+              <td class="probability">40%</td>
+              <td>May 1, 2026</td>
+              <td>Sarah Chen</td>
+            </tr>
+            <tr>
+              <td>Muncie ASC Partnership</td>
+              <td><span class="stage-badge badge-interest">Interest</span></td>
+              <td><span class="value-amount">$530,000</span></td>
+              <td class="probability">40%</td>
+              <td>May 8, 2026</td>
+              <td>Mike Johnson</td>
+            </tr>
+            <tr>
+              <td>Flint Surgery Center</td>
+              <td><span class="stage-badge badge-awareness">Awareness</span></td>
+              <td><span class="value-amount">$720,000</span></td>
+              <td class="probability">25%</td>
+              <td>Jun 1, 2026</td>
+              <td>David Park</td>
+            </tr>
+            <tr>
+              <td>Terra Haute Medical</td>
+              <td><span class="stage-badge badge-awareness">Awareness</span></td>
+              <td><span class="value-amount">$490,000</span></td>
+              <td class="probability">20%</td>
+              <td>Jun 15, 2026</td>
+              <td>Lisa Martinez</td>
+            </tr>
+            <tr>
+              <td>Lansing Ortho ASC</td>
+              <td><span class="stage-badge badge-awareness">Awareness</span></td>
+              <td><span class="value-amount">$650,000</span></td>
+              <td class="probability">25%</td>
+              <td>Jul 1, 2026</td>
+              <td>Sarah Chen</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-column">
+    <div class="tile">
+      <div class="tile-title">Pipeline Summary</div>
+      <div class="metric">
+        <div class="metric-label">Weighted Value</div>
+        <div class="metric-value value-green">$17.6M</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Total Opportunities</div>
+        <div class="metric-value">30</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Win Rate</div>
+        <div class="metric-value value-green">42%</div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Top Deal - Riverview De Novo</div>
+      <div class="deal-card">
+        <div class="deal-header">
+          <div class="deal-name">Riverview De Novo ASC</div>
+          <div class="deal-value">$1.2M</div>
+        </div>
+        <div class="deal-detail">
+          <span class="deal-label">Stage:</span>
+          <span class="stage-badge badge-decision">Decision</span>
+        </div>
+        <div class="deal-detail">
+          <span class="deal-label">Expected Close:</span> Nov 25, 2025
+        </div>
+        <div class="deal-detail">
+          <span class="deal-label">Probability:</span> 90%
+        </div>
+        <div class="deal-detail">
+          <span class="deal-label">Contract Type:</span> True-Up
+        </div>
+        <div class="deal-detail">
+          <span class="deal-label">Location:</span> Michigan
+        </div>
+        <div class="deal-detail">
+          <span class="deal-label">Cases/Year:</span> ~2,400
+        </div>
+        <div class="deal-detail">
+          <span class="deal-label">Owner:</span> Sarah Chen
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Sales Rep Performance</div>
+      <div class="chart-container">
+        <canvas id="rep-performance"></canvas>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Recent Activity</div>
+      <div class="activity-feed">
+        <div class="activity-item">
+          <div><strong>Riverview De Novo</strong> moved to Decision</div>
+          <div class="activity-date">Nov 18, 2025 • Sarah Chen</div>
+        </div>
+        <div class="activity-item">
+          <div><strong>IU Health Indianapolis</strong> contract sent for review</div>
+          <div class="activity-date">Nov 17, 2025 • Mike Johnson</div>
+        </div>
+        <div class="activity-item">
+          <div><strong>Evansville Surgical</strong> site visit completed</div>
+          <div class="activity-date">Nov 15, 2025 • Sarah Chen</div>
+        </div>
+        <div class="activity-item">
+          <div><strong>Troy Ortho</strong> pricing proposal submitted</div>
+          <div class="activity-date">Nov 14, 2025 • David Park</div>
+        </div>
+        <div class="activity-item">
+          <div><strong>Fort Wayne Surgical</strong> initial meeting scheduled</div>
+          <div class="activity-date">Nov 12, 2025 • David Park</div>
+        </div>
+        <div class="activity-item">
+          <div><strong>Grand Rapids ASC</strong> added to pipeline</div>
+          <div class="activity-date">Nov 10, 2025 • Mike Johnson</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('rep-performance'), {
+  type: 'bar',
+  data: {
+    labels: ['Sarah C.', 'Mike J.', 'David P.', 'Lisa M.'],
+    datasets: [{
+      label: 'Pipeline Value ($M)',
+      data: [5.2, 4.8, 4.1, 3.5],
+      backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$' + v + 'M' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+</script>
+</body></html>

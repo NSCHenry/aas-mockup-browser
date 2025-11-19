@@ -1,0 +1,476 @@
+=== PRESENTATION: /Users/hbalanon/dev/nsc-aas-dashboard-poc/AAS_Value Creation Kickoff (Nov 2025)_v1.pptx ===
+
+Total Slides: 20
+
+
+================================================================================
+SLIDE 1
+================================================================================
+
+Value Creation Discussion
+
+November 2025
+
+Confidential
+
+
+================================================================================
+SLIDE 2
+================================================================================
+
+Value Creation Pillars
+
+Pillar #1 Keep Current Contracts and Successfully Fulfill Them
+Maintaining and fulfilling strong contracts is as important, if not more important, than winning new contracts and churn disproportionately affects growth
+#1: “Keeping administrators and decision-makers at ASC’s happy will help us retain contracts”
+What are the ultimate indicators of ASC dissatisfaction?
+Providers not showing up on time?
+How do we ensure that we have consistent, timely coverage every single day?
+How do you handle scheduling today?
+Have we ever had any issues?
+Are there any areas where we could see problems arising?
+What can be automated / improved?
+Unprofessional / unfamiliar providers?
+How much do surgeons / administrators care about working with new providers?
+If this is a problem, what can we do to ensure continuity?
+How do we track if an administrator is satisfied or dissatisfied?
+Should we create a scorecard for administrators to complete on a defined cadence rating provider punctuality, coverage reliability, and professionalism?
+Is that cadence weekly, monthly, quarterly, etc.?
+Should we have an annual review with each ASC ahead of renewal date to share results, collect feedback, discuss any new initiatives?
+
+2
+
+
+================================================================================
+SLIDE 3
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+How do we track if an administrator is satisfied or dissatisfied? (Cont’d)
+Is there merit to assigning a relationship manager for each center? 
+Are we set up with the existing technology systems we have today to track the feedback from ASCs?
+#2: “Minimizing reliance on ASC subsidies to the extent possible will reduce churn”
+How much of the subsidy reliance is in our control versus outside of our control?
+To the extent collections can be improved upon, we need to do so (see RCM section)
+If subsidy reliance is outside of our control (e.g., case volumes are low and we are collecting what we should), do ASCs care about that?
+Would they try switching to an anesthesia provider with a lower labor floor, or to one that could go fully at-risk?
+If ASCs understand subsidy reliance, when it is a result of their actions, is normal course for anesthesia, is there any merit in being proactive with the ASC?
+Would centers value having reports on case volume, collections, etc.?
+Should we be looking at staffing costs by center? Is there any flexibility to change providers to achieve lower cost to deliver services for centers?
+Potential Metrics to Track
+On-time case coverage %
+Administrator feedback score
+Labor floor / subsidy as a % of total revenue
+
+3
+
+
+================================================================================
+SLIDE 4
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Potential Metrics to Track (cont’d)
+Staffing costs by center
+Contract renewal rate
+Takeaways / Ownership / Timeline
+[ ]
+
+4
+
+
+================================================================================
+SLIDE 5
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Pillar #2 Grow the ASC Portfolio in Existing Markets with Margin-Neutral to Margin-Accretive Contracts
+The main lever to growing the company is to acquire new contracts, and the benefits of building scale and density within our existing markets include labor optimization and payor pricing power
+#1: “We need a repeatable engine for sourcing and closing new ASC contracts”
+What are the most effective channels for sourcing new ASC opportunities?
+Inbound RFPs
+Where do inbound RFPs come from today?
+Referrals
+Chris / Mark relationships
+AAS providers
+Administrators / staff at current or prior ASCs
+Marketing (trade shows, conferences, public marketing collateral, etc.)
+Word of mouth
+How would we grow the number of RFPs we’re seeing?
+Trade shows?
+Conferences?
+Marketing collateral?
+Do we have any incentivization program in place with providers to refer us to new centers?
+
+5
+
+
+================================================================================
+SLIDE 6
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+How would we grow the number of RFPs we’re seeing? (Cont’d)
+Can we somehow leverage our existing ASC relationships proactively to expand into new centers?
+Management Company Partnerships
+How do we expand within our existing management companies?
+Who at AAS owns the relationships with the management companies
+How often are they discussing potential expansion opportunities?
+Is there benefit in mentioning our partnership to the management companies so they know that we have the capital and the backing to grow alongside them?
+Are there management companies in our existing markets where we don’t have a relationship with today?
+If so, how are we targeting their ASCs?
+Outbound Efforts
+Is there any merit to this strategy?
+How do we identify the most attractive ASCs in our existing markets?
+There are 100+ independent ASCs in both Michigan and Indiana based on the data from Chartis – should we think through an outreach strategy?
+How do we track opportunities today?
+Do we have a pipeline that we actively manage?
+
+6
+
+
+================================================================================
+SLIDE 7
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+How do we track opportunities today? (Cont’d)
+Do we have defined pipeline stages? (Exhibit A)
+How do we apply weighting to opportunities?
+What is the cadence at which we update our pipeline?
+What do we need to develop or invest in to properly track our pipeline (e.g., CRM)?
+Once an opportunity is in the pipeline, who is responsible for working it?
+Do we understand our ideal customer profile?
+Do we have more or less success with multi- vs single-specialty ASCs?
+# of ORs?
+Management company owned vs independent?
+Case mix?
+Payor mix?
+What are the main reasons we lose a contract?
+Is it due to a lack of differentiation?
+What aspects resonate the most with ASC-decision makers?
+Where are our gaps?
+Are there more opportunities for us to win new business if we can improve our collection ability to go more “at-risk”?
+What operational prerequisites are needed before pursuing new growth?
+Do we have the scheduling, RCM excellence, and staffing in our existing markets to take on new centers?
+
+7
+
+
+================================================================================
+SLIDE 8
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+What operational prerequisites are needed before pursuing new growth? (cont’d)
+If not, what do we need to do to get there?
+Do we have a defined onboarding strategy for a new ASC?
+Staffing, credentialing, payor setup, billing, etc.
+#2: “We need to ensure every contract is at-worst margin-neutral to ensure we grow the Company profitably”
+How do we structure contracts to ensure that we are maintaining or expanding margins?
+What sorts of processes can we put around contract pricing and negotiation?
+Pricing guardrails for floors before signing?
+Annual pricing escalators tied to the greater of labor cost increases or 3.5%?
+For existing contracts where we don’t have escalators, how are we making sure that we are maintaining target margins?
+As part of our MORs, should we have review margin trends by ASC?
+Are there any criteria or filters where we would never agree to (e.g., high concentration of government payors)
+Are there situations where a center might be lower margin but strategic in nature (e.g., new mgmt. company relationship)
+
+
+8
+
+
+================================================================================
+SLIDE 9
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Potential Metrics
+Pipeline KPIs
+# of opportunities in each stage of the pipeline (per quarter / year)
+Weighted value
+Unweighted value
+Average time per pipeline stage
+Define Ideal Customer Profile
+Margin trend analysis
+Takeaways / Ownership / Timeline
+
+
+
+9
+
+
+================================================================================
+SLIDE 10
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Pillar #3 Build a Best-in-Class Revenue Cycle Function
+Having full visibility and control over the revenue cycle allows the Company to use going fully or partially at risk in contract negotiations where otherwise we would need a larger or stricter labor floor, creating opportunities to win new business, in addition to the obvious margin benefit of improving collections
+#1: “We need full visibility into RCM to improve collections”
+What does the coding and billing process look like from start to finish today?
+Who owns each step?
+Who is validating all of the entries and how do we know that we have the correct processes in place?
+Will any of this change with the migration to VBRCM?
+Where are the most common breakdowns in this process?
+Are we fully equipped to handle all the documentation and coding responsibilities today, or do we need to invest into additional tools / resources?
+#2: “Optimizing RCM is the lever most in our control to increase revenue and margin profile”
+What are the biggest pain points or opportunities for efficiency?
+Payor reimbursement rates
+How do we ensure we are receiving the best rates possible? VBRCM? Aroris? Other Third Party?
+Claim Denials?
+What are the strategies we’re implementing today to remedy
+
+10
+
+
+================================================================================
+SLIDE 11
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Claim Denials? (cont’d)
+Are there any strategies we think may bear fruit but haven’t tried?
+In the preliminary VBRCM report, it looks like 3% of total charges were rejected for EDI configurations, is this a coding error on our part?
+The other 3% of charges that were denied is a result of patient-eligibility, is there any work that we cand o to verify insurance coverage before submission?
+Can this process be automated?
+Are claim rejections being tracked by payer and error type? Is it on VBRCM to resolve these?
+Collecting Patient Balances?
+Are there any metrics we’re using to track the effectiveness of our current provider?
+Should we evaluate switching providers?
+Improper coding resulting in underbilling?
+Pinnacle identified that the 99100 code wasn’t being utilized, which is an add on that gives one additional base unit for patients over age 70 
+What benefit does technology investments such as an EMR provide us?
+Can we quantify the ROI?
+
+
+11
+
+
+================================================================================
+SLIDE 12
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Potential Metrics
+Bad debt % of revenue
+Clean claim rate
+A/R days over 120
+Denial rate
+Gross and Net collection rate
+Takeaways / Ownership / Timeline
+
+12
+
+
+================================================================================
+SLIDE 13
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Pillar #4 Expand Into New Geographies
+The benefits of geographic expansion include i) diversification away from individual markets and payors, ii) revenue and margin opportunity from higher reimbursement states, iii) platform scale and exit attractiveness
+#1: “We should deliberately expand into at least 3 new markets that offer higher reimbursement rates”
+How do we identify target geographies?
+Which states have the most attractive reimbursement rates?
+Leverage Chartis work in addition to collecting data from VBRCM, Aroris / others
+Are there other factors we should consider in addition to reimbursement rates?
+Market attractiveness to potential strategic buyers?
+Market saturation
+Labor supply
+How do we win contracts in new markets?
+Do the same marketing tactics that we employ in our existing markets work in new markets (e.g., trade shows, conferences, marketing collateral, etc.)?
+Are certain markets more referral-based vs RFP, or vice-versa?
+Do we need to leverage local provider consultants in certain markets for intros?
+Are buying criteria different in new markets vs Indiana and Michigan?
+How do we position AAS as the premium provider in markets where we have no presence?
+
+13
+
+
+================================================================================
+SLIDE 14
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+If a management company wants to pull is in a new market, but we don’t think the reimbursement rates are sufficiently attractive, how do we handle this?
+Can we use the management fee construct from Indiana to achieve target margins?
+What is the minimum contract size we can target?
+What is the minimum number of contracts to be profitable and justify a self-standing labor force?
+#2: “To expand into 3+ markets, we need to develop a repeatable and efficient entry model”
+How do we develop a market entry playbook?
+What does that playbook need to entail?
+Staffing strategy
+GTM strategy
+Payer negotiation tactics
+Operational checklist
+Do we need a dedicated “new market launch team”?
+Who needs to be in that team excluding providers?
+Do we need a dedicated scheduler for new markets?
+How about billing and coding
+
+
+14
+
+
+================================================================================
+SLIDE 15
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Potential Metrics
+Reimbursement rates by state (aggregated from multiple sources)
+Time to operational readiness (staffing, credentialing, billing setup)
+New market startup costs
+Takeaways / Ownership / Timeline
+[  ]
+
+15
+
+
+================================================================================
+SLIDE 16
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Pillar #5 Regulatory & Compliance Excellence 
+The potential impact of failing an audit or a lawsuit due to improper compliance protocol and procedures could be millions-to-tens of millions of dollars
+#1: “Compliance infrastructure needs to scale with the business as we grow”
+Are there any gaps in the document provided by Health Law Partners for where we are today?
+Could there be gaps as we expand in size and footprint that we need to capture?
+Are there state-specific requirements that we need to adhere to as we think about geographic expansion?
+Who should be in charge of overseeing compliance at AAS?
+In addition to initial background checks, should we be doing ongoing checks on our providers (e.g., OIG exclusion list, sex offender list, etc.)?
+#2: “We need proactive monitoring and compliance training to avoid potential issues”
+Do we conduct any coding audits to ensure time, modifiers, and codes are applied correctly?
+Outside of documentation, what processes and systems can we put in place?
+Annual risk assessment
+Self or third-party audit
+Institute a reporting hotline for any mistakes or violations
+Compliance scorecard?
+
+16
+
+
+================================================================================
+SLIDE 17
+================================================================================
+
+Value Creation Pillars (Cont’d)
+
+Metrics
+Audit pass rate
+# of violations per quarter (ideally 0)
+Takeaways / Ownership / Timeline
+[ ]
+
+
+17
+
+
+================================================================================
+SLIDE 18
+================================================================================
+
+Company We Want to Build
+
+We are confident that together we can grow AAS to $100+ Million revenue and $20 Million+ EBITDA by 2030
+We have layered in $2+ Million of additional costs in our forecast to cover finance buildout, dedicated recruiter and additional marketing expense, and further back-office support (HR, scheduler)
+
+18
+
+
+================================================================================
+SLIDE 19
+================================================================================
+
+Company We Want to Build (Cont’d)
+
+Between the investment in people, process, and technology, AAS should be able to add 3 additional contracts per year in both Indiana and Michigan, and at least 2 new contracts per year in each market we expand into
+While each new geography may not have the same contract structure as in Indiana, we should target at least similar margin profiles both through contract structuring and targeting high-reimbursement markets
+
+
+19
+
+True Up Contract Assumptions (New Geo & IN)
+
+Billing & Collections Contract Assumptions (MI)
+
+
+================================================================================
+SLIDE 20
+================================================================================
+
+Pipeline Tracking (Exhibit A)
+
+20
+
+Pipeline Funnel
+
+$[xx]M
+Revenue
+
+$[xx]M
+Revenue
+
+$[xx]M
+Revenue
+
+$[xx]M Revenue
+
+[xx]
+
+Awareness
+
+[xx]
+
+Interest
+
+Action
+
+[xx]
+
+[xx]
+
+Decision
+
+Prospects
+
+Stage
+
+
+[TABLE DATA]
+Opportunity | Type | Stage | Probability | New Bookings
+[Opp. name] | [Type] | [Awareness] | [x%] | $[xx]K+
+[Opp. name] | [Type] | [Interest] | [x%] | $[xx]K+
+[Opp. name] | [Type] | [Decision] | [x%] | $[xx]K+
+[Opp. name] | [Type] | [Action] | [x%] | $[xx]K+
+[Opp. name] | [Type] | [Awareness] | [x%] | $[xx]K+
+
+
+[TABLE DATA]
+Opportunity | Type | Stage | Probability | New Bookings
+[Opp. name] | [Type] | [Awareness] | [x%] | $[xx]K+
+[Opp. name] | [Type] | [Interest] | [x%] | $[xx]K+
+[Opp. name] | [Type] | [Decision] | [x%] | $[xx]K+
+[Opp. name] | [Type] | [Action] | [x%] | $[xx]K+
+[Opp. name] | [Type] | [Awareness] | [x%] | $[xx]K+
+
+Top Wins for the Quarter
+
+Top Losses for the Quarter
+

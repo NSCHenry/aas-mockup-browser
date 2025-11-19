@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Revenue Cycle - Process Flow</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.value-yellow { color: #fbbf24; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.flow-container { display: flex; gap: 12px; margin-top: 20px; align-items: stretch; }
+.flow-stage { flex: 1; background: rgba(255,255,255,0.03); border-radius: 8px; padding: 20px; position: relative; }
+.flow-stage::after { content: '→'; position: absolute; right: -18px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #9aa0a6; }
+.flow-stage:last-child::after { content: ''; }
+.stage-title { font-weight: 600; font-size: 14px; margin-bottom: 12px; text-align: center; }
+.stage-metric { background: rgba(255,255,255,0.05); border-radius: 6px; padding: 12px; margin-bottom: 8px; }
+.stage-metric-label { font-size: 10px; color: #9aa0a6; margin-bottom: 4px; }
+.stage-metric-value { font-size: 20px; font-weight: 700; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Revenue Cycle - Process Flow</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • End-to-End RCM Performance</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Clean Claims Rate</div>
+    <div class="metric-value value-green">92.3%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Collection Rate</div>
+    <div class="metric-value value-green">96.8%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Days in AR</div>
+    <div class="metric-value value-blue">32</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Denial Rate</div>
+    <div class="metric-value value-yellow">8.0%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Patient Balance</div>
+    <div class="metric-value">$450K</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Revenue Cycle Process Flow - November 2025</div>
+  <div class="flow-container">
+    <div class="flow-stage">
+      <div class="stage-title">Registration</div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Total Cases</div>
+        <div class="stage-metric-value value-blue">2,847</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Verified</div>
+        <div class="stage-metric-value value-green">2,819</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Verification Rate</div>
+        <div class="stage-metric-value">99.0%</div>
+      </div>
+    </div>
+
+    <div class="flow-stage">
+      <div class="stage-title">Coding</div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Coded</div>
+        <div class="stage-metric-value value-blue">2,819</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Avg Time</div>
+        <div class="stage-metric-value value-green">1.2 hrs</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Accuracy</div>
+        <div class="stage-metric-value">97.8%</div>
+      </div>
+    </div>
+
+    <div class="flow-stage">
+      <div class="stage-title">Claims</div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Submitted</div>
+        <div class="stage-metric-value value-blue">2,819</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Clean</div>
+        <div class="stage-metric-value value-green">2,602</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Clean Rate</div>
+        <div class="stage-metric-value">92.3%</div>
+      </div>
+    </div>
+
+    <div class="flow-stage">
+      <div class="stage-title">Adjudication</div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Paid</div>
+        <div class="stage-metric-value value-green">2,593</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Denied</div>
+        <div class="stage-metric-value value-yellow">226</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Denial Rate</div>
+        <div class="stage-metric-value">8.0%</div>
+      </div>
+    </div>
+
+    <div class="flow-stage">
+      <div class="stage-title">Collections</div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Collected</div>
+        <div class="stage-metric-value value-green">$2.42M</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Outstanding</div>
+        <div class="stage-metric-value">$450K</div>
+      </div>
+      <div class="stage-metric">
+        <div class="stage-metric-label">Collection Rate</div>
+        <div class="stage-metric-value value-green">96.8%</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Clean Claims Trend (Last 12 Months)</div>
+    <div class="chart-container">
+      <canvas id="clean-trend"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Days in AR by Payer Type</div>
+    <div class="chart-container">
+      <canvas id="ar-payer"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Revenue Collected vs Outstanding (Last 12 Months)</div>
+  <div class="chart-container">
+    <canvas id="revenue"></canvas>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('clean-trend'), {
+  type: 'line',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [{
+      label: 'Clean Claims %',
+      data: [88.5, 89.2, 90.1, 90.8, 91.2, 91.5, 91.8, 92.0, 92.2, 92.5, 92.4, 92.3],
+      borderColor: '#10b981',
+      backgroundColor: 'rgba(16,185,129,0.1)',
+      fill: true,
+      tension: 0.4,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, min: 85, max: 95 }
+    }
+  }
+});
+
+new Chart(document.getElementById('ar-payer'), {
+  type: 'bar',
+  data: {
+    labels: ['Medicare', 'Medicaid', 'Blue Cross', 'United', 'Aetna', 'Self-Pay'],
+    datasets: [{
+      label: 'Days in AR',
+      data: [28, 35, 30, 32, 29, 58],
+      backgroundColor: ['#10b981', '#fbbf24', '#10b981', '#10b981', '#10b981', '#ef4444']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + ' days' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('revenue'), {
+  type: 'bar',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [
+      { label: 'Collected', data: [2.05, 2.12, 2.18, 2.25, 2.28, 2.20, 2.32, 2.38, 2.42, 2.45, 2.52, 2.42], backgroundColor: '#10b981' },
+      { label: 'Outstanding', data: [0.38, 0.42, 0.45, 0.48, 0.44, 0.40, 0.46, 0.48, 0.50, 0.52, 0.48, 0.45], backgroundColor: '#fbbf24' }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { stacked: false, grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$' + v + 'M' } }
+    }
+  }
+});
+</script>
+</body></html>

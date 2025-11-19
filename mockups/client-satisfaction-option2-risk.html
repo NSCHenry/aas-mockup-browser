@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Client Satisfaction - Risk Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.layout { display: grid; grid-template-columns: 60% 40%; gap: 20px; max-width: 1800px; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 28px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-red { color: #ff6b6b; }
+.risk-grid { display: grid; gap: 12px; margin-top: 16px; }
+.risk-card { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 20px; position: relative; }
+.risk-critical { border-left: 4px solid #ef4444; }
+.risk-high { border-left: 4px solid #f59e0b; }
+.risk-medium { border-left: 4px solid #fbbf24; }
+.risk-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.risk-name { font-weight: 600; font-size: 16px; }
+.risk-score { font-size: 24px; font-weight: 700; }
+.risk-critical .risk-score { color: #ef4444; }
+.risk-high .risk-score { color: #f59e0b; }
+.risk-medium .risk-score { color: #fbbf24; }
+.risk-details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px; }
+.risk-detail { font-size: 12px; }
+.risk-label { color: #9aa0a6; display: block; margin-bottom: 4px; }
+.risk-value { font-weight: 600; }
+.risk-issues { background: rgba(239,68,68,0.1); border-radius: 6px; padding: 12px; margin-top: 8px; }
+.risk-issue { font-size: 12px; margin-bottom: 6px; color: #ff6b6b; }
+.risk-issue:last-child { margin-bottom: 0; }
+.chart-container { position: relative; height: 280px; margin-top: 16px; }
+.health-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.health-item { padding: 16px; background: rgba(255,255,255,0.02); border-radius: 8px; }
+.health-label { font-size: 11px; color: #9aa0a6; margin-bottom: 8px; }
+.health-value { font-size: 24px; font-weight: 700; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Client Satisfaction - Risk Dashboard</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • At-Risk Client Management</div>
+</div>
+
+<div class="layout">
+  <div class="main-column">
+    <div class="tile">
+      <div class="tile-title">At-Risk Clients Summary</div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-label">Critical Risk</div>
+          <div class="metric-value value-red">1</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">High Risk</div>
+          <div class="metric-value" style="color: #f59e0b;">2</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Total At-Risk</div>
+          <div class="metric-value">3</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Revenue at Risk</div>
+          <div class="metric-value value-red">$3.2M</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">At-Risk Client Details</div>
+      <div class="risk-grid">
+        <div class="risk-card risk-critical">
+          <div class="risk-header">
+            <div class="risk-name">Solaris 3 ASC</div>
+            <div class="risk-score">7.5/10</div>
+          </div>
+          <div class="risk-details">
+            <div class="risk-detail">
+              <span class="risk-label">Location</span>
+              <span class="risk-value">Elkhart, IN</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Annual Revenue</span>
+              <span class="risk-value">$1.2M</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Contract Exp</span>
+              <span class="risk-value">Mar 2026</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Contract Type</span>
+              <span class="risk-value">Labor Floor</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Tenure</span>
+              <span class="risk-value">1.2 years</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Last QBR</span>
+              <span class="risk-value">Oct 12, 2025</span>
+            </div>
+          </div>
+          <div class="risk-issues">
+            <div class="risk-issue">⚠️ Satisfaction declined 1.8 points over last 6 months</div>
+            <div class="risk-issue">⚠️ 3 provider coverage gaps in Q4</div>
+            <div class="risk-issue">⚠️ Billing disputes: 2 unresolved issues</div>
+            <div class="risk-issue">⚠️ Administrator expressed concerns about staffing reliability</div>
+            <div class="risk-issue">⚠️ Competitor reached out to facility leadership</div>
+          </div>
+        </div>
+
+        <div class="risk-card risk-high">
+          <div class="risk-header">
+            <div class="risk-name">Solaris 2 ASC</div>
+            <div class="risk-score">7.8/10</div>
+          </div>
+          <div class="risk-details">
+            <div class="risk-detail">
+              <span class="risk-label">Location</span>
+              <span class="risk-value">Fort Wayne, IN</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Annual Revenue</span>
+              <span class="risk-value">$1.1M</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Contract Exp</span>
+              <span class="risk-value">Jun 2026</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Contract Type</span>
+              <span class="risk-value">Labor Floor</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Tenure</span>
+              <span class="risk-value">1.5 years</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Last QBR</span>
+              <span class="risk-value">Sep 28, 2025</span>
+            </div>
+          </div>
+          <div class="risk-issues">
+            <div class="risk-issue">⚠️ Satisfaction declined 0.9 points in Q4</div>
+            <div class="risk-issue">⚠️ 2 late-notice provider call-outs</div>
+            <div class="risk-issue">⚠️ Requested pricing review due to budget constraints</div>
+          </div>
+        </div>
+
+        <div class="risk-card risk-high">
+          <div class="risk-header">
+            <div class="risk-name">Solaris 1 ASC</div>
+            <div class="risk-score">7.9/10</div>
+          </div>
+          <div class="risk-details">
+            <div class="risk-detail">
+              <span class="risk-label">Location</span>
+              <span class="risk-value">South Bend, IN</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Annual Revenue</span>
+              <span class="risk-value">$950K</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Contract Exp</span>
+              <span class="risk-value">Aug 2026</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Contract Type</span>
+              <span class="risk-value">Labor Floor</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Tenure</span>
+              <span class="risk-value">1.8 years</span>
+            </div>
+            <div class="risk-detail">
+              <span class="risk-label">Last QBR</span>
+              <span class="risk-value">Nov 5, 2025</span>
+            </div>
+          </div>
+          <div class="risk-issues">
+            <div class="risk-issue">⚠️ Weekend coverage challenges impacting OR schedule</div>
+            <div class="risk-issue">⚠️ Requested lower subsidy percentage</div>
+            <div class="risk-issue">⚠️ Delayed response to credentialing requests</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-column">
+    <div class="tile">
+      <div class="tile-title">Overall Health Metrics</div>
+      <div class="health-grid">
+        <div class="health-item">
+          <div class="health-label">Avg Satisfaction</div>
+          <div class="health-value value-green">8.7</div>
+        </div>
+        <div class="health-item">
+          <div class="health-label">Renewal Rate</div>
+          <div class="health-value value-green">96%</div>
+        </div>
+        <div class="health-item">
+          <div class="health-label">NPS Score</div>
+          <div class="health-value value-green">+72</div>
+        </div>
+        <div class="health-item">
+          <div class="health-label">QBR Completion</div>
+          <div class="health-value value-green">100%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Risk Distribution</div>
+      <div class="chart-container" style="height: 220px;">
+        <canvas id="risk-distribution"></canvas>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Satisfaction by Geography</div>
+      <div class="chart-container" style="height: 220px;">
+        <canvas id="geography"></canvas>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Churn Risk Indicators</div>
+      <div class="chart-container">
+        <canvas id="churn-indicators"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Action Items for At-Risk Clients</div>
+  <div class="risk-grid">
+    <div class="risk-card" style="border-left-color: #ef4444;">
+      <div style="font-weight: 600; margin-bottom: 8px;">🔴 Solaris 3 - CRITICAL</div>
+      <div style="font-size: 12px; color: #9aa0a6; margin-bottom: 12px;">
+        ✓ Schedule executive meeting by Nov 30<br>
+        ✓ Prepare service improvement plan<br>
+        ✓ Address all billing disputes by Dec 5<br>
+        ✓ Assign dedicated account manager<br>
+        ⏳ Review and adjust pricing if needed
+      </div>
+    </div>
+    <div class="risk-card" style="border-left-color: #f59e0b;">
+      <div style="font-weight: 600; margin-bottom: 8px;">🟠 Solaris 2 - HIGH</div>
+      <div style="font-size: 12px; color: #9aa0a6; margin-bottom: 12px;">
+        ✓ QBR scheduled for Dec 8<br>
+        ⏳ Implement backup coverage protocol<br>
+        ⏳ Pricing analysis for budget discussion
+      </div>
+    </div>
+    <div class="risk-card" style="border-left-color: #f59e0b;">
+      <div style="font-weight: 600; margin-bottom: 8px;">🟠 Solaris 1 - HIGH</div>
+      <div style="font-size: 12px; color: #9aa0a6; margin-bottom: 12px;">
+        ✓ Weekend staffing plan created<br>
+        ⏳ Credentialing process review<br>
+        ⏳ Subsidy reduction proposal
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('risk-distribution'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Healthy (26)', 'Critical (1)', 'High (2)'],
+    datasets: [{
+      data: [26, 1, 2],
+      backgroundColor: ['#10b981', '#ef4444', '#f59e0b']
+    }]
+  },
+  options: { ...cfg }
+});
+
+new Chart(document.getElementById('geography'), {
+  type: 'bar',
+  data: {
+    labels: ['Michigan', 'Indiana'],
+    datasets: [{
+      label: 'Avg Satisfaction',
+      data: [8.8, 8.6],
+      backgroundColor: ['#3b82f6', '#10b981']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 0, max: 10 }
+    }
+  }
+});
+
+new Chart(document.getElementById('churn-indicators'), {
+  type: 'bar',
+  data: {
+    labels: ['Coverage Gaps', 'Billing Issues', 'Pricing Concerns', 'Communication', 'Response Time'],
+    datasets: [{
+      label: 'Risk Score',
+      data: [8.2, 7.5, 6.8, 4.2, 3.5],
+      backgroundColor: ['#ef4444', '#ef4444', '#f59e0b', '#fbbf24', '#fbbf24']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 0, max: 10 },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+</script>
+</body></html>

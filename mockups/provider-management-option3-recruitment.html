@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Provider Management - Recruitment Performance</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.layout { display: grid; grid-template-columns: 65% 35%; gap: 20px; max-width: 1800px; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 28px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.position-grid { display: grid; grid-template-columns: 200px 120px 120px 120px 1fr; gap: 8px; margin-top: 16px; }
+.grid-header { font-size: 11px; color: #9aa0a6; font-weight: 600; padding: 10px 8px; text-align: center; background: rgba(255,255,255,0.05); border-radius: 4px; }
+.grid-cell { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 10px 8px; text-align: center; font-size: 13px; }
+.position-name { text-align: left; font-weight: 500; }
+.status-open { color: #fbbf24; font-weight: 600; }
+.status-filled { color: #10b981; font-weight: 600; }
+.progress-bar { width: 100%; height: 20px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; position: relative; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #3b82f6 0%, #10b981 100%); transition: width 0.3s ease; }
+.progress-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 10px; font-weight: 600; }
+.recruiter-card { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.recruiter-header { display: flex; justify-content: between; align-items: center; margin-bottom: 12px; }
+.recruiter-name { font-weight: 600; font-size: 14px; }
+.recruiter-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.stat-item { padding: 8px; background: rgba(255,255,255,0.02); border-radius: 4px; }
+.stat-label { font-size: 10px; color: #9aa0a6; margin-bottom: 4px; }
+.stat-value { font-size: 16px; font-weight: 600; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Provider Management - Recruitment Performance</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Open Positions & Hiring Activity</div>
+</div>
+
+<div class="layout">
+  <div class="main-column">
+    <div class="tile">
+      <div class="tile-title">Recruitment Metrics</div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-label">Open Positions</div>
+          <div class="metric-value value-blue">5</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Time to Hire</div>
+          <div class="metric-value">78 days</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Offer Accept Rate</div>
+          <div class="metric-value value-green">85.7%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">YTD Hires</div>
+          <div class="metric-value value-green">18</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Open Positions Status</div>
+      <div class="position-grid">
+        <div class="grid-header">Position</div>
+        <div class="grid-header">Location</div>
+        <div class="grid-header">Days Open</div>
+        <div class="grid-header">Candidates</div>
+        <div class="grid-header">Progress</div>
+
+        <div class="grid-cell position-name">Anesthesiologist (MDA)</div>
+        <div class="grid-cell">IU Lafayette</div>
+        <div class="grid-cell">42</div>
+        <div class="grid-cell">8</div>
+        <div class="grid-cell">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%;"></div>
+            <div class="progress-text">Offer Stage</div>
+          </div>
+        </div>
+
+        <div class="grid-cell position-name">CRNA</div>
+        <div class="grid-cell">Solaris 1</div>
+        <div class="grid-cell">38</div>
+        <div class="grid-cell">6</div>
+        <div class="grid-cell">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 70%;"></div>
+            <div class="progress-text">Offer Stage</div>
+          </div>
+        </div>
+
+        <div class="grid-cell position-name">Anesthesiologist (MDA)</div>
+        <div class="grid-cell">Corewell 2</div>
+        <div class="grid-cell">28</div>
+        <div class="grid-cell">12</div>
+        <div class="grid-cell">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 55%;"></div>
+            <div class="progress-text">Site Visit</div>
+          </div>
+        </div>
+
+        <div class="grid-cell position-name">CRNA</div>
+        <div class="grid-cell">BNJ Troy</div>
+        <div class="grid-cell">22</div>
+        <div class="grid-cell">9</div>
+        <div class="grid-cell">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 45%;"></div>
+            <div class="progress-text">Interview</div>
+          </div>
+        </div>
+
+        <div class="grid-cell position-name">Anesthesiologist (MDA)</div>
+        <div class="grid-cell">IU Greenwood</div>
+        <div class="grid-cell">18</div>
+        <div class="grid-cell">14</div>
+        <div class="grid-cell">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 35%;"></div>
+            <div class="progress-text">Screening</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Hiring Activity (Last 12 Months)</div>
+      <div class="chart-container">
+        <canvas id="hiring"></canvas>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Recruitment Conversion Metrics</div>
+      <div class="chart-container">
+        <canvas id="conversion"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-column">
+    <div class="tile">
+      <div class="tile-title">Recruiter Performance</div>
+
+      <div class="recruiter-card">
+        <div class="recruiter-header">
+          <div class="recruiter-name">Sarah Chen</div>
+        </div>
+        <div class="recruiter-stats">
+          <div class="stat-item">
+            <div class="stat-label">Active Positions</div>
+            <div class="stat-value value-blue">2</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">YTD Hires</div>
+            <div class="stat-value value-green">8</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Avg Time-to-Fill</div>
+            <div class="stat-value">72 days</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Accept Rate</div>
+            <div class="stat-value value-green">87.5%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recruiter-card">
+        <div class="recruiter-header">
+          <div class="recruiter-name">Mike Park</div>
+        </div>
+        <div class="recruiter-stats">
+          <div class="stat-item">
+            <div class="stat-label">Active Positions</div>
+            <div class="stat-value value-blue">2</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">YTD Hires</div>
+            <div class="stat-value value-green">6</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Avg Time-to-Fill</div>
+            <div class="stat-value">78 days</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Accept Rate</div>
+            <div class="stat-value value-green">83.3%</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recruiter-card">
+        <div class="recruiter-header">
+          <div class="recruiter-name">Lisa Martinez</div>
+        </div>
+        <div class="recruiter-stats">
+          <div class="stat-item">
+            <div class="stat-label">Active Positions</div>
+            <div class="stat-value value-blue">1</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">YTD Hires</div>
+            <div class="stat-value value-green">4</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Avg Time-to-Fill</div>
+            <div class="stat-value">85 days</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-label">Accept Rate</div>
+            <div class="stat-value">75.0%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Position Type Distribution</div>
+      <div class="chart-container" style="height: 220px;">
+        <canvas id="position-type"></canvas>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Compensation Analysis</div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-label">Avg MDA Offer</div>
+          <div class="metric-value" style="font-size: 20px;">$192K</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Avg CRNA Offer</div>
+          <div class="metric-value" style="font-size: 20px;">$171K</div>
+        </div>
+      </div>
+      <div class="chart-container" style="height: 180px;">
+        <canvas id="compensation"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('hiring'), {
+  type: 'bar',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [
+      { label: 'MDAs Hired', data: [1, 2, 0, 1, 2, 1, 0, 1, 1, 2, 0, 1], backgroundColor: '#3b82f6' },
+      { label: 'CRNAs Hired', data: [1, 0, 2, 1, 1, 2, 1, 1, 0, 1, 1, 0], backgroundColor: '#10b981' }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { stacked: true, grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', stepSize: 1 } }
+    }
+  }
+});
+
+new Chart(document.getElementById('conversion'), {
+  type: 'bar',
+  data: {
+    labels: ['Application\nto Screen', 'Screen\nto Interview', 'Interview\nto Site Visit', 'Site Visit\nto Offer', 'Offer\nto Accept'],
+    datasets: [{
+      label: 'Conversion Rate',
+      data: [75, 67, 70, 72, 86],
+      backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 10 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('position-type'), {
+  type: 'doughnut',
+  data: {
+    labels: ['MDA Openings (3)', 'CRNA Openings (2)'],
+    datasets: [{
+      data: [3, 2],
+      backgroundColor: ['#3b82f6', '#10b981']
+    }]
+  },
+  options: { ...cfg }
+});
+
+new Chart(document.getElementById('compensation'), {
+  type: 'bar',
+  data: {
+    labels: ['MI MDA', 'IN MDA', 'MI CRNA', 'IN CRNA'],
+    datasets: [{
+      label: 'Avg Offer ($K)',
+      data: [195, 188, 174, 168],
+      backgroundColor: ['#3b82f6', '#60a5fa', '#10b981', '#34d399']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$' + v + 'K' } }
+    }
+  }
+});
+</script>
+</body></html>

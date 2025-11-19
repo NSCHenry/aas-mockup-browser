@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Operations - Calendar View</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.layout { display: grid; grid-template-columns: 75% 25%; gap: 20px; max-width: 1800px; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.week-nav { display: flex; gap: 12px; }
+.nav-btn { padding: 6px 12px; background: rgba(255,255,255,0.05); border-radius: 6px; cursor: pointer; font-size: 12px; }
+.calendar { display: grid; grid-template-columns: 100px repeat(7, 1fr); gap: 2px; margin-top: 16px; }
+.cal-header { background: rgba(255,255,255,0.05); padding: 12px 8px; text-align: center; font-size: 12px; font-weight: 600; border-radius: 4px; }
+.cal-date { font-size: 14px; margin-bottom: 4px; }
+.cal-day { font-size: 10px; color: #9aa0a6; }
+.time-label { padding: 8px; font-size: 11px; color: #9aa0a6; display: flex; align-items: center; }
+.cal-cell { background: rgba(255,255,255,0.02); padding: 6px; border-radius: 4px; min-height: 60px; position: relative; }
+.cal-event { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); border-radius: 4px; padding: 6px; margin-bottom: 4px; font-size: 10px; cursor: pointer; }
+.cal-event:hover { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); }
+.event-name { font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.event-time { color: rgba(255,255,255,0.8); font-size: 9px; }
+.event-count { position: absolute; bottom: 4px; right: 6px; font-size: 9px; color: #9aa0a6; }
+.event-mda { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+.event-crna { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+.event-urgent { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+.metric { padding: 16px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 16px; }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 6px; }
+.metric-value { font-size: 28px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.alert-list { max-height: 400px; overflow-y: auto; }
+.alert-item { background: rgba(239,68,68,0.1); border-left: 3px solid #ef4444; padding: 12px; border-radius: 6px; margin-bottom: 10px; }
+.alert-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+.alert-desc { font-size: 11px; color: #9aa0a6; }
+.chart-container { position: relative; height: 200px; margin-top: 16px; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Operations - Calendar View</h1>
+  <div class="subtitle">AAS Dashboard • Week of November 18-24, 2025</div>
+</div>
+
+<div class="layout">
+  <div class="main-column">
+    <div class="tile">
+      <div class="tile-title">
+        <span>Weekly Schedule - All ASCs</span>
+        <div class="week-nav">
+          <div class="nav-btn">← Prev Week</div>
+          <div class="nav-btn">Today</div>
+          <div class="nav-btn">Next Week →</div>
+        </div>
+      </div>
+      <div class="calendar">
+        <div class="cal-header"></div>
+        <div class="cal-header">
+          <div class="cal-date">Mon 18</div>
+          <div class="cal-day">195 cases</div>
+        </div>
+        <div class="cal-header">
+          <div class="cal-date">Tue 19</div>
+          <div class="cal-day">208 cases</div>
+        </div>
+        <div class="cal-header">
+          <div class="cal-date">Wed 20</div>
+          <div class="cal-day">201 cases</div>
+        </div>
+        <div class="cal-header">
+          <div class="cal-date">Thu 21</div>
+          <div class="cal-day">212 cases</div>
+        </div>
+        <div class="cal-header">
+          <div class="cal-date">Fri 22</div>
+          <div class="cal-day">198 cases</div>
+        </div>
+        <div class="cal-header">
+          <div class="cal-date">Sat 23</div>
+          <div class="cal-day">72 cases</div>
+        </div>
+        <div class="cal-header">
+          <div class="cal-date">Sun 24</div>
+          <div class="cal-day">8 cases</div>
+        </div>
+
+        <div class="time-label">IU Health 1</div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Anderson</div>
+            <div class="event-time">7:00 AM - 4:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Anderson</div>
+            <div class="event-time">7:00 AM - 4:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Chen</div>
+            <div class="event-time">7:00 AM - 3:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Anderson</div>
+            <div class="event-time">7:00 AM - 4:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Chen</div>
+            <div class="event-time">7:00 AM - 3:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Patel</div>
+            <div class="event-time">8:00 AM - 2:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell"></div>
+
+        <div class="time-label">IU Health 2</div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Martinez CRNA</div>
+            <div class="event-time">6:30 AM - 3:30 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Johnson CRNA</div>
+            <div class="event-time">6:30 AM - 3:30 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Martinez CRNA</div>
+            <div class="event-time">6:30 AM - 3:30 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Lee CRNA</div>
+            <div class="event-time">7:00 AM - 3:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Johnson CRNA</div>
+            <div class="event-time">6:30 AM - 3:30 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell"></div>
+        <div class="cal-cell"></div>
+
+        <div class="time-label">Corewell 1</div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Davis CRNA</div>
+            <div class="event-time">7:00 AM - 4:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Brown CRNA</div>
+            <div class="event-time">7:00 AM - 3:30 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Davis CRNA</div>
+            <div class="event-time">7:00 AM - 4:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Wilson CRNA</div>
+            <div class="event-time">7:00 AM - 3:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Brown CRNA</div>
+            <div class="event-time">7:00 AM - 4:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Miller CRNA</div>
+            <div class="event-time">8:00 AM - 1:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell"></div>
+
+        <div class="time-label">Riverview</div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Thompson</div>
+            <div class="event-time">6:30 AM - 4:30 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Thompson</div>
+            <div class="event-time">6:30 AM - 5:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Rodriguez</div>
+            <div class="event-time">7:00 AM - 4:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Thompson</div>
+            <div class="event-time">6:30 AM - 4:30 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Rodriguez</div>
+            <div class="event-time">7:00 AM - 4:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-mda">
+            <div class="event-name">Dr. Kim</div>
+            <div class="event-time">8:00 AM - 2:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell"></div>
+
+        <div class="time-label">BNJ Troy</div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Garcia CRNA</div>
+            <div class="event-time">7:00 AM - 3:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Miller CRNA</div>
+            <div class="event-time">7:00 AM - 3:30 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Garcia CRNA</div>
+            <div class="event-time">7:00 AM - 4:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Clark CRNA</div>
+            <div class="event-time">7:00 AM - 3:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Miller CRNA</div>
+            <div class="event-time">7:00 AM - 3:30 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell"></div>
+        <div class="cal-cell"></div>
+
+        <div class="time-label">Solaris 1</div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Taylor CRNA</div>
+            <div class="event-time">7:00 AM - 2:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Moore CRNA</div>
+            <div class="event-time">7:00 AM - 3:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-urgent">
+            <div class="event-name">UNCOVERED</div>
+            <div class="event-time">Need CRNA</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">White CRNA</div>
+            <div class="event-time">7:00 AM - 2:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-crna">
+            <div class="event-name">Moore CRNA</div>
+            <div class="event-time">7:00 AM - 3:00 PM</div>
+          </div>
+        </div>
+        <div class="cal-cell">
+          <div class="cal-event event-urgent">
+            <div class="event-name">UNCOVERED</div>
+            <div class="event-time">Need CRNA</div>
+          </div>
+        </div>
+        <div class="cal-cell"></div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Case Load Forecast - Next 7 Days</div>
+      <div class="chart-container" style="height: 250px;">
+        <canvas id="forecast"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-column">
+    <div class="tile">
+      <div class="tile-title">This Week</div>
+      <div class="metric">
+        <div class="metric-label">Total Cases</div>
+        <div class="metric-value value-green">1,094</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Coverage Rate</div>
+        <div class="metric-value value-green">98.7%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Active Providers</div>
+        <div class="metric-value">199</div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Coverage Alerts</div>
+      <div class="alert-list">
+        <div class="alert-item">
+          <div class="alert-title">Solaris 1 - Wed Nov 20</div>
+          <div class="alert-desc">Uncovered shift • 6 cases scheduled • Need 1 CRNA</div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-title">Solaris 1 - Sat Nov 23</div>
+          <div class="alert-desc">Uncovered shift • 4 cases scheduled • Need 1 CRNA</div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-title">IU Lafayette - Fri Nov 22</div>
+          <div class="alert-desc">Only 94% coverage • 8 cases • Consider backup</div>
+        </div>
+        <div class="alert-item">
+          <div class="alert-title">Solaris 2 - Tue Nov 19</div>
+          <div class="alert-desc">Provider called out sick • Replacement confirmed</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Coverage Trend</div>
+      <div class="chart-container">
+        <canvas id="coverage-trend"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('forecast'), {
+  type: 'bar',
+  data: {
+    labels: ['Mon 25','Tue 26','Wed 27','Thu 28','Fri 29','Sat 30','Sun 1'],
+    datasets: [
+      { label: 'Scheduled Cases', data: [202, 218, 195, 210, 205, 68, 12], backgroundColor: '#3b82f6' },
+      { label: 'Covered', data: [202, 218, 185, 210, 205, 60, 12], backgroundColor: '#10b981' }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { stacked: false, grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('coverage-trend'), {
+  type: 'line',
+  data: {
+    labels: ['Week 1','Week 2','Week 3','Week 4','Week 5'],
+    datasets: [{
+      label: 'Coverage %',
+      data: [97.8, 98.2, 98.5, 98.9, 98.7],
+      borderColor: '#10b981',
+      backgroundColor: 'rgba(16,185,129,0.1)',
+      fill: true,
+      tension: 0.4,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, min: 96, max: 100 }
+    }
+  }
+});
+</script>
+</body></html>

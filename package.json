@@ -1,0 +1,20 @@
+{
+  "name": "aas-dashboard-poc",
+  "version": "1.0.0",
+  "description": "AAS Dashboard - HTML Mockups with Chart.js and Playwright Testing",
+  "scripts": {
+    "serve": "python3 -m http.server 8004",
+    "start": "python3 -m http.server 8004",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report"
+  },
+  "keywords": ["aas", "anesthesia", "dashboard", "healthcare", "nsc"],
+  "author": "NSC Data Platform Team",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}

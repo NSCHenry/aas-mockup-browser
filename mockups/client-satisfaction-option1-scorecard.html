@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Client Satisfaction - Scorecard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.scorecard-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 16px; }
+.score-card { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 20px; text-align: center; position: relative; }
+.score-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; border-radius: 8px 8px 0 0; }
+.score-excellent::before { background: #10b981; }
+.score-good::before { background: #4ade80; }
+.score-fair::before { background: #fbbf24; }
+.score-poor::before { background: #ef4444; }
+.asc-name { font-weight: 600; font-size: 14px; margin-bottom: 8px; }
+.asc-location { font-size: 11px; color: #9aa0a6; margin-bottom: 12px; }
+.asc-score { font-size: 36px; font-weight: 700; margin-bottom: 8px; }
+.score-excellent .asc-score { color: #10b981; }
+.score-good .asc-score { color: #4ade80; }
+.score-fair .asc-score { color: #fbbf24; }
+.score-poor .asc-score { color: #ef4444; }
+.score-label { font-size: 11px; color: #9aa0a6; margin-bottom: 8px; }
+.score-details { font-size: 11px; color: #9aa0a6; margin-top: 8px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Client Satisfaction - Scorecard View</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • ASC Relationship Health</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Avg Satisfaction</div>
+    <div class="metric-value value-green">8.7/10</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Contract Renewal Rate</div>
+    <div class="metric-value value-green">96%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Total ASCs</div>
+    <div class="metric-value value-blue">29</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">At-Risk Clients</div>
+    <div class="metric-value">3</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">NPS Score</div>
+    <div class="metric-value value-green">+72</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">ASC Satisfaction Scorecard (Sorted by Score)</div>
+  <div class="scorecard-grid">
+    <div class="score-card score-excellent">
+      <div class="asc-name">IU Health 1</div>
+      <div class="asc-location">Indianapolis, IN</div>
+      <div class="asc-score">9.2</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: True-Up<br>5.2 years</div>
+    </div>
+
+    <div class="score-card score-excellent">
+      <div class="asc-name">IU Health 2</div>
+      <div class="asc-location">Indianapolis, IN</div>
+      <div class="asc-score">9.1</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: True-Up<br>4.8 years</div>
+    </div>
+
+    <div class="score-card score-excellent">
+      <div class="asc-name">Corewell 1</div>
+      <div class="asc-location">Troy, MI</div>
+      <div class="asc-score">9.0</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: Fee-for-Service<br>6.1 years</div>
+    </div>
+
+    <div class="score-card score-excellent">
+      <div class="asc-name">IU Greenwood</div>
+      <div class="asc-location">Greenwood, IN</div>
+      <div class="asc-score">8.9</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: True-Up<br>3.5 years</div>
+    </div>
+
+    <div class="score-card score-excellent">
+      <div class="asc-name">Riverview</div>
+      <div class="asc-location">Troy, MI</div>
+      <div class="asc-score">8.9</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: True-Up<br>4.2 years</div>
+    </div>
+
+    <div class="score-card score-good">
+      <div class="asc-name">IU Health 3</div>
+      <div class="asc-location">Indianapolis, IN</div>
+      <div class="asc-score">8.8</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: True-Up<br>5.5 years</div>
+    </div>
+
+    <div class="score-card score-good">
+      <div class="asc-name">Corewell 2</div>
+      <div class="asc-location">Grand Rapids, MI</div>
+      <div class="asc-score">8.7</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: Fee-for-Service<br>5.8 years</div>
+    </div>
+
+    <div class="score-card score-good">
+      <div class="asc-name">BNJ Troy</div>
+      <div class="asc-location">Troy, MI</div>
+      <div class="asc-score">8.6</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: Pure Billing<br>3.2 years</div>
+    </div>
+
+    <div class="score-card score-good">
+      <div class="asc-name">IU Lafayette</div>
+      <div class="asc-location">Lafayette, IN</div>
+      <div class="asc-score">8.5</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: True-Up<br>2.8 years</div>
+    </div>
+
+    <div class="score-card score-good">
+      <div class="asc-name">BNJ Utica</div>
+      <div class="asc-location">Utica, MI</div>
+      <div class="asc-score">8.4</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: Pure Billing<br>4.1 years</div>
+    </div>
+
+    <div class="score-card score-good">
+      <div class="asc-name">IU Health 4</div>
+      <div class="asc-location">Carmel, IN</div>
+      <div class="asc-score">8.4</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: True-Up<br>6.2 years</div>
+    </div>
+
+    <div class="score-card score-good">
+      <div class="asc-name">Corewell 3</div>
+      <div class="asc-location">Dearborn, MI</div>
+      <div class="asc-score">8.3</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: Fee-for-Service<br>3.8 years</div>
+    </div>
+
+    <div class="score-card score-good">
+      <div class="asc-name">IU Health 5</div>
+      <div class="asc-location">Bloomington, IN</div>
+      <div class="asc-score">8.2</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: True-Up<br>4.5 years</div>
+    </div>
+
+    <div class="score-card score-fair">
+      <div class="asc-name">BNJ Sterling</div>
+      <div class="asc-location">Sterling Heights, MI</div>
+      <div class="asc-score">8.1</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: Pure Billing<br>2.2 years</div>
+    </div>
+
+    <div class="score-card score-fair">
+      <div class="asc-name">Solaris 1</div>
+      <div class="asc-location">South Bend, IN</div>
+      <div class="asc-score">7.9</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: Labor Floor<br>1.8 years</div>
+    </div>
+
+    <div class="score-card score-fair">
+      <div class="asc-name">Solaris 2</div>
+      <div class="asc-location">Fort Wayne, IN</div>
+      <div class="asc-score">7.8</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: Labor Floor<br>1.5 years</div>
+    </div>
+
+    <div class="score-card score-poor">
+      <div class="asc-name">Solaris 3</div>
+      <div class="asc-location">Elkhart, IN</div>
+      <div class="asc-score">7.5</div>
+      <div class="score-label">/10</div>
+      <div class="score-details">Contract: Labor Floor<br>1.2 years</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Satisfaction by Contract Type</div>
+    <div class="chart-container">
+      <canvas id="contract-type"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Satisfaction Trend (Last 12 Months)</div>
+    <div class="chart-container">
+      <canvas id="trend"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Key Satisfaction Drivers by Category</div>
+  <div class="chart-container">
+    <canvas id="drivers"></canvas>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('contract-type'), {
+  type: 'bar',
+  data: {
+    labels: ['True-Up\n(avg 8.9)', 'Fee-for-Service\n(avg 8.7)', 'Pure Billing\n(avg 8.4)', 'Labor Floor\n(avg 7.7)'],
+    datasets: [{
+      label: 'Avg Satisfaction',
+      data: [8.9, 8.7, 8.4, 7.7],
+      backgroundColor: ['#10b981', '#4ade80', '#fbbf24', '#ef4444']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 0, max: 10 }
+    }
+  }
+});
+
+new Chart(document.getElementById('trend'), {
+  type: 'line',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [{
+      label: 'Avg Satisfaction',
+      data: [8.4, 8.5, 8.5, 8.6, 8.6, 8.7, 8.7, 8.8, 8.7, 8.7, 8.8, 8.7],
+      borderColor: '#10b981',
+      backgroundColor: 'rgba(16,185,129,0.1)',
+      fill: true,
+      tension: 0.4,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 7, max: 10 }
+    }
+  }
+});
+
+new Chart(document.getElementById('drivers'), {
+  type: 'bar',
+  data: {
+    labels: ['Provider Quality', 'Communication', 'Scheduling', 'Billing Support', 'Responsiveness', 'Value'],
+    datasets: [{
+      label: 'Avg Score',
+      data: [9.1, 8.8, 8.6, 8.5, 8.7, 8.4],
+      backgroundColor: ['#10b981', '#4ade80', '#4ade80', '#fbbf24', '#4ade80', '#fbbf24']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 0, max: 10 },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+</script>
+</body></html>

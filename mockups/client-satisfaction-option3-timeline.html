@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Client Satisfaction - Timeline View</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-container { position: relative; height: 350px; margin-top: 16px; }
+.timeline-events { margin-top: 20px; }
+.event-item { background: rgba(255,255,255,0.02); border-left: 3px solid #3b82f6; border-radius: 6px; padding: 16px; margin-bottom: 12px; }
+.event-positive { border-left-color: #10b981; }
+.event-negative { border-left-color: #ef4444; }
+.event-neutral { border-left-color: #fbbf24; }
+.event-date { font-size: 11px; color: #9aa0a6; margin-bottom: 6px; }
+.event-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.event-desc { font-size: 12px; color: #9aa0a6; }
+.client-trends { display: grid; gap: 12px; }
+.trend-card { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 16px; }
+.trend-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.trend-name { font-weight: 600; font-size: 13px; }
+.trend-change { font-size: 12px; padding: 4px 8px; border-radius: 12px; font-weight: 600; }
+.trend-up { background: rgba(16,185,129,0.2); color: #34d399; }
+.trend-down { background: rgba(239,68,68,0.2); color: #ff6b6b; }
+.trend-flat { background: rgba(251,191,36,0.2); color: #fbbf24; }
+.mini-chart { height: 60px; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Client Satisfaction - Timeline View</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Historical Satisfaction Trends</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Avg Satisfaction</div>
+    <div class="metric-value value-green">8.7/10</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">6-Month Trend</div>
+    <div class="metric-value value-green">+0.3</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">YoY Change</div>
+    <div class="metric-value value-green">+0.5</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Renewal Rate</div>
+    <div class="metric-value value-green">96%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">NPS Score</div>
+    <div class="metric-value value-green">+72</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Overall Satisfaction Trend (24 Months)</div>
+  <div class="chart-container">
+    <canvas id="overall-trend"></canvas>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Key Client Trends (Last 6 Months)</div>
+    <div class="client-trends">
+      <div class="trend-card">
+        <div class="trend-header">
+          <div class="trend-name">IU Health (7 ASCs)</div>
+          <span class="trend-change trend-up">+0.4 ↑</span>
+        </div>
+        <div class="mini-chart">
+          <canvas id="trend-iu"></canvas>
+        </div>
+      </div>
+
+      <div class="trend-card">
+        <div class="trend-header">
+          <div class="trend-name">Corewell Health (5 ASCs)</div>
+          <span class="trend-change trend-up">+0.2 ↑</span>
+        </div>
+        <div class="mini-chart">
+          <canvas id="trend-corewell"></canvas>
+        </div>
+      </div>
+
+      <div class="trend-card">
+        <div class="trend-header">
+          <div class="trend-name">Beaumont NJ (4 ASCs)</div>
+          <span class="trend-change trend-flat">0.0 →</span>
+        </div>
+        <div class="mini-chart">
+          <canvas id="trend-bnj"></canvas>
+        </div>
+      </div>
+
+      <div class="trend-card">
+        <div class="trend-header">
+          <div class="trend-name">Solaris (3 ASCs)</div>
+          <span class="trend-change trend-down">-1.2 ↓</span>
+        </div>
+        <div class="mini-chart">
+          <canvas id="trend-solaris"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Recent Events & Impact</div>
+    <div class="timeline-events">
+      <div class="event-item event-positive">
+        <div class="event-date">Nov 15, 2025</div>
+        <div class="event-title">IU Health Contract Renewal</div>
+        <div class="event-desc">All 7 IU Health ASCs renewed for 3 years • Satisfaction increased to 8.9 avg</div>
+      </div>
+
+      <div class="event-item event-positive">
+        <div class="event-date">Oct 28, 2025</div>
+        <div class="event-title">Corewell Coverage Improvement</div>
+        <div class="event-desc">New weekend staffing model launched • On-time starts improved from 93% to 97%</div>
+      </div>
+
+      <div class="event-item event-neutral">
+        <div class="event-date">Oct 12, 2025</div>
+        <div class="event-title">Solaris 3 QBR</div>
+        <div class="event-desc">Discussed coverage gaps and billing issues • Action plan created for improvement</div>
+      </div>
+
+      <div class="event-item event-positive">
+        <div class="event-date">Sep 18, 2025</div>
+        <div class="event-title">BNJ Troy New Provider</div>
+        <div class="event-desc">Added Dr. Kim to rotation • Improved consistency and reduced last-minute changes</div>
+      </div>
+
+      <div class="event-item event-negative">
+        <div class="event-date">Sep 5, 2025</div>
+        <div class="event-title">Solaris Weekend Coverage Failure</div>
+        <div class="event-desc">Failed to cover Saturday shift at Solaris 2 • Emergency replacement found but delayed OR start</div>
+      </div>
+
+      <div class="event-item event-positive">
+        <div class="event-date">Aug 22, 2025</div>
+        <div class="event-title">New Billing Portal Launch</div>
+        <div class="event-desc">Self-service billing portal released • Reduced support tickets by 35%</div>
+      </div>
+
+      <div class="event-item event-positive">
+        <div class="event-date">Aug 10, 2025</div>
+        <div class="event-title">Riverview De Novo Success</div>
+        <div class="event-desc">Smooth launch of new ASC • Administrator rated experience 9.5/10</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Satisfaction by Client System (12-Month Trend)</div>
+  <div class="chart-container">
+    <canvas id="system-trends"></canvas>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Satisfaction Drivers Over Time</div>
+    <div class="chart-container" style="height: 300px;">
+      <canvas id="drivers"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">NPS Trend (Last 12 Months)</div>
+    <div class="chart-container" style="height: 300px;">
+      <canvas id="nps"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('overall-trend'), {
+  type: 'line',
+  data: {
+    labels: ['Dec 23','Jan 24','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec 24','Jan 25','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [{
+      label: 'Avg Satisfaction',
+      data: [8.0,8.1,8.2,8.2,8.3,8.3,8.4,8.4,8.5,8.4,8.5,8.5,8.4,8.5,8.5,8.6,8.6,8.7,8.7,8.8,8.7,8.7,8.8,8.7],
+      borderColor: '#10b981',
+      backgroundColor: 'rgba(16,185,129,0.1)',
+      fill: true,
+      tension: 0.4,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', maxRotation: 45 } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 7, max: 10 }
+    }
+  }
+});
+
+const miniCfg = { ...cfg, plugins: { legend: { display: false }, tooltip: { enabled: false } }, scales: { x: { display: false }, y: { display: false } } };
+
+new Chart(document.getElementById('trend-iu'), {
+  type: 'line',
+  data: { labels: ['Jun','Jul','Aug','Sep','Oct','Nov'], datasets: [{ data: [8.5,8.6,8.7,8.7,8.8,8.9], borderColor: '#10b981', tension: 0.4, borderWidth: 2 }] },
+  options: miniCfg
+});
+
+new Chart(document.getElementById('trend-corewell'), {
+  type: 'line',
+  data: { labels: ['Jun','Jul','Aug','Sep','Oct','Nov'], datasets: [{ data: [8.5,8.6,8.6,8.7,8.7,8.7], borderColor: '#10b981', tension: 0.4, borderWidth: 2 }] },
+  options: miniCfg
+});
+
+new Chart(document.getElementById('trend-bnj'), {
+  type: 'line',
+  data: { labels: ['Jun','Jul','Aug','Sep','Oct','Nov'], datasets: [{ data: [8.4,8.4,8.5,8.5,8.5,8.4], borderColor: '#fbbf24', tension: 0.4, borderWidth: 2 }] },
+  options: miniCfg
+});
+
+new Chart(document.getElementById('trend-solaris'), {
+  type: 'line',
+  data: { labels: ['Jun','Jul','Aug','Sep','Oct','Nov'], datasets: [{ data: [9.0,8.8,8.5,8.2,8.0,7.8], borderColor: '#ef4444', tension: 0.4, borderWidth: 2 }] },
+  options: miniCfg
+});
+
+new Chart(document.getElementById('system-trends'), {
+  type: 'line',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [
+      { label: 'IU Health', data: [8.5,8.5,8.6,8.6,8.7,8.7,8.5,8.6,8.7,8.7,8.8,8.9], borderColor: '#10b981', tension: 0.4, borderWidth: 2 },
+      { label: 'Corewell', data: [8.6,8.6,8.7,8.7,8.7,8.8,8.5,8.6,8.6,8.7,8.7,8.7], borderColor: '#3b82f6', tension: 0.4, borderWidth: 2 },
+      { label: 'Beaumont NJ', data: [8.3,8.4,8.4,8.5,8.5,8.5,8.4,8.4,8.5,8.5,8.5,8.4], borderColor: '#f59e0b', tension: 0.4, borderWidth: 2 },
+      { label: 'Solaris', data: [8.8,8.9,9.0,9.0,9.1,9.1,9.0,8.8,8.5,8.2,8.0,7.8], borderColor: '#ef4444', tension: 0.4, borderWidth: 2 }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 7, max: 10 }
+    }
+  }
+});
+
+new Chart(document.getElementById('drivers'), {
+  type: 'line',
+  data: {
+    labels: ['Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [
+      { label: 'Provider Quality', data: [9.0,9.1,9.1,9.2,9.1,9.1], borderColor: '#10b981', tension: 0.4, borderWidth: 2 },
+      { label: 'Communication', data: [8.7,8.8,8.8,8.9,8.8,8.8], borderColor: '#3b82f6', tension: 0.4, borderWidth: 2 },
+      { label: 'Responsiveness', data: [8.6,8.7,8.7,8.8,8.7,8.7], borderColor: '#f59e0b', tension: 0.4, borderWidth: 2 },
+      { label: 'Scheduling', data: [8.5,8.6,8.5,8.7,8.6,8.6], borderColor: '#8b5cf6', tension: 0.4, borderWidth: 2 },
+      { label: 'Billing', data: [8.4,8.5,8.4,8.6,8.5,8.5], borderColor: '#ec4899', tension: 0.4, borderWidth: 2 }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 8, max: 10 }
+    }
+  }
+});
+
+new Chart(document.getElementById('nps'), {
+  type: 'bar',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [{
+      label: 'NPS Score',
+      data: [65,68,70,70,72,72,68,70,72,74,74,72],
+      backgroundColor: ['#10b981','#10b981','#10b981','#10b981','#10b981','#10b981','#10b981','#10b981','#10b981','#10b981','#10b981','#10b981']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '+' + v }, min: 0, max: 100 }
+    }
+  }
+});
+</script>
+</body></html>

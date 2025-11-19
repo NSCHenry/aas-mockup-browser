@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Operations - Coverage Heat Map</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.heatmap-grid { display: grid; grid-template-columns: 100px repeat(7, 1fr); gap: 4px; margin-top: 16px; }
+.heatmap-header { font-size: 11px; color: #9aa0a6; text-align: center; padding: 8px; font-weight: 600; }
+.heatmap-label { font-size: 11px; color: #9aa0a6; padding: 8px; display: flex; align-items: center; }
+.heatmap-cell { aspect-ratio: 1; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; cursor: pointer; }
+.coverage-100 { background: #10b981; color: #fff; }
+.coverage-90 { background: #4ade80; color: #fff; }
+.coverage-80 { background: #fbbf24; color: #1a1d2e; }
+.coverage-70 { background: #f59e0b; color: #1a1d2e; }
+.coverage-low { background: #ef4444; color: #fff; }
+.legend { display: flex; gap: 16px; margin-top: 16px; align-items: center; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+.legend-box { width: 20px; height: 20px; border-radius: 3px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Operations - Coverage Heat Map</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Real-Time ASC Coverage Status</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Coverage Rate</div>
+    <div class="metric-value value-green">98.7%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Total ASCs</div>
+    <div class="metric-value">29</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Active Providers</div>
+    <div class="metric-value value-blue">199</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Cases This Week</div>
+    <div class="metric-value">1,847</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Avg Utilization</div>
+    <div class="metric-value value-green">87.3%</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">ASC Coverage by Day of Week (This Week)</div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-box coverage-100"></div>100% Covered</div>
+    <div class="legend-item"><div class="legend-box coverage-90"></div>90-99% Covered</div>
+    <div class="legend-item"><div class="legend-box coverage-80"></div>80-89% Covered</div>
+    <div class="legend-item"><div class="legend-box coverage-70"></div>70-79% Covered</div>
+    <div class="legend-item"><div class="legend-box coverage-low"></div><70% Covered</div>
+  </div>
+  <div class="heatmap-grid">
+    <div class="heatmap-header"></div>
+    <div class="heatmap-header">Mon</div>
+    <div class="heatmap-header">Tue</div>
+    <div class="heatmap-header">Wed</div>
+    <div class="heatmap-header">Thu</div>
+    <div class="heatmap-header">Fri</div>
+    <div class="heatmap-header">Sat</div>
+    <div class="heatmap-header">Sun</div>
+
+    <div class="heatmap-label">IU Health 1</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-90">95%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">IU Health 2</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-90">98%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">IU Health 3</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-90">97%</div>
+    <div class="heatmap-cell coverage-80">85%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">IU Greenwood</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">IU Lafayette</div>
+    <div class="heatmap-cell coverage-90">96%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-90">94%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">Corewell 1</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-90">92%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">Corewell 2</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-90">98%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">Riverview</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-80">88%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">BNJ Troy</div>
+    <div class="heatmap-cell coverage-90">96%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">BNJ Utica</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-90">95%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-100">100%</div>
+    <div class="heatmap-cell coverage-90">91%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">Solaris 1</div>
+    <div class="heatmap-cell coverage-90">94%</div>
+    <div class="heatmap-cell coverage-90">96%</div>
+    <div class="heatmap-cell coverage-80">88%</div>
+    <div class="heatmap-cell coverage-90">92%</div>
+    <div class="heatmap-cell coverage-80">86%</div>
+    <div class="heatmap-cell coverage-70">75%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">Solaris 2</div>
+    <div class="heatmap-cell coverage-80">84%</div>
+    <div class="heatmap-cell coverage-90">91%</div>
+    <div class="heatmap-cell coverage-80">87%</div>
+    <div class="heatmap-cell coverage-90">93%</div>
+    <div class="heatmap-cell coverage-80">85%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+    <div class="heatmap-cell coverage-low">-</div>
+
+    <div class="heatmap-label">Solaris 3</div>
+    <div class="heatmap-cell coverage-90">92%</div>
+    <div class="heatmap-cell coverage-80">88%</div>
+    <div class="heatmap-cell coverage-90">95%</div>
+    <div class="heatmap-cell coverage-90">94%</div>
+    <div class="heatmap-cell coverage-80">82%</div>
+    <div class="heatmap-cell coverage-70">78%</div>
+    <div class="heatmap-cell coverage-low">-</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Case Volume by Day (Last 30 Days)</div>
+    <div class="chart-container">
+      <canvas id="volume"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Provider Allocation by Geography</div>
+    <div class="chart-container">
+      <canvas id="allocation"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">On-Time Start Rate by ASC (Last 30 Days)</div>
+  <div class="chart-container" style="height: 350px;">
+    <canvas id="ontime"></canvas>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('volume'), {
+  type: 'bar',
+  data: {
+    labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    datasets: [{
+      label: 'Avg Cases/Day',
+      data: [385, 412, 398, 405, 390, 142, 18],
+      backgroundColor: ['#3b82f6','#3b82f6','#3b82f6','#3b82f6','#3b82f6','#10b981','#9aa0a6']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('allocation'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Michigan MDAs (34)', 'Michigan CRNAs (92)', 'Indiana MDAs (18)', 'Indiana CRNAs (55)'],
+    datasets: [{
+      data: [34, 92, 18, 55],
+      backgroundColor: ['#3b82f6', '#60a5fa', '#10b981', '#34d399']
+    }]
+  },
+  options: { ...cfg }
+});
+
+new Chart(document.getElementById('ontime'), {
+  type: 'bar',
+  data: {
+    labels: ['IU-1','IU-2','IU-3','IU-Green','IU-Laf','Core-1','Core-2','Rive','BNJ-T','BNJ-U','Sol-1','Sol-2','Sol-3'],
+    datasets: [{
+      label: 'On-Time Start %',
+      data: [96.2, 94.8, 95.5, 93.2, 91.8, 97.1, 96.5, 95.8, 94.2, 93.5, 88.5, 87.2, 89.1],
+      backgroundColor: ['#10b981','#10b981','#10b981','#10b981','#4ade80','#10b981','#10b981','#10b981','#10b981','#10b981','#fbbf24','#fbbf24','#fbbf24']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body></html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Revenue Cycle - AR Aging</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.layout { display: grid; grid-template-columns: 60% 40%; gap: 20px; max-width: 1800px; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.aging-grid { display: grid; grid-template-columns: 200px repeat(5, 1fr); gap: 8px; margin-top: 16px; }
+.grid-header { font-size: 11px; color: #9aa0a6; font-weight: 600; padding: 10px 8px; text-align: center; background: rgba(255,255,255,0.05); border-radius: 4px; }
+.grid-label { font-size: 12px; color: #e8eaed; padding: 10px 8px; font-weight: 500; background: rgba(255,255,255,0.02); border-radius: 4px; }
+.aging-cell { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 10px 8px; text-align: center; }
+.cell-value { font-size: 14px; font-weight: 600; display: block; margin-bottom: 2px; }
+.cell-percent { font-size: 10px; color: #9aa0a6; }
+.aging-0-30 { border-left: 3px solid #10b981; }
+.aging-31-60 { border-left: 3px solid #4ade80; }
+.aging-61-90 { border-left: 3px solid #fbbf24; }
+.aging-91-120 { border-left: 3px solid #f59e0b; }
+.aging-120plus { border-left: 3px solid #ef4444; }
+.metric-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 28px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.chart-container { position: relative; height: 280px; margin-top: 16px; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Revenue Cycle - AR Aging Analysis</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Accounts Receivable Aging by Payer</div>
+</div>
+
+<div class="layout">
+  <div class="main-column">
+    <div class="tile">
+      <div class="tile-title">AR Aging by Payer (Current Outstanding: $450K)</div>
+      <div class="aging-grid">
+        <div class="grid-header">Payer</div>
+        <div class="grid-header">0-30 Days</div>
+        <div class="grid-header">31-60 Days</div>
+        <div class="grid-header">61-90 Days</div>
+        <div class="grid-header">91-120 Days</div>
+        <div class="grid-header">120+ Days</div>
+
+        <div class="grid-label">Medicare</div>
+        <div class="aging-cell aging-0-30">
+          <span class="cell-value">$58.2K</span>
+          <span class="cell-percent">52.5%</span>
+        </div>
+        <div class="aging-cell aging-31-60">
+          <span class="cell-value">$32.5K</span>
+          <span class="cell-percent">29.3%</span>
+        </div>
+        <div class="aging-cell aging-61-90">
+          <span class="cell-value">$15.2K</span>
+          <span class="cell-percent">13.7%</span>
+        </div>
+        <div class="aging-cell aging-91-120">
+          <span class="cell-value">$3.8K</span>
+          <span class="cell-percent">3.4%</span>
+        </div>
+        <div class="aging-cell aging-120plus">
+          <span class="cell-value">$1.2K</span>
+          <span class="cell-percent">1.1%</span>
+        </div>
+
+        <div class="grid-label">Medicaid</div>
+        <div class="aging-cell aging-0-30">
+          <span class="cell-value">$38.5K</span>
+          <span class="cell-percent">45.2%</span>
+        </div>
+        <div class="aging-cell aging-31-60">
+          <span class="cell-value">$28.2K</span>
+          <span class="cell-percent">33.1%</span>
+        </div>
+        <div class="aging-cell aging-61-90">
+          <span class="cell-value">$12.8K</span>
+          <span class="cell-percent">15.0%</span>
+        </div>
+        <div class="aging-cell aging-91-120">
+          <span class="cell-value">$4.2K</span>
+          <span class="cell-percent">4.9%</span>
+        </div>
+        <div class="aging-cell aging-120plus">
+          <span class="cell-value">$1.5K</span>
+          <span class="cell-percent">1.8%</span>
+        </div>
+
+        <div class="grid-label">Blue Cross</div>
+        <div class="aging-cell aging-0-30">
+          <span class="cell-value">$52.8K</span>
+          <span class="cell-percent">58.2%</span>
+        </div>
+        <div class="aging-cell aging-31-60">
+          <span class="cell-value">$25.5K</span>
+          <span class="cell-percent">28.1%</span>
+        </div>
+        <div class="aging-cell aging-61-90">
+          <span class="cell-value">$9.2K</span>
+          <span class="cell-percent">10.1%</span>
+        </div>
+        <div class="aging-cell aging-91-120">
+          <span class="cell-value">$2.5K</span>
+          <span class="cell-percent">2.8%</span>
+        </div>
+        <div class="aging-cell aging-120plus">
+          <span class="cell-value">$0.7K</span>
+          <span class="cell-percent">0.8%</span>
+        </div>
+
+        <div class="grid-label">UnitedHealthcare</div>
+        <div class="aging-cell aging-0-30">
+          <span class="cell-value">$48.2K</span>
+          <span class="cell-percent">56.8%</span>
+        </div>
+        <div class="aging-cell aging-31-60">
+          <span class="cell-value">$22.8K</span>
+          <span class="cell-percent">26.9%</span>
+        </div>
+        <div class="aging-cell aging-61-90">
+          <span class="cell-value">$10.5K</span>
+          <span class="cell-percent">12.4%</span>
+        </div>
+        <div class="aging-cell aging-91-120">
+          <span class="cell-value">$2.8K</span>
+          <span class="cell-percent">3.3%</span>
+        </div>
+        <div class="aging-cell aging-120plus">
+          <span class="cell-value">$0.5K</span>
+          <span class="cell-percent">0.6%</span>
+        </div>
+
+        <div class="grid-label">Aetna</div>
+        <div class="aging-cell aging-0-30">
+          <span class="cell-value">$35.2K</span>
+          <span class="cell-percent">60.5%</span>
+        </div>
+        <div class="aging-cell aging-31-60">
+          <span class="cell-value">$15.8K</span>
+          <span class="cell-percent">27.2%</span>
+        </div>
+        <div class="aging-cell aging-61-90">
+          <span class="cell-value">$5.5K</span>
+          <span class="cell-percent">9.5%</span>
+        </div>
+        <div class="aging-cell aging-91-120">
+          <span class="cell-value">$1.2K</span>
+          <span class="cell-percent">2.1%</span>
+        </div>
+        <div class="aging-cell aging-120plus">
+          <span class="cell-value">$0.4K</span>
+          <span class="cell-percent">0.7%</span>
+        </div>
+
+        <div class="grid-label">Self-Pay</div>
+        <div class="aging-cell aging-0-30">
+          <span class="cell-value">$18.5K</span>
+          <span class="cell-percent">28.2%</span>
+        </div>
+        <div class="aging-cell aging-31-60">
+          <span class="cell-value">$12.8K</span>
+          <span class="cell-percent">19.5%</span>
+        </div>
+        <div class="aging-cell aging-61-90">
+          <span class="cell-value">$15.2K</span>
+          <span class="cell-percent">23.2%</span>
+        </div>
+        <div class="aging-cell aging-91-120">
+          <span class="cell-value">$10.5K</span>
+          <span class="cell-percent">16.0%</span>
+        </div>
+        <div class="aging-cell aging-120plus">
+          <span class="cell-value">$8.5K</span>
+          <span class="cell-percent">13.1%</span>
+        </div>
+
+        <div class="grid-label">Other Commercial</div>
+        <div class="aging-cell aging-0-30">
+          <span class="cell-value">$28.5K</span>
+          <span class="cell-percent">55.2%</span>
+        </div>
+        <div class="aging-cell aging-31-60">
+          <span class="cell-value">$14.2K</span>
+          <span class="cell-percent">27.5%</span>
+        </div>
+        <div class="aging-cell aging-61-90">
+          <span class="cell-value">$6.5K</span>
+          <span class="cell-percent">12.6%</span>
+        </div>
+        <div class="aging-cell aging-91-120">
+          <span class="cell-value">$1.8K</span>
+          <span class="cell-percent">3.5%</span>
+        </div>
+        <div class="aging-cell aging-120plus">
+          <span class="cell-value">$0.6K</span>
+          <span class="cell-percent">1.2%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">AR Aging Trend (Last 6 Months)</div>
+      <div class="chart-container" style="height: 300px;">
+        <canvas id="aging-trend"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-column">
+    <div class="tile">
+      <div class="tile-title">AR Summary</div>
+      <div class="metric-row">
+        <div class="metric">
+          <div class="metric-label">Total AR</div>
+          <div class="metric-value">$450K</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Days in AR</div>
+          <div class="metric-value value-green">32</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Collection Rate</div>
+          <div class="metric-value value-green">96.8%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">AR Distribution</div>
+      <div class="chart-container">
+        <canvas id="ar-distribution"></canvas>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Collection Performance by ASC</div>
+      <div class="chart-container">
+        <canvas id="collection-asc"></canvas>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Payment Methods (Nov 2025)</div>
+      <div class="chart-container">
+        <canvas id="payment-methods"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('aging-trend'), {
+  type: 'line',
+  data: {
+    labels: ['Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [
+      { label: '0-30 Days', data: [268, 272, 265, 270, 275, 280], borderColor: '#10b981', tension: 0.4, borderWidth: 2 },
+      { label: '31-60 Days', data: [152, 148, 155, 150, 145, 152], borderColor: '#4ade80', tension: 0.4, borderWidth: 2 },
+      { label: '61-90 Days', data: [75, 72, 78, 74, 70, 75], borderColor: '#fbbf24', tension: 0.4, borderWidth: 2 },
+      { label: '91-120 Days', data: [28, 25, 30, 27, 24, 27], borderColor: '#f59e0b', tension: 0.4, borderWidth: 2 },
+      { label: '120+ Days', data: [18, 15, 20, 17, 14, 16], borderColor: '#ef4444', tension: 0.4, borderWidth: 2 }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$' + v + 'K' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('ar-distribution'), {
+  type: 'doughnut',
+  data: {
+    labels: ['0-30 ($280K)', '31-60 ($152K)', '61-90 ($75K)', '91-120 ($27K)', '120+ ($16K)'],
+    datasets: [{
+      data: [280, 152, 75, 27, 16],
+      backgroundColor: ['#10b981', '#4ade80', '#fbbf24', '#f59e0b', '#ef4444']
+    }]
+  },
+  options: { ...cfg }
+});
+
+new Chart(document.getElementById('collection-asc'), {
+  type: 'bar',
+  data: {
+    labels: ['IU-1', 'IU-2', 'Core-1', 'Rive', 'BNJ-T', 'Sol-1'],
+    datasets: [{
+      label: 'Collection Rate',
+      data: [98.2, 97.8, 97.5, 96.8, 95.5, 92.8],
+      backgroundColor: ['#10b981','#10b981','#10b981','#10b981','#4ade80','#fbbf24']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('payment-methods'), {
+  type: 'bar',
+  data: {
+    labels: ['EFT/ACH', 'Check', 'Credit Card', 'Cash'],
+    datasets: [{
+      label: 'Amount Collected',
+      data: [1850, 420, 125, 25],
+      backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$' + v + 'K' } }
+    }
+  }
+});
+</script>
+</body></html>

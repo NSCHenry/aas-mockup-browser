@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Provider Management - Workforce Overview</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.provider-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+.provider-card { background: rgba(255,255,255,0.03); border-radius: 8px; padding: 20px; }
+.provider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.provider-name { font-weight: 600; font-size: 14px; }
+.provider-badge { display: inline-block; padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: 600; }
+.badge-mda { background: rgba(59,130,246,0.2); color: #60a5fa; }
+.badge-crna { background: rgba(16,185,129,0.2); color: #34d399; }
+.provider-detail { font-size: 12px; color: #9aa0a6; margin-bottom: 6px; }
+.stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+.stat-item { padding: 14px; background: rgba(255,255,255,0.02); border-radius: 6px; }
+.stat-label { font-size: 11px; color: #9aa0a6; margin-bottom: 6px; }
+.stat-value { font-size: 20px; font-weight: 600; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Provider Management - Workforce Overview</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • 199 Active Providers</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Total Providers</div>
+    <div class="metric-value value-blue">199</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Retention Rate</div>
+    <div class="metric-value value-green">91.2%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">MDAs</div>
+    <div class="metric-value">52</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">CRNAs</div>
+    <div class="metric-value">147</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Avg Utilization</div>
+    <div class="metric-value value-green">87.3%</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Provider Distribution by Geography</div>
+    <div class="chart-container">
+      <canvas id="geography"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Retention Trend (Last 12 Months)</div>
+    <div class="chart-container">
+      <canvas id="retention"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Top Performing Providers (Highest Utilization)</div>
+  <div class="provider-cards">
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-name">Dr. Sarah Thompson</div>
+        <span class="provider-badge badge-mda">MDA</span>
+      </div>
+      <div class="provider-detail">📍 Riverview ASC • Michigan</div>
+      <div class="provider-detail">📅 Tenure: 4.5 years</div>
+      <div class="provider-detail">📊 Utilization: 94.2%</div>
+      <div class="provider-detail">💼 Cases/Month: 42</div>
+      <div class="provider-detail">⭐ Satisfaction: 9.2/10</div>
+    </div>
+
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-name">Dr. Michael Anderson</div>
+        <span class="provider-badge badge-mda">MDA</span>
+      </div>
+      <div class="provider-detail">📍 IU Health 1 • Indiana</div>
+      <div class="provider-detail">📅 Tenure: 3.8 years</div>
+      <div class="provider-detail">📊 Utilization: 92.8%</div>
+      <div class="provider-detail">💼 Cases/Month: 38</div>
+      <div class="provider-detail">⭐ Satisfaction: 8.9/10</div>
+    </div>
+
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-name">Martinez CRNA</div>
+        <span class="provider-badge badge-crna">CRNA</span>
+      </div>
+      <div class="provider-detail">📍 IU Health 2 • Indiana</div>
+      <div class="provider-detail">📅 Tenure: 5.2 years</div>
+      <div class="provider-detail">📊 Utilization: 91.5%</div>
+      <div class="provider-detail">💼 Cases/Month: 32</div>
+      <div class="provider-detail">⭐ Satisfaction: 9.0/10</div>
+    </div>
+
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-name">Dr. James Chen</div>
+        <span class="provider-badge badge-mda">MDA</span>
+      </div>
+      <div class="provider-detail">📍 IU Health 1 • Indiana</div>
+      <div class="provider-detail">📅 Tenure: 2.5 years</div>
+      <div class="provider-detail">📊 Utilization: 90.2%</div>
+      <div class="provider-detail">💼 Cases/Month: 36</div>
+      <div class="provider-detail">⭐ Satisfaction: 8.7/10</div>
+    </div>
+
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-name">Davis CRNA</div>
+        <span class="provider-badge badge-crna">CRNA</span>
+      </div>
+      <div class="provider-detail">📍 Corewell 1 • Michigan</div>
+      <div class="provider-detail">📅 Tenure: 6.1 years</div>
+      <div class="provider-detail">📊 Utilization: 89.8%</div>
+      <div class="provider-detail">💼 Cases/Month: 34</div>
+      <div class="provider-detail">⭐ Satisfaction: 9.1/10</div>
+    </div>
+
+    <div class="provider-card">
+      <div class="provider-header">
+        <div class="provider-name">Dr. Priya Patel</div>
+        <span class="provider-badge badge-mda">MDA</span>
+      </div>
+      <div class="provider-detail">📍 IU Greenwood • Indiana</div>
+      <div class="provider-detail">📅 Tenure: 3.2 years</div>
+      <div class="provider-detail">📊 Utilization: 89.5%</div>
+      <div class="provider-detail">💼 Cases/Month: 40</div>
+      <div class="provider-detail">⭐ Satisfaction: 8.8/10</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-3">
+  <div class="tile">
+    <div class="tile-title">Provider Type Mix</div>
+    <div class="chart-container" style="height: 250px;">
+      <canvas id="provider-type"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Tenure Distribution</div>
+    <div class="chart-container" style="height: 250px;">
+      <canvas id="tenure"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Workforce Metrics</div>
+    <div class="stat-grid">
+      <div class="stat-item">
+        <div class="stat-label">Avg Tenure</div>
+        <div class="stat-value value-green">4.2 yrs</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">New Hires YTD</div>
+        <div class="stat-value value-blue">18</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Departures YTD</div>
+        <div class="stat-value">8</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Net Growth</div>
+        <div class="stat-value value-green">+10</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Avg Satisfaction</div>
+        <div class="stat-value value-green">8.8/10</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Open Positions</div>
+        <div class="stat-value">5</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Provider Utilization by ASC</div>
+  <div class="chart-container">
+    <canvas id="utilization"></canvas>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('geography'), {
+  type: 'bar',
+  data: {
+    labels: ['Michigan', 'Indiana'],
+    datasets: [
+      { label: 'MDAs', data: [34, 18], backgroundColor: '#3b82f6' },
+      { label: 'CRNAs', data: [92, 55], backgroundColor: '#10b981' }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('retention'), {
+  type: 'line',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [{
+      label: 'Retention Rate',
+      data: [89.5, 90.2, 90.8, 90.5, 91.0, 91.2, 91.5, 91.8, 91.5, 91.2, 91.0, 91.2],
+      borderColor: '#10b981',
+      backgroundColor: 'rgba(16,185,129,0.1)',
+      fill: true,
+      tension: 0.4,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, min: 85, max: 95 }
+    }
+  }
+});
+
+new Chart(document.getElementById('provider-type'), {
+  type: 'doughnut',
+  data: {
+    labels: ['CRNAs (147)', 'MDAs (52)'],
+    datasets: [{
+      data: [147, 52],
+      backgroundColor: ['#10b981', '#3b82f6']
+    }]
+  },
+  options: { ...cfg }
+});
+
+new Chart(document.getElementById('tenure'), {
+  type: 'bar',
+  data: {
+    labels: ['<1 yr', '1-2 yrs', '2-3 yrs', '3-5 yrs', '5+ yrs'],
+    datasets: [{
+      label: 'Providers',
+      data: [12, 28, 42, 65, 52],
+      backgroundColor: ['#ef4444', '#fbbf24', '#3b82f6', '#10b981', '#4ade80']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('utilization'), {
+  type: 'bar',
+  data: {
+    labels: ['IU-1','IU-2','IU-3','Core-1','Rive','BNJ-T','BNJ-U','IU-Green','Core-2','Sol-1'],
+    datasets: [{
+      label: 'Avg Utilization %',
+      data: [92.8, 91.5, 90.2, 89.8, 94.2, 88.5, 87.8, 89.5, 86.2, 84.5],
+      backgroundColor: ['#10b981','#10b981','#10b981','#10b981','#10b981','#4ade80','#4ade80','#4ade80','#4ade80','#fbbf24']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+</script>
+</body></html>

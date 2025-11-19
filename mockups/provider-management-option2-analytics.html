@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Provider Management - Recruitment Analytics</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.value-yellow { color: #fbbf24; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.funnel-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+.funnel-stage { background: rgba(255,255,255,0.03); border-radius: 8px; padding: 20px; display: flex; justify-content: space-between; align-items: center; position: relative; }
+.stage-info { flex: 1; }
+.stage-title { font-weight: 600; font-size: 14px; margin-bottom: 6px; }
+.stage-details { font-size: 12px; color: #9aa0a6; }
+.stage-count { font-size: 36px; font-weight: 700; color: #3b82f6; }
+.stage-bar { position: absolute; bottom: 0; left: 0; height: 4px; border-radius: 0 0 8px 8px; }
+.bar-100 { width: 100%; background: #3b82f6; }
+.bar-75 { width: 75%; background: #10b981; }
+.bar-50 { width: 50%; background: #fbbf24; }
+.bar-35 { width: 35%; background: #f59e0b; }
+.bar-25 { width: 25%; background: #ec4899; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.candidate-list { max-height: 400px; overflow-y: auto; }
+.candidate-item { background: rgba(255,255,255,0.02); border-left: 3px solid #3b82f6; border-radius: 6px; padding: 14px; margin-bottom: 10px; }
+.candidate-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.candidate-name { font-weight: 600; font-size: 13px; }
+.candidate-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.badge-mda { background: rgba(59,130,246,0.2); color: #60a5fa; }
+.badge-crna { background: rgba(16,185,129,0.2); color: #34d399; }
+.candidate-detail { font-size: 11px; color: #9aa0a6; margin-bottom: 4px; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Provider Management - Recruitment Analytics</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Active Recruitment Pipeline</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Open Positions</div>
+    <div class="metric-value value-blue">5</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Active Candidates</div>
+    <div class="metric-value value-green">28</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Avg Time-to-Hire</div>
+    <div class="metric-value value-yellow">78 days</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Offers Extended</div>
+    <div class="metric-value">7</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Offer Accept Rate</div>
+    <div class="metric-value value-green">85.7%</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Recruitment Funnel - Current Pipeline</div>
+  <div class="funnel-container">
+    <div class="funnel-stage">
+      <div class="stage-info">
+        <div class="stage-title">Application Received</div>
+        <div class="stage-details">112 applications in last 90 days • 100% of funnel</div>
+      </div>
+      <div class="stage-count">112</div>
+      <div class="stage-bar bar-100"></div>
+    </div>
+
+    <div class="funnel-stage">
+      <div class="stage-info">
+        <div class="stage-title">Phone Screen</div>
+        <div class="stage-details">84 candidates screened • 75% conversion from applications</div>
+      </div>
+      <div class="stage-count">84</div>
+      <div class="stage-bar bar-75"></div>
+    </div>
+
+    <div class="funnel-stage">
+      <div class="stage-info">
+        <div class="stage-title">First Interview</div>
+        <div class="stage-details">56 candidates interviewed • 67% conversion from screen</div>
+      </div>
+      <div class="stage-count">56</div>
+      <div class="stage-bar bar-50"></div>
+    </div>
+
+    <div class="funnel-stage">
+      <div class="stage-info">
+        <div class="stage-title">Site Visit</div>
+        <div class="stage-details">39 site visits completed • 70% conversion from interview</div>
+      </div>
+      <div class="stage-count">39</div>
+      <div class="stage-bar bar-35"></div>
+    </div>
+
+    <div class="funnel-stage">
+      <div class="stage-info">
+        <div class="stage-title">Offer Extended</div>
+        <div class="stage-details">28 offers made • 72% conversion from site visit • $185K avg offer</div>
+      </div>
+      <div class="stage-count">28</div>
+      <div class="stage-bar bar-25"></div>
+    </div>
+
+    <div class="funnel-stage" style="background: rgba(16,185,129,0.1); border-left: 3px solid #10b981;">
+      <div class="stage-info">
+        <div class="stage-title">Offer Accepted</div>
+        <div class="stage-details">24 offers accepted • 85.7% acceptance rate • Avg 12 days to accept</div>
+      </div>
+      <div class="stage-count" style="color: #10b981;">24</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Time-to-Hire Trend (Last 12 Months)</div>
+    <div class="chart-container">
+      <canvas id="time-to-hire"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Recruitment Sources</div>
+    <div class="chart-container">
+      <canvas id="sources"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Active Candidates by Stage</div>
+    <div class="candidate-list">
+      <div class="candidate-item" style="border-left-color: #ec4899;">
+        <div class="candidate-header">
+          <div class="candidate-name">Dr. Emily Rodriguez</div>
+          <span class="candidate-badge badge-mda">MDA</span>
+        </div>
+        <div class="candidate-detail">Stage: Offer Extended • Position: IU Lafayette</div>
+        <div class="candidate-detail">Offer: $195K • Expected Start: Jan 2026</div>
+        <div class="candidate-detail">Days in Pipeline: 62 • Recruiter: Sarah Chen</div>
+      </div>
+
+      <div class="candidate-item" style="border-left-color: #ec4899;">
+        <div class="candidate-header">
+          <div class="candidate-name">Johnson CRNA</div>
+          <span class="candidate-badge badge-crna">CRNA</span>
+        </div>
+        <div class="candidate-detail">Stage: Offer Extended • Position: Solaris 1</div>
+        <div class="candidate-detail">Offer: $172K • Expected Start: Dec 2025</div>
+        <div class="candidate-detail">Days in Pipeline: 54 • Recruiter: Mike Park</div>
+      </div>
+
+      <div class="candidate-item" style="border-left-color: #f59e0b;">
+        <div class="candidate-header">
+          <div class="candidate-name">Dr. Marcus Williams</div>
+          <span class="candidate-badge badge-mda">MDA</span>
+        </div>
+        <div class="candidate-detail">Stage: Site Visit Scheduled • Position: Corewell 2</div>
+        <div class="candidate-detail">Visit Date: Nov 28 • Target Offer: $190K</div>
+        <div class="candidate-detail">Days in Pipeline: 38 • Recruiter: Lisa Martinez</div>
+      </div>
+
+      <div class="candidate-item" style="border-left-color: #f59e0b;">
+        <div class="candidate-header">
+          <div class="candidate-name">Garcia CRNA</div>
+          <span class="candidate-badge badge-crna">CRNA</span>
+        </div>
+        <div class="candidate-detail">Stage: Site Visit Completed • Position: BNJ Troy</div>
+        <div class="candidate-detail">Visit Date: Nov 18 • Target Offer: $168K</div>
+        <div class="candidate-detail">Days in Pipeline: 45 • Recruiter: Sarah Chen</div>
+      </div>
+
+      <div class="candidate-item" style="border-left-color: #fbbf24;">
+        <div class="candidate-header">
+          <div class="candidate-name">Dr. Amy Zhang</div>
+          <span class="candidate-badge badge-mda">MDA</span>
+        </div>
+        <div class="candidate-detail">Stage: First Interview • Position: IU Greenwood</div>
+        <div class="candidate-detail">Interview: Nov 22 • Years Experience: 8</div>
+        <div class="candidate-detail">Days in Pipeline: 22 • Recruiter: Mike Park</div>
+      </div>
+
+      <div class="candidate-item" style="border-left-color: #fbbf24;">
+        <div class="candidate-header">
+          <div class="candidate-name">Taylor CRNA</div>
+          <span class="candidate-badge badge-crna">CRNA</span>
+        </div>
+        <div class="candidate-detail">Stage: First Interview • Position: Riverview</div>
+        <div class="candidate-detail">Interview: Nov 25 • Years Experience: 12</div>
+        <div class="candidate-detail">Days in Pipeline: 18 • Recruiter: Lisa Martinez</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Credentialing Timeline</div>
+    <div class="chart-container">
+      <canvas id="credentialing"></canvas>
+    </div>
+    <div style="margin-top: 20px;">
+      <div class="tile-title">New Hires This Quarter</div>
+      <div class="candidate-list" style="max-height: 200px;">
+        <div class="candidate-item" style="border-left-color: #10b981;">
+          <div class="candidate-header">
+            <div class="candidate-name">Dr. Robert Kim</div>
+            <span class="candidate-badge badge-mda">MDA</span>
+          </div>
+          <div class="candidate-detail">Start Date: Nov 1 • Position: IU Health 1</div>
+          <div class="candidate-detail">Credentialing: Complete • Training: In Progress</div>
+        </div>
+
+        <div class="candidate-item" style="border-left-color: #10b981;">
+          <div class="candidate-header">
+            <div class="candidate-name">Davis CRNA</div>
+            <span class="candidate-badge badge-crna">CRNA</span>
+          </div>
+          <div class="candidate-detail">Start Date: Oct 15 • Position: Corewell 1</div>
+          <div class="candidate-detail">Credentialing: Complete • Training: Complete</div>
+        </div>
+
+        <div class="candidate-item" style="border-left-color: #10b981;">
+          <div class="candidate-header">
+            <div class="candidate-name">Dr. Lisa Patel</div>
+            <span class="candidate-badge badge-mda">MDA</span>
+          </div>
+          <div class="candidate-detail">Start Date: Oct 1 • Position: BNJ Utica</div>
+          <div class="candidate-detail">Credentialing: Complete • Training: Complete</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('time-to-hire'), {
+  type: 'line',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [{
+      label: 'Avg Days to Hire',
+      data: [85, 82, 80, 78, 76, 75, 77, 79, 78, 76, 78, 78],
+      borderColor: '#3b82f6',
+      backgroundColor: 'rgba(59,130,246,0.1)',
+      fill: true,
+      tension: 0.4,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + ' days' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('sources'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Referrals (42)', 'Job Boards (28)', 'LinkedIn (22)', 'Agencies (12)', 'Direct (8)'],
+    datasets: [{
+      data: [42, 28, 22, 12, 8],
+      backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#8b5cf6', '#ec4899']
+    }]
+  },
+  options: { ...cfg }
+});
+
+new Chart(document.getElementById('credentialing'), {
+  type: 'bar',
+  data: {
+    labels: ['License Verification', 'Background Check', 'Facility Privileges', 'DEA Processing', 'Insurance Review'],
+    datasets: [{
+      label: 'Avg Days',
+      data: [14, 12, 28, 18, 15],
+      backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + ' days' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 10 } } }
+    }
+  }
+});
+</script>
+</body></html>

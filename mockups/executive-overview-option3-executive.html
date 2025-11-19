@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AAS - Executive Overview - Executive Summary</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #1a1d2e;
+      color: #e8eaed;
+      padding: 40px;
+      min-width: 1024px;
+    }
+
+    .dashboard-header {
+      margin-bottom: 50px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: #9aa0a6;
+      font-size: 16px;
+    }
+
+    .dashboard-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .hero-tile {
+      background: linear-gradient(145deg, #252940 0%, #2d3348 100%);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-label {
+      font-size: 14px;
+      color: #9aa0a6;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .hero-value {
+      font-size: 72px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .hero-description {
+      font-size: 15px;
+      color: #9aa0a6;
+      line-height: 1.6;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    .hero-badge.success {
+      background: rgba(74, 222, 128, 0.15);
+      color: #4ade80;
+    }
+
+    .hero-badge.warning {
+      background: rgba(251, 191, 36, 0.15);
+      color: #fbbf24;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #e8eaed;
+    }
+
+    .section-metric {
+      font-size: 32px;
+      font-weight: 700;
+      color: #3b82f6;
+    }
+
+    .tile {
+      background: linear-gradient(145deg, #252940 0%, #2d3348 100%);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      margin-bottom: 30px;
+    }
+
+    .chart-container {
+      position: relative;
+      height: 320px;
+      margin-top: 24px;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .metric-item {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+    }
+
+    .metric-item-label {
+      font-size: 12px;
+      color: #9aa0a6;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .metric-item-value {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .value-green { color: #4ade80; }
+    .value-yellow { color: #fbbf24; }
+    .value-blue { color: #3b82f6; }
+  </style>
+</head>
+<body>
+  <div class="dashboard-header">
+    <h1>Executive Overview - Executive Summary</h1>
+    <div class="subtitle">AAS Dashboard • November 2025 • 29 Active Contracts</div>
+  </div>
+
+  <div class="dashboard-content">
+    <!-- Hero Metrics -->
+    <div class="hero-metrics">
+      <div class="hero-tile">
+        <div class="hero-label">Revenue Growth</div>
+        <div class="hero-value value-green">+23.4%</div>
+        <div class="hero-description">Year-over-Year<br>$28.0M TTM Revenue</div>
+        <div class="hero-badge success">↑ Strong Growth</div>
+      </div>
+
+      <div class="hero-tile">
+        <div class="hero-label">Contract Health</div>
+        <div class="hero-value value-green">96%</div>
+        <div class="hero-description">Renewal Rate<br>Zero Involuntary Churn</div>
+        <div class="hero-badge success">✓ Above Target</div>
+      </div>
+
+      <div class="hero-tile">
+        <div class="hero-label">Provider Retention</div>
+        <div class="hero-value value-green">91.2%</div>
+        <div class="hero-description">12-Month Rolling<br>In Constrained Market</div>
+        <div class="hero-badge success">↑ +1.7pp YoY</div>
+      </div>
+    </div>
+
+    <!-- Financial Performance Section -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Financial Performance</div>
+        <div class="section-metric">16.5% Margin</div>
+      </div>
+
+      <div class="tile">
+        <div class="two-column">
+          <div>
+            <h3 style="font-size: 18px; margin-bottom: 20px; color: #e8eaed;">Margin by Geography</h3>
+            <div class="metric-grid">
+              <div class="metric-item">
+                <div class="metric-item-label">Michigan Gross Margin</div>
+                <div class="metric-item-value value-blue">13.8%</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-item-label">Indiana Gross Margin</div>
+                <div class="metric-item-value value-green">18.5%</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-item-label">EBITDA Margin</div>
+                <div class="metric-item-value value-yellow">15.2%</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-item-label">Target Achievement</div>
+                <div class="metric-item-value value-yellow">84%</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="chart-container" style="height: 240px;">
+              <canvas id="margin-chart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Operations Section -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Operational Excellence</div>
+        <div class="section-metric value-yellow">98.7%</div>
+      </div>
+
+      <div class="tile">
+        <h3 style="font-size: 18px; margin-bottom: 20px; color: #e8eaed;">On-Time Coverage & Collection Performance</h3>
+        <div class="two-column">
+          <div class="chart-container" style="height: 280px;">
+            <canvas id="coverage-gauge"></canvas>
+            <div style="text-align: center; margin-top: 20px;">
+              <div style="font-size: 14px; color: #9aa0a6;">On-Time Coverage Rate</div>
+              <div style="font-size: 32px; font-weight: 700; color: #fbbf24; margin-top: 8px;">98.7%</div>
+              <div style="font-size: 13px; color: #9aa0a6; margin-top: 4px;">Target: 99%+</div>
+            </div>
+          </div>
+          <div class="chart-container" style="height: 280px;">
+            <canvas id="collection-trend"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Growth Section -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Growth & Pipeline</div>
+        <div class="section-metric">$17.6M</div>
+      </div>
+
+      <div class="tile">
+        <h3 style="font-size: 18px; margin-bottom: 20px; color: #e8eaed;">Sales Pipeline & New Contract Expansion</h3>
+        <div class="two-column">
+          <div class="chart-container">
+            <canvas id="pipeline-funnel"></canvas>
+          </div>
+          <div class="chart-container">
+            <canvas id="asc-growth"></canvas>
+          </div>
+        </div>
+        <div class="metric-grid" style="margin-top: 30px;">
+          <div class="metric-item">
+            <div class="metric-item-label">Opportunities in Pipeline</div>
+            <div class="metric-item-value value-blue">30</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-item-label">Weighted Value</div>
+            <div class="metric-item-value value-green">$17.6M</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-item-label">New ASCs (2025 YTD)</div>
+            <div class="metric-item-value value-blue">8</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-item-label">Q4 Projected</div>
+            <div class="metric-item-value value-green">2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Satisfaction Section -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Client Satisfaction</div>
+        <div class="section-metric value-green">8.7 / 10</div>
+      </div>
+
+      <div class="tile">
+        <h3 style="font-size: 18px; margin-bottom: 20px; color: #e8eaed;">Administrator Satisfaction by Management Group</h3>
+        <div class="chart-container">
+          <canvas id="satisfaction-chart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const chartDefaults = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: {
+            color: '#e8eaed',
+            font: { family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto', size: 13 }
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(37, 41, 64, 0.95)',
+          titleColor: '#e8eaed',
+          bodyColor: '#9aa0a6',
+          borderColor: '#3a3f5c',
+          borderWidth: 1,
+          padding: 12,
+          titleFont: { size: 14 },
+          bodyFont: { size: 13 }
+        }
+      }
+    };
+
+    // Margin Chart
+    new Chart(document.getElementById('margin-chart'), {
+      type: 'bar',
+      data: {
+        labels: ['Michigan', 'Indiana', 'Blended'],
+        datasets: [
+          {
+            label: 'Gross Margin %',
+            data: [13.8, 18.5, 16.5],
+            backgroundColor: '#3b82f6'
+          },
+          {
+            label: 'EBITDA Margin %',
+            data: [12.1, 16.8, 15.2],
+            backgroundColor: '#10b981'
+          }
+        ]
+      },
+      options: {
+        ...chartDefaults,
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 13 } } },
+          y: {
+            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+            ticks: { color: '#9aa0a6', callback: value => value + '%' },
+            max: 20
+          }
+        }
+      }
+    });
+
+    // Coverage Gauge
+    new Chart(document.getElementById('coverage-gauge'), {
+      type: 'doughnut',
+      data: {
+        datasets: [{
+          data: [98.7, 1.3],
+          backgroundColor: ['#fbbf24', 'rgba(255, 255, 255, 0.05)'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        ...chartDefaults,
+        cutout: '80%',
+        plugins: {
+          legend: { display: false },
+          tooltip: { enabled: false }
+        }
+      }
+    });
+
+    // Collection Trend
+    new Chart(document.getElementById('collection-trend'), {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
+        datasets: [
+          {
+            label: 'Net Collection %',
+            data: [93.5, 93.8, 94.0, 94.2, 94.5, 94.7, 94.8, 94.8, 94.9, 94.8, 94.8],
+            borderColor: '#fbbf24',
+            backgroundColor: 'rgba(251, 191, 36, 0.15)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          },
+          {
+            label: 'Target 95%',
+            data: [95, 95, 95, 95, 95, 95, 95, 95, 95, 95, 95],
+            borderColor: '#4ade80',
+            borderDash: [5, 5],
+            borderWidth: 2,
+            pointRadius: 0
+          }
+        ]
+      },
+      options: {
+        ...chartDefaults,
+        scales: {
+          x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#9aa0a6', font: { size: 12 } } },
+          y: {
+            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+            ticks: { color: '#9aa0a6', callback: value => value + '%' },
+            min: 90,
+            max: 100
+          }
+        }
+      }
+    });
+
+    // Pipeline Funnel
+    new Chart(document.getElementById('pipeline-funnel'), {
+      type: 'bar',
+      data: {
+        labels: ['Awareness\n15 opps', 'Interest\n8 opps', 'Action\n5 opps', 'Decision\n2 opps'],
+        datasets: [{
+          label: 'Value ($M)',
+          data: [8.2, 4.5, 3.1, 1.8],
+          backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ec4899']
+        }]
+      },
+      options: {
+        ...chartDefaults,
+        indexAxis: 'y',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            ...chartDefaults.plugins.tooltip,
+            callbacks: {
+              label: context => 'Value: $' + context.parsed.x + 'M'
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+            ticks: { color: '#9aa0a6', callback: value => '$' + value + 'M' }
+          },
+          y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 12 } } }
+        }
+      }
+    });
+
+    // ASC Growth
+    new Chart(document.getElementById('asc-growth'), {
+      type: 'bar',
+      data: {
+        labels: ['Q1', 'Q2', 'Q3', 'Q4 Proj'],
+        datasets: [{
+          label: 'New ASCs',
+          data: [2, 1, 3, 2],
+          backgroundColor: ['#3b82f6', '#3b82f6', '#3b82f6', '#9aa0a6']
+        }]
+      },
+      options: {
+        ...chartDefaults,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 13 } } },
+          y: {
+            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+            ticks: { color: '#9aa0a6', stepSize: 1 },
+            max: 4
+          }
+        }
+      }
+    });
+
+    // Satisfaction Chart
+    new Chart(document.getElementById('satisfaction-chart'), {
+      type: 'bar',
+      data: {
+        labels: ['IU Health (7)', 'Corewell (5)', 'Others (10)', 'BNJ (4)', 'Solaris (3)'],
+        datasets: [{
+          label: 'Satisfaction Score',
+          data: [8.9, 8.3, 8.6, 8.5, 7.9],
+          backgroundColor: ['#10b981', '#4ade80', '#4ade80', '#4ade80', '#fbbf24']
+        }]
+      },
+      options: {
+        ...chartDefaults,
+        indexAxis: 'y',
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            ...chartDefaults.plugins.tooltip,
+            callbacks: {
+              label: context => 'Score: ' + context.parsed.x + ' / 10'
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+            ticks: { color: '#9aa0a6' },
+            min: 0,
+            max: 10
+          },
+          y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 13 } } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

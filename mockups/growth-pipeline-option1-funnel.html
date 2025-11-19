@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Growth & Pipeline - Funnel Layout</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.layout { display: grid; grid-template-columns: 65% 35%; gap: 20px; max-width: 1600px; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.chart-container { position: relative; height: 400px; margin-top: 16px; }
+.metric { padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 16px; }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 36px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Growth & Pipeline - Funnel Layout</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • 30 Opportunities in Pipeline</div>
+</div>
+<div class="layout">
+  <div class="funnel-column">
+    <div class="tile">
+      <div class="tile-title">Sales Pipeline Funnel - 4 Stages</div>
+      <div class="chart-container"><canvas id="funnel"></canvas></div>
+    </div>
+    <div class="tile">
+      <div class="tile-title">New Contracts Timeline (Nov 2025 - Mar 2026)</div>
+      <div class="chart-container" style="height: 300px;"><canvas id="timeline"></canvas></div>
+    </div>
+  </div>
+  <div class="metrics-column">
+    <div class="tile">
+      <div class="tile-title">Pipeline Metrics</div>
+      <div class="metric">
+        <div class="metric-label">Weighted Value</div>
+        <div class="metric-value value-green">$17.6M</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Unweighted Value</div>
+        <div class="metric-value value-blue">$22.4M</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Total Opportunities</div>
+        <div class="metric-value">30</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Win Rate</div>
+        <div class="metric-value value-green">42%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Avg Days per Stage</div>
+        <div class="metric-value">32</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">New ASCs (2025 YTD)</div>
+        <div class="metric-value value-green">8</div>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-title">Stage Velocity</div>
+      <div class="chart-container" style="height: 250px;"><canvas id="velocity"></canvas></div>
+    </div>
+  </div>
+</div>
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('funnel'), {
+  type: 'bar',
+  data: {
+    labels: [
+      'Awareness\n15 opportunities\n$8.2M',
+      'Interest\n8 opportunities\n$4.5M',
+      'Action\n5 opportunities\n$3.1M',
+      'Decision\n2 opportunities\n$1.8M'
+    ],
+    datasets: [{
+      label: 'Weighted Value ($M)',
+      data: [8.2, 4.5, 3.1, 1.8],
+      backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ec4899']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$' + v + 'M' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('timeline'), {
+  type: 'bar',
+  data: {
+    labels: ['Riverview De Novo', 'IU Indianapolis', 'IU Greenwood', 'IU Lafayette', 'Evansville', 'Utica', 'Troy'],
+    datasets: [{
+      label: 'Start Month',
+      data: [11, 9, 12, 12, 11, 1, 3],
+      backgroundColor: ['#3b82f6', '#10b981', '#10b981', '#10b981', '#10b981', '#f59e0b', '#f59e0b']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        ticks: {
+          color: '#9aa0a6',
+          callback: function(value) {
+            const months = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return months[value] || '';
+          }
+        },
+        min: 8,
+        max: 4
+      },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('velocity'), {
+  type: 'bar',
+  data: {
+    labels: ['Awareness →\nInterest', 'Interest →\nAction', 'Action →\nDecision'],
+    datasets: [{
+      label: 'Avg Days',
+      data: [45, 30, 21],
+      backgroundColor: ['#3b82f6', '#10b981', '#f59e0b']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + ' days' } }
+    }
+  }
+});
+</script>
+</body></html>

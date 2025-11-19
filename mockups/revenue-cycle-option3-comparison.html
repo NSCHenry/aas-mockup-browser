@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Revenue Cycle - Denial Management</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-yellow { color: #fbbf24; }
+.value-red { color: #ff6b6b; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.denial-list { margin-top: 16px; max-height: 500px; overflow-y: auto; }
+.denial-item { background: rgba(255,255,255,0.02); border-left: 4px solid #ef4444; border-radius: 6px; padding: 16px; margin-bottom: 12px; }
+.denial-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.denial-code { font-weight: 600; font-size: 14px; }
+.denial-amount { font-size: 16px; font-weight: 700; color: #ef4444; }
+.denial-reason { font-size: 12px; color: #9aa0a6; margin-bottom: 6px; }
+.denial-status { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; margin-top: 4px; }
+.status-pending { background: rgba(251,191,36,0.2); color: #fbbf24; }
+.status-appealed { background: rgba(59,130,246,0.2); color: #60a5fa; }
+.status-resolved { background: rgba(16,185,129,0.2); color: #34d399; }
+.status-denied { background: rgba(239,68,68,0.2); color: #ff6b6b; }
+.reason-grid { display: grid; grid-template-columns: 1fr 80px 80px; gap: 12px; margin-top: 16px; }
+.reason-row { display: contents; }
+.reason-name { font-size: 13px; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 6px; }
+.reason-count { font-size: 13px; font-weight: 600; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 6px; text-align: center; color: #ef4444; }
+.reason-value { font-size: 13px; font-weight: 600; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 6px; text-align: center; color: #ff6b6b; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Revenue Cycle - Denial Management</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Denial Tracking & Resolution</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Denial Rate</div>
+    <div class="metric-value value-yellow">8.0%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Total Denials</div>
+    <div class="metric-value value-red">226</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Denial Amount</div>
+    <div class="metric-value value-red">$182K</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Overturn Rate</div>
+    <div class="metric-value value-green">68.5%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Recovered</div>
+    <div class="metric-value value-green">$125K</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Denial Reasons (November 2025)</div>
+    <div class="chart-container">
+      <canvas id="denial-reasons"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Denial Trend (Last 12 Months)</div>
+    <div class="chart-container">
+      <canvas id="denial-trend"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Top Denial Reasons by Count & Value</div>
+  <div class="reason-grid">
+    <div class="reason-name" style="font-weight: 600; background: rgba(255,255,255,0.05);">Reason</div>
+    <div class="reason-count" style="font-weight: 600; background: rgba(255,255,255,0.05); color: #9aa0a6;">Count</div>
+    <div class="reason-value" style="font-weight: 600; background: rgba(255,255,255,0.05); color: #9aa0a6;">Value</div>
+
+    <div class="reason-name">Authorization Required</div>
+    <div class="reason-count">58</div>
+    <div class="reason-value">$48.2K</div>
+
+    <div class="reason-name">Coding Error</div>
+    <div class="reason-count">42</div>
+    <div class="reason-value">$32.5K</div>
+
+    <div class="reason-name">Medical Necessity</div>
+    <div class="reason-count">38</div>
+    <div class="reason-value">$38.8K</div>
+
+    <div class="reason-name">Timely Filing</div>
+    <div class="reason-count">32</div>
+    <div class="reason-value">$25.2K</div>
+
+    <div class="reason-name">Duplicate Claim</div>
+    <div class="reason-count">28</div>
+    <div class="reason-value">$18.5K</div>
+
+    <div class="reason-name">Eligibility Issue</div>
+    <div class="reason-count">18</div>
+    <div class="reason-value">$12.8K</div>
+
+    <div class="reason-name">Other/Unknown</div>
+    <div class="reason-count">10</div>
+    <div class="reason-value">$6.0K</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Recent High-Value Denials</div>
+  <div class="denial-list">
+    <div class="denial-item">
+      <div class="denial-header">
+        <div class="denial-code">IU Health 1 - Claim #45829</div>
+        <div class="denial-amount">$4,250</div>
+      </div>
+      <div class="denial-reason">Reason: Authorization Required • Payer: Blue Cross • Date: Nov 15, 2025</div>
+      <span class="denial-status status-appealed">Appealed - Pending Response</span>
+    </div>
+
+    <div class="denial-item">
+      <div class="denial-header">
+        <div class="denial-code">Riverview - Claim #45812</div>
+        <div class="denial-amount">$3,850</div>
+      </div>
+      <div class="denial-reason">Reason: Medical Necessity • Payer: Medicare • Date: Nov 14, 2025</div>
+      <span class="denial-status status-appealed">Appealed - Additional Documentation Sent</span>
+    </div>
+
+    <div class="denial-item">
+      <div class="denial-header">
+        <div class="denial-code">Corewell 1 - Claim #45798</div>
+        <div class="denial-amount">$3,420</div>
+      </div>
+      <div class="denial-reason">Reason: Coding Error (CPT 00140 → 00142) • Payer: United • Date: Nov 13, 2025</div>
+      <span class="denial-status status-resolved">Resolved - Corrected & Resubmitted</span>
+    </div>
+
+    <div class="denial-item">
+      <div class="denial-header">
+        <div class="denial-code">IU Health 2 - Claim #45782</div>
+        <div class="denial-amount">$2,950</div>
+      </div>
+      <div class="denial-reason">Reason: Timely Filing Limit Exceeded • Payer: Aetna • Date: Nov 12, 2025</div>
+      <span class="denial-status status-denied">Denied - Write-Off Recommended</span>
+    </div>
+
+    <div class="denial-item">
+      <div class="denial-header">
+        <div class="denial-code">BNJ Troy - Claim #45768</div>
+        <div class="denial-amount">$2,680</div>
+      </div>
+      <div class="denial-reason">Reason: Duplicate Claim • Payer: Blue Cross • Date: Nov 11, 2025</div>
+      <span class="denial-status status-resolved">Resolved - Original Payment Confirmed</span>
+    </div>
+
+    <div class="denial-item">
+      <div class="denial-header">
+        <div class="denial-code">Solaris 1 - Claim #45752</div>
+        <div class="denial-amount">$2,420</div>
+      </div>
+      <div class="denial-reason">Reason: Eligibility - Patient Not Active • Payer: Medicaid • Date: Nov 10, 2025</div>
+      <span class="denial-status status-pending">Pending - Verifying Eligibility</span>
+    </div>
+
+    <div class="denial-item">
+      <div class="denial-header">
+        <div class="denial-code">IU Greenwood - Claim #45738</div>
+        <div class="denial-amount">$2,180</div>
+      </div>
+      <div class="denial-reason">Reason: Authorization Required • Payer: United • Date: Nov 9, 2025</div>
+      <span class="denial-status status-appealed">Appealed - Retro Auth Requested</span>
+    </div>
+
+    <div class="denial-item">
+      <div class="denial-header">
+        <div class="denial-code">Corewell 2 - Claim #45725</div>
+        <div class="denial-amount">$1,950</div>
+      </div>
+      <div class="denial-reason">Reason: Medical Necessity • Payer: Medicare • Date: Nov 8, 2025</div>
+      <span class="denial-status status-resolved">Resolved - Overturned on Appeal</span>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Denial Resolution Rate by Payer</div>
+    <div class="chart-container">
+      <canvas id="resolution-payer"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Denial Status Breakdown</div>
+    <div class="chart-container">
+      <canvas id="denial-status"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('denial-reasons'), {
+  type: 'bar',
+  data: {
+    labels: ['Authorization\nRequired', 'Coding\nError', 'Medical\nNecessity', 'Timely\nFiling', 'Duplicate\nClaim', 'Eligibility\nIssue'],
+    datasets: [{
+      label: 'Count',
+      data: [58, 42, 38, 32, 28, 18],
+      backgroundColor: ['#ef4444', '#f59e0b', '#fbbf24', '#3b82f6', '#8b5cf6', '#ec4899']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 10 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('denial-trend'), {
+  type: 'line',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [
+      { label: 'Total Denials', data: [245, 238, 242, 235, 228, 232, 225, 220, 218, 215, 222, 226], borderColor: '#ef4444', tension: 0.4, borderWidth: 3 },
+      { label: 'Resolved', data: [168, 163, 166, 161, 156, 159, 154, 151, 149, 147, 152, 155], borderColor: '#10b981', tension: 0.4, borderWidth: 3 }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('resolution-payer'), {
+  type: 'bar',
+  data: {
+    labels: ['Medicare', 'Medicaid', 'Blue Cross', 'United', 'Aetna'],
+    datasets: [{
+      label: 'Resolution Rate',
+      data: [72.5, 65.2, 70.8, 68.9, 71.2],
+      backgroundColor: ['#10b981','#fbbf24','#10b981','#4ade80','#10b981']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('denial-status'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Resolved (155)', 'Appealed (42)', 'Pending (18)', 'Denied (11)'],
+    datasets: [{
+      data: [155, 42, 18, 11],
+      backgroundColor: ['#10b981', '#3b82f6', '#fbbf24', '#ef4444']
+    }]
+  },
+  options: { ...cfg }
+});
+</script>
+</body></html>

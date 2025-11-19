@@ -1,0 +1,170 @@
+[
+  {
+    "categoryId": "executive-overview",
+    "optionId": "option1-grid",
+    "markers": [
+      {
+        "x": "15%",
+        "y": "20%",
+        "title": "KPI Cards",
+        "description": "High-level metrics displayed in a clean card layout. Each card shows current value, trend indicator, and comparison to previous period. Quick scan design for executive-level decision making."
+      },
+      {
+        "x": "50%",
+        "y": "45%",
+        "title": "Revenue Trend Chart",
+        "description": "Interactive line chart showing revenue trends over time. Supports multiple data series and hover tooltips for detailed values. Chart.js powered for smooth animations."
+      },
+      {
+        "x": "75%",
+        "y": "70%",
+        "title": "Regional Performance",
+        "description": "Comparison view of different regions or business units. Color-coded bars make it easy to identify top and bottom performers at a glance."
+      }
+    ]
+  },
+  {
+    "categoryId": "executive-overview",
+    "optionId": "option2-dashboard",
+    "markers": [
+      {
+        "x": "25%",
+        "y": "15%",
+        "title": "Dashboard Header",
+        "description": "Consolidated header with key performance indicators and quick filters. Provides context and allows users to customize their view without leaving the page."
+      },
+      {
+        "x": "60%",
+        "y": "50%",
+        "title": "Multi-Metric Visualization",
+        "description": "Integrated view combining multiple chart types (line, bar, pie) in a cohesive layout. Designed to tell a complete story in a single view."
+      }
+    ]
+  },
+  {
+    "categoryId": "financial-deepdive",
+    "optionId": "option1-charts-left",
+    "markers": [
+      {
+        "x": "20%",
+        "y": "35%",
+        "title": "Financial Charts Panel",
+        "description": "Left-aligned chart layout optimizes for data exploration. Charts stack vertically for easy comparison and scrolling through detailed financial metrics."
+      },
+      {
+        "x": "70%",
+        "y": "30%",
+        "title": "Summary Statistics",
+        "description": "Right sidebar contains summary statistics and insights. Clean separation between visualization and numerical data supports different analysis workflows."
+      },
+      {
+        "x": "40%",
+        "y": "65%",
+        "title": "Expense Breakdown",
+        "description": "Detailed expense categorization with interactive filtering. Users can drill down into specific categories to understand cost drivers."
+      }
+    ]
+  },
+  {
+    "categoryId": "growth-pipeline",
+    "optionId": "option1-funnel",
+    "markers": [
+      {
+        "x": "50%",
+        "y": "40%",
+        "title": "Sales Funnel Visualization",
+        "description": "Classic funnel chart showing conversion through sales stages. Width represents volume at each stage, making bottlenecks immediately visible."
+      },
+      {
+        "x": "80%",
+        "y": "25%",
+        "title": "Conversion Metrics",
+        "description": "Stage-by-stage conversion rates and drop-off analysis. Helps identify where prospects are lost and where to focus improvement efforts."
+      }
+    ]
+  },
+  {
+    "categoryId": "operations",
+    "optionId": "option2-status",
+    "markers": [
+      {
+        "x": "30%",
+        "y": "25%",
+        "title": "Status Indicators",
+        "description": "Real-time operational status dashboard with color-coded health indicators. Red, yellow, green system makes it easy to spot issues requiring attention."
+      },
+      {
+        "x": "65%",
+        "y": "55%",
+        "title": "Activity Feed",
+        "description": "Live feed of operational events and alerts. Chronological view helps teams track what's happening across the organization in real-time."
+      },
+      {
+        "x": "45%",
+        "y": "75%",
+        "title": "Resource Utilization",
+        "description": "Visual representation of capacity and resource allocation. Helps operations managers balance workload and identify over/under-utilized resources."
+      }
+    ]
+  },
+  {
+    "categoryId": "revenue-cycle",
+    "optionId": "option2-metrics",
+    "markers": [
+      {
+        "x": "35%",
+        "y": "30%",
+        "title": "Days in A/R",
+        "description": "Average days in accounts receivable with trend analysis. Key metric for understanding cash flow and collection efficiency."
+      },
+      {
+        "x": "70%",
+        "y": "40%",
+        "title": "Collection Rate",
+        "description": "Percentage of billed amounts successfully collected. Tracks effectiveness of revenue cycle processes and identifies improvement opportunities."
+      }
+    ]
+  },
+  {
+    "categoryId": "provider-management",
+    "optionId": "option1-cards",
+    "markers": [
+      {
+        "x": "25%",
+        "y": "35%",
+        "title": "Provider Cards",
+        "description": "Individual provider profiles in card format. Each card shows key metrics like patient volume, satisfaction scores, and credential status for quick assessment."
+      },
+      {
+        "x": "60%",
+        "y": "60%",
+        "title": "Performance Metrics",
+        "description": "Visual indicators of provider performance across multiple dimensions. Supports data-driven decisions about staffing, training, and recognition."
+      }
+    ]
+  },
+  {
+    "categoryId": "client-satisfaction",
+    "optionId": "option1-scorecard",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "25%",
+        "title": "NPS Score",
+        "description": "Net Promoter Score with historical trend. Primary measure of client satisfaction and loyalty, tracked over time to measure improvement."
+      },
+      {
+        "x": "65%",
+        "y": "50%",
+        "title": "Satisfaction Drivers",
+        "description": "Breakdown of factors influencing client satisfaction. Helps prioritize improvement initiatives by identifying what matters most to clients."
+      },
+      {
+        "x": "50%",
+        "y": "75%",
+        "title": "Client Feedback",
+        "description": "Recent client comments and survey responses. Qualitative data provides context and specific insights beyond numerical scores."
+      }
+    ]
+  }
+]

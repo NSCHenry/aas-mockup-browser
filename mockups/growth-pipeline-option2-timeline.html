@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Growth & Pipeline - Timeline Layout</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.chart-container { position: relative; height: 380px; margin-top: 16px; }
+.gantt-container { margin-top: 20px; }
+.gantt-row { display: grid; grid-template-columns: 180px 1fr; gap: 16px; margin-bottom: 12px; align-items: center; }
+.gantt-label { font-size: 13px; color: #e8eaed; font-weight: 500; }
+.gantt-timeline { position: relative; height: 32px; background: rgba(255,255,255,0.03); border-radius: 6px; overflow: hidden; }
+.gantt-bar { position: absolute; height: 100%; border-radius: 4px; display: flex; align-items: center; padding: 0 10px; font-size: 11px; font-weight: 600; }
+.stage-awareness { background: #3b82f6; }
+.stage-interest { background: #10b981; }
+.stage-action { background: #f59e0b; }
+.stage-decision { background: #ec4899; }
+.legend { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.legend-color { width: 16px; height: 16px; border-radius: 3px; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Growth & Pipeline - Timeline Layout</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Contract Timeline & Stage Progression</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Pipeline Value (Weighted)</div>
+    <div class="metric-value value-green">$17.6M</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Total Opportunities</div>
+    <div class="metric-value">30</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Avg Deal Size</div>
+    <div class="metric-value value-blue">$747K</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Win Rate (12mo)</div>
+    <div class="metric-value value-green">42%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Avg Sales Cycle</div>
+    <div class="metric-value">96 days</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Current Opportunities by Stage & Expected Close Timeline</div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-color stage-awareness"></div>Awareness (15 opps)</div>
+    <div class="legend-item"><div class="legend-color stage-interest"></div>Interest (8 opps)</div>
+    <div class="legend-item"><div class="legend-color stage-action"></div>Action (5 opps)</div>
+    <div class="legend-item"><div class="legend-color stage-decision"></div>Decision (2 opps)</div>
+  </div>
+  <div class="gantt-container">
+    <div class="gantt-row">
+      <div class="gantt-label">Riverview De Novo ASC</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-decision" style="left: 0%; width: 90%;">Decision • $1.2M • Nov 25</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">IU Health Indianapolis</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-decision" style="left: 0%; width: 70%;">Decision • $600K • Dec 10</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Evansville Surgical</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-action" style="left: 5%; width: 60%;">Action • $450K • Jan 8</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Troy Ortho Center</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-action" style="left: 10%; width: 65%;">Action • $520K • Jan 15</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Utica Ambulatory</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-action" style="left: 15%; width: 70%;">Action • $680K • Feb 1</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">IU Greenwood Expansion</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-action" style="left: 20%; width: 60%;">Action • $410K • Feb 12</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Detroit Metro ASC</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-action" style="left: 25%; width: 65%;">Action • $750K • Feb 28</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Fort Wayne Surgical</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-interest" style="left: 30%; width: 55%;">Interest • $820K • Mar 10</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Kalamazoo Ortho</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-interest" style="left: 35%; width: 60%;">Interest • $590K • Mar 20</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Bloomington Surgery Ctr</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-interest" style="left: 40%; width: 50%;">Interest • $640K • Apr 1</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Grand Rapids ASC</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-interest" style="left: 42%; width: 53%;">Interest • $710K • Apr 8</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">South Bend Surgical</div>
+      <div class="gantt-timeline">
+        <div class="gantt-bar stage-interest" style="left: 45%; width: 50%;">Interest • $550K • Apr 15</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Monthly Pipeline Activity (Nov 2024 - Nov 2025)</div>
+  <div class="chart-container" style="height: 300px;"><canvas id="activity"></canvas></div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Stage Progression Velocity - Days per Stage</div>
+  <div class="chart-container" style="height: 250px;"><canvas id="velocity"></canvas></div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('activity'), {
+  type: 'line',
+  data: {
+    labels: ['Nov 24','Dec','Jan 25','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov 25'],
+    datasets: [
+      { label: 'New Opportunities', data: [3,2,4,3,2,3,4,2,1,3,2,1,0], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', fill: true, tension: 0.4, borderWidth: 2 },
+      { label: 'Closed Won', data: [1,0,1,2,1,0,1,1,0,1,0,0,0], borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', fill: true, tension: 0.4, borderWidth: 2 },
+      { label: 'Closed Lost', data: [0,1,1,0,1,1,0,1,0,0,1,0,0], borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.1)', fill: true, tension: 0.4, borderWidth: 2 }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', stepSize: 1 } }
+    }
+  }
+});
+
+new Chart(document.getElementById('velocity'), {
+  type: 'bar',
+  data: {
+    labels: ['Awareness → Interest', 'Interest → Action', 'Action → Decision', 'Decision → Close'],
+    datasets: [{
+      label: 'Avg Days in Stage',
+      data: [45, 30, 21, 12],
+      backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ec4899']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + ' days' } }
+    }
+  }
+});
+</script>
+</body></html>
