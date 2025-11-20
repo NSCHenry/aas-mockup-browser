@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAS - Business Associate & Vendor Compliance</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.value-orange { color: #f59e0b; }
+.value-red { color: #ef4444; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.alert-box { background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.alert-title { font-size: 14px; font-weight: 600; color: #ef4444; margin-bottom: 8px; }
+.alert-detail { font-size: 12px; color: #9aa0a6; }
+.table-grid { display: grid; grid-template-columns: 200px repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+.table-header { font-size: 11px; color: #9aa0a6; font-weight: 600; padding: 12px 8px; background: rgba(255,255,255,0.05); border-radius: 4px; text-align: center; }
+.table-cell { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 12px 8px; text-align: center; font-size: 13px; }
+.vendor-name { text-align: left; font-weight: 500; }
+.status-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.status-compliant { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+.status-expiring { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.status-missing { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Business Associate & Vendor Compliance</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • HIPAA Business Associate Monitoring</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Total Vendors</div>
+    <div class="metric-value value-blue">18</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Vendors with BAAs</div>
+    <div class="metric-value value-green">16</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Missing BAAs</div>
+    <div class="metric-value value-red">2</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">BAAs Expiring (90 Days)</div>
+    <div class="metric-value value-orange">3</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Security Assessments Current</div>
+    <div class="metric-value value-green">14</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">🚨 Critical Vendor Compliance Issues</div>
+  <div class="grid-2">
+    <div>
+      <div class="alert-box">
+        <div class="alert-title">ZoomShift - No Signed BAA</div>
+        <div class="alert-detail">Scheduling software accessing provider SSNs • No BAA on file</div>
+        <div class="alert-detail">Action: Obtain signed BAA or migrate to compliant solution</div>
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Stripe (Patient Payments) - No BAA</div>
+        <div class="alert-detail">Processing patient payments with PHI • Missing BAA</div>
+        <div class="alert-detail">Action: Request BAA from Stripe immediately</div>
+      </div>
+    </div>
+    <div>
+      <div class="alert-box" style="background: rgba(245, 158, 11, 0.1); border-left-color: #f59e0b;">
+        <div class="alert-title" style="color: #f59e0b;">Physicians Choice / VBRCM - BAA Expiring</div>
+        <div class="alert-detail">Primary RCM vendor BAA expires Jan 15, 2026 (57 days)</div>
+        <div class="alert-detail">Action: Request BAA renewal before expiration</div>
+      </div>
+      <div class="alert-box" style="background: rgba(245, 158, 11, 0.1); border-left-color: #f59e0b;">
+        <div class="alert-title" style="color: #f59e0b;">Microsoft O365 - Security Assessment Overdue</div>
+        <div class="alert-detail">Last assessment: Jan 2024 • Annual review required</div>
+        <div class="alert-detail">Action: Schedule vendor security review</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Business Associate Agreement (BAA) Status</div>
+  <div class="table-grid">
+    <div class="table-header">Vendor</div>
+    <div class="table-header">PHI Access Level</div>
+    <div class="table-header">BAA Status</div>
+    <div class="table-header">Expiration</div>
+    <div class="table-header">Action Required</div>
+
+    <div class="table-cell vendor-name">Physicians Choice / VBRCM</div>
+    <div class="table-cell">Full Access</div>
+    <div class="table-cell"><span class="status-badge status-expiring">Expiring Soon</span></div>
+    <div class="table-cell">Jan 15, 2026</div>
+    <div class="table-cell value-orange">Renew BAA</div>
+
+    <div class="table-cell vendor-name">Microsoft Office 365</div>
+    <div class="table-cell">Email/PHI</div>
+    <div class="table-cell"><span class="status-badge status-compliant">✓ Active</span></div>
+    <div class="table-cell">Aug 12, 2026</div>
+    <div class="table-cell value-green">—</div>
+
+    <div class="table-cell vendor-name">Hyperion MSP (Azure Hosting)</div>
+    <div class="table-cell">Full Access</div>
+    <div class="table-cell"><span class="status-badge status-compliant">✓ Active</span></div>
+    <div class="table-cell">Jun 30, 2027</div>
+    <div class="table-cell value-green">—</div>
+
+    <div class="table-cell vendor-name">Connecteam (HR/Credentialing)</div>
+    <div class="table-cell">SSN/DOB</div>
+    <div class="table-cell"><span class="status-badge status-compliant">✓ Active</span></div>
+    <div class="table-cell">Mar 1, 2026</div>
+    <div class="table-cell value-green">—</div>
+
+    <div class="table-cell vendor-name">Paychex (Payroll)</div>
+    <div class="table-cell">SSN/Tax Info</div>
+    <div class="table-cell"><span class="status-badge status-compliant">✓ Active</span></div>
+    <div class="table-cell">Dec 31, 2026</div>
+    <div class="table-cell value-green">—</div>
+
+    <div class="table-cell vendor-name">DocuSign</div>
+    <div class="table-cell">Limited</div>
+    <div class="table-cell"><span class="status-badge status-compliant">✓ Active</span></div>
+    <div class="table-cell">May 15, 2027</div>
+    <div class="table-cell value-green">—</div>
+
+    <div class="table-cell vendor-name">ZoomShift (Scheduling)</div>
+    <div class="table-cell">Provider SSN</div>
+    <div class="table-cell"><span class="status-badge status-missing">❌ Missing</span></div>
+    <div class="table-cell">—</div>
+    <div class="table-cell value-red">Obtain BAA</div>
+
+    <div class="table-cell vendor-name">Stripe (Payments)</div>
+    <div class="table-cell">Patient Data</div>
+    <div class="table-cell"><span class="status-badge status-missing">❌ Missing</span></div>
+    <div class="table-cell">—</div>
+    <div class="table-cell value-red">Obtain BAA</div>
+
+    <div class="table-cell vendor-name">Google Workspace</div>
+    <div class="table-cell">Limited</div>
+    <div class="table-cell"><span class="status-badge status-compliant">✓ Active</span></div>
+    <div class="table-cell">Feb 28, 2026</div>
+    <div class="table-cell value-green">—</div>
+
+    <div class="table-cell vendor-name">Slack</div>
+    <div class="table-cell">Minimal</div>
+    <div class="table-cell"><span class="status-badge status-compliant">✓ Active</span></div>
+    <div class="table-cell">Apr 10, 2026</div>
+    <div class="table-cell value-green">—</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Vendor Security Assessment Status</div>
+    <div class="chart-container">
+      <canvas id="securityAssessment"></canvas>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Vendor Certification Tracking</div>
+    <div class="table-grid" style="grid-template-columns: 1fr 120px 100px;">
+      <div class="table-header">Vendor</div>
+      <div class="table-header">Certifications</div>
+      <div class="table-header">Status</div>
+
+      <div class="table-cell vendor-name">Physicians Choice / VBRCM</div>
+      <div class="table-cell">HITRUST</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell vendor-name">Hyperion MSP</div>
+      <div class="table-cell">SOC 2 Type II</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell vendor-name">Microsoft O365</div>
+      <div class="table-cell">HIPAA, SOC 2</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell vendor-name">Connecteam</div>
+      <div class="table-cell">SOC 2 Type II</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell vendor-name">Paychex</div>
+      <div class="table-cell">SOC 1, SOC 2</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell vendor-name">ZoomShift</div>
+      <div class="table-cell">None</div>
+      <div class="table-cell value-red">❌</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Subcontractor BAA Chain Completeness</div>
+    <div class="chart-container" style="height: 250px;">
+      <canvas id="subcontractorBAA"></canvas>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Vendor Breach Notification Incidents (Last 12 Months)</div>
+    <div style="margin-top: 16px;">
+      <div class="metric">
+        <div class="metric-label">Total Vendor Breaches Reported</div>
+        <div class="metric-value value-green">0</div>
+      </div>
+      <div style="margin-top: 20px; padding: 20px; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border-left: 4px solid #10b981;">
+        <div style="font-size: 14px; font-weight: 600; color: #4ade80; margin-bottom: 8px;">✓ No Vendor Breaches</div>
+        <div style="font-size: 12px; color: #9aa0a6;">All business associates have maintained HIPAA compliance with zero reportable breach incidents in the last 12 months.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('securityAssessment'), {
+  type: 'bar',
+  data: {
+    labels: ['Current\n(< 12 mo)', 'Due Soon\n(12-18 mo)', 'Overdue\n(> 18 mo)', 'Never\nAssessed'],
+    datasets: [{
+      label: 'Vendors',
+      data: [14, 2, 1, 1],
+      backgroundColor: ['#10b981', '#f59e0b', '#ef4444', '#ef4444']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', stepSize: 2 } }
+    }
+  }
+});
+
+new Chart(document.getElementById('subcontractorBAA'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Complete BAA Chain (16)', 'Incomplete (0)', 'Unknown (2)'],
+    datasets: [{
+      data: [16, 0, 2],
+      backgroundColor: ['#10b981', '#ef4444', '#f59e0b']
+    }]
+  },
+  options: { ...cfg, plugins: { legend: { position: 'right', labels: { color: '#e8eaed', padding: 15 } } } }
+});
+</script>
+</body>
+</html>

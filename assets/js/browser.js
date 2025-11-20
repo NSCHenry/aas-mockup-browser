@@ -32,7 +32,8 @@ const AppState = {
             options: [
                 { id: 'option1-funnel', name: 'Funnel View', file: 'growth-pipeline-option1-funnel.html' },
                 { id: 'option2-timeline', name: 'Timeline View', file: 'growth-pipeline-option2-timeline.html' },
-                { id: 'option3-crm', name: 'CRM Style', file: 'growth-pipeline-option3-crm.html' }
+                { id: 'option3-crm', name: 'CRM Style', file: 'growth-pipeline-option3-crm.html' },
+                { id: 'option4-geographic', name: 'Geographic Expansion', file: 'geographic-expansion.html' }
             ]
         },
         {
@@ -69,6 +70,27 @@ const AppState = {
                 { id: 'option1-scorecard', name: 'Scorecard', file: 'client-satisfaction-option1-scorecard.html' },
                 { id: 'option2-risk', name: 'Risk Analysis', file: 'client-satisfaction-option2-risk.html' },
                 { id: 'option3-timeline', name: 'Timeline View', file: 'client-satisfaction-option3-timeline.html' }
+            ]
+        },
+        {
+            id: 'patient-satisfaction',
+            name: 'Patient Satisfaction',
+            options: [
+                { id: 'option1-scorecard', name: 'Scorecard', file: 'patient-satisfaction-option1-scorecard.html' },
+                { id: 'option2-by-location', name: 'By Location', file: 'patient-satisfaction-option2-by-location.html' },
+                { id: 'option3-quality', name: 'Quality Metrics', file: 'patient-satisfaction-option3-quality.html' }
+            ]
+        },
+        {
+            id: 'compliance',
+            name: 'Compliance',
+            options: [
+                { id: 'credentialing', name: 'Provider Credentialing', file: 'compliance-credentialing.html' },
+                { id: 'billing-coding', name: 'Billing & Coding', file: 'compliance-billing-coding.html' },
+                { id: 'contract-risk', name: 'Contract & Regulatory Risk', file: 'compliance-contract-risk.html' },
+                { id: 'phi-security', name: 'PHI Security & Access', file: 'compliance-phi-security.html' },
+                { id: 'vendor-baa', name: 'Vendor BAA Management', file: 'compliance-vendor-baa.html' },
+                { id: 'phi-training', name: 'PHI Incident & Training', file: 'compliance-phi-training.html' }
             ]
         },
         {

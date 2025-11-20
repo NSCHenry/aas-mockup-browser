@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Patient Satisfaction - Quality Metrics</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.value-yellow { color: #fbbf24; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.quality-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+.quality-item { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 20px; }
+.quality-label { font-size: 12px; color: #9aa0a6; margin-bottom: 12px; }
+.quality-value { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+.quality-target { font-size: 11px; color: #9aa0a6; }
+.benchmark { background: rgba(74,222,128,0.1); border-left: 4px solid #4ade80; border-radius: 8px; padding: 16px; margin-top: 16px; }
+.benchmark-title { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: #4ade80; }
+.benchmark-text { font-size: 12px; color: #9aa0a6; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Patient Satisfaction - Quality & Safety Metrics</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Clinical Excellence</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Overall Quality Score</div>
+    <div class="metric-value value-green">4.8/5.0</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Safety Score</div>
+    <div class="metric-value value-green">99.2%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Pain Control</div>
+    <div class="metric-value value-green">4.8/5.0</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Zero Adverse Events</div>
+    <div class="metric-value value-green">98.7%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Would Recommend</div>
+    <div class="metric-value value-green">96%</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Quality Performance Indicators</div>
+  <div class="quality-grid">
+    <div class="quality-item">
+      <div class="quality-label">Pre-Op Assessment Complete</div>
+      <div class="quality-value value-green">99.8%</div>
+      <div class="quality-target">Target: >98%</div>
+    </div>
+    <div class="quality-item">
+      <div class="quality-label">Antibiotic Timing Compliance</div>
+      <div class="quality-value value-green">98.5%</div>
+      <div class="quality-target">Target: >95%</div>
+    </div>
+    <div class="quality-item">
+      <div class="quality-label">Airway Management Success</div>
+      <div class="quality-value value-green">99.9%</div>
+      <div class="quality-target">Target: >99%</div>
+    </div>
+    <div class="quality-item">
+      <div class="quality-label">Post-Op PACU Handoff</div>
+      <div class="quality-value value-green">100%</div>
+      <div class="quality-target">Target: 100%</div>
+    </div>
+    <div class="quality-item">
+      <div class="quality-label">Emergency Equipment Ready</div>
+      <div class="quality-value value-green">100%</div>
+      <div class="quality-target">Target: 100%</div>
+    </div>
+    <div class="quality-item">
+      <div class="quality-label">Medication Error Rate</div>
+      <div class="quality-value value-green">0.02%</div>
+      <div class="quality-target">Target: <0.1%</div>
+    </div>
+  </div>
+  <div class="benchmark">
+    <div class="benchmark-title">✓ Exceeding Industry Benchmarks</div>
+    <div class="benchmark-text">All quality indicators above ASA (American Society of Anesthesiologists) national benchmarks for ASC settings</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Patient Safety Metrics Trend</div>
+    <div class="chart-container">
+      <canvas id="safety-trend"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Post-Operative Outcomes</div>
+    <div class="chart-container">
+      <canvas id="outcomes"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Pain Management Effectiveness by Procedure Type</div>
+    <div class="chart-container">
+      <canvas id="pain-by-procedure"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Patient Education & Preparedness</div>
+    <div class="chart-container">
+      <canvas id="education"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Post-Operative Satisfaction Drivers</div>
+  <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px;">
+    <div>
+      <div style="font-weight: 600; margin-bottom: 12px;">Most Valued Aspects</div>
+      <div style="font-size: 13px; color: #9aa0a6; line-height: 1.8;">
+        1. <span style="color: #4ade80;">Provider explained risks clearly (4.9/5.0)</span><br>
+        2. <span style="color: #4ade80;">Felt safe throughout procedure (4.9/5.0)</span><br>
+        3. <span style="color: #4ade80;">Pain well managed (4.8/5.0)</span><br>
+        4. <span style="color: #4ade80;">Minimal nausea/side effects (4.7/5.0)</span><br>
+        5. <span style="color: #4ade80;">Quick recovery (4.7/5.0)</span>
+      </div>
+    </div>
+    <div>
+      <div style="font-weight: 600; margin-bottom: 12px;">Improvement Opportunities</div>
+      <div style="font-size: 13px; color: #9aa0a6; line-height: 1.8;">
+        1. <span style="color: #fbbf24;">Post-op nausea prevention (4.5/5.0)</span><br>
+        2. <span style="color: #fbbf24;">Recovery room comfort (4.5/5.0)</span><br>
+        3. <span style="color: #fbbf24;">Discharge instructions clarity (4.6/5.0)</span><br>
+        4. <span style="color: #fbbf24;">Pre-op wait time experience (4.4/5.0)</span><br>
+        5. <span style="color: #4ade80;">Follow-up call timing (4.7/5.0)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Adverse Event Rate (per 1000 cases)</div>
+    <div class="chart-container">
+      <canvas id="adverse-events"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Quality Score Comparison</div>
+    <div style="margin-top: 16px;">
+      <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 12px; color: #9aa0a6; margin-bottom: 4px;">AAS Quality Score</div>
+            <div style="font-size: 28px; font-weight: 700; color: #10b981;">4.8/5.0</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 12px; color: #9aa0a6; margin-bottom: 4px;">vs. National Avg</div>
+            <div style="font-size: 20px; font-weight: 700; color: #4ade80;">+0.4</div>
+          </div>
+        </div>
+      </div>
+      <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px; margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 12px; color: #9aa0a6; margin-bottom: 4px;">Safety Score</div>
+            <div style="font-size: 28px; font-weight: 700; color: #10b981;">99.2%</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 12px; color: #9aa0a6; margin-bottom: 4px;">vs. Industry Benchmark</div>
+            <div style="font-size: 20px; font-weight: 700; color: #4ade80;">+1.8%</div>
+          </div>
+        </div>
+      </div>
+      <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 12px; color: #9aa0a6; margin-bottom: 4px;">Would Recommend</div>
+            <div style="font-size: 28px; font-weight: 700; color: #10b981;">96%</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 12px; color: #9aa0a6; margin-bottom: 4px;">vs. Peer Group</div>
+            <div style="font-size: 20px; font-weight: 700; color: #4ade80;">+8%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('safety-trend'), {
+  type: 'line',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [{
+      label: 'Safety Score %',
+      data: [98.8, 99.0, 99.1, 99.0, 99.2, 99.3, 99.1, 99.2, 99.3, 99.2, 99.1, 99.2],
+      borderColor: '#10b981',
+      backgroundColor: 'rgba(16,185,129,0.1)',
+      fill: true,
+      tension: 0.4,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, min: 98, max: 100 }
+    }
+  }
+});
+
+new Chart(document.getElementById('outcomes'), {
+  type: 'bar',
+  data: {
+    labels: ['No Complications', 'Minor Nausea', 'Pain > Expected', 'Extended Recovery', 'Adverse Event'],
+    datasets: [{
+      label: 'Percentage',
+      data: [98.7, 8.2, 2.1, 0.8, 0.2],
+      backgroundColor: ['#10b981', '#fbbf24', '#f59e0b', '#f59e0b', '#ef4444']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, min: 0, max: 100 }
+    }
+  }
+});
+
+new Chart(document.getElementById('pain-by-procedure'), {
+  type: 'bar',
+  data: {
+    labels: ['Orthopedic', 'ENT', 'GI/Endo', 'Ophthalmology', 'General Surgery'],
+    datasets: [{
+      label: 'Pain Control Score',
+      data: [4.9, 4.8, 4.8, 4.7, 4.8],
+      backgroundColor: ['#10b981', '#4ade80', '#4ade80', '#fbbf24', '#4ade80']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 0, max: 5 }
+    }
+  }
+});
+
+new Chart(document.getElementById('education'), {
+  type: 'bar',
+  data: {
+    labels: ['Understanding Risks', 'NPO Instructions', 'Recovery Expectations', 'Post-Op Care', 'When to Call'],
+    datasets: [{
+      label: 'Score',
+      data: [4.9, 4.8, 4.7, 4.6, 4.7],
+      backgroundColor: ['#10b981', '#4ade80', '#4ade80', '#fbbf24', '#4ade80']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 0, max: 5 },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('adverse-events'), {
+  type: 'line',
+  data: {
+    labels: ['Dec','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [
+      { label: 'AAS Rate', data: [2.1, 2.0, 1.8, 1.9, 1.7, 1.6, 1.8, 1.7, 1.5, 1.6, 1.7, 1.5], borderColor: '#10b981', tension: 0.4, borderWidth: 3 },
+      { label: 'National Average', data: [3.2, 3.1, 3.2, 3.1, 3.0, 3.1, 3.0, 3.1, 3.0, 3.1, 3.0, 3.1], borderColor: '#ef4444', tension: 0.4, borderWidth: 2, borderDash: [5,5] }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 0, max: 5 }
+    }
+  }
+});
+</script>
+</body></html>

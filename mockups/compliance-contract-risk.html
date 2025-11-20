@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAS - Contract & Regulatory Risk</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.value-orange { color: #f59e0b; }
+.value-red { color: #ef4444; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.contract-card { background: rgba(255,255,255,0.03); border-left: 4px solid #3b82f6; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.contract-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.contract-name { font-size: 15px; font-weight: 600; }
+.contract-badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.badge-critical { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+.badge-warning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.badge-healthy { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+.contract-detail { font-size: 12px; color: #9aa0a6; margin-bottom: 4px; }
+.table-grid { display: grid; grid-template-columns: 150px repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+.table-header { font-size: 11px; color: #9aa0a6; font-weight: 600; padding: 12px 8px; background: rgba(255,255,255,0.05); border-radius: 4px; text-align: center; }
+.table-cell { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 12px 8px; text-align: center; font-size: 13px; }
+.asc-name { text-align: left; font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Contract & Regulatory Risk</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Portfolio Risk Management</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Total Active Contracts</div>
+    <div class="metric-value value-blue">29</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Renewals (Next 90 Days)</div>
+    <div class="metric-value value-orange">3</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">High-Risk Contracts</div>
+    <div class="metric-value value-red">2</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Revenue at Risk</div>
+    <div class="metric-value value-orange">$2.4M</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Contract Compliance %</div>
+    <div class="metric-value value-green">93%</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">⚠️ Contracts at Risk - Immediate Attention Required</div>
+
+  <div class="contract-card" style="border-left-color: #ef4444;">
+    <div class="contract-header">
+      <div class="contract-name">Solaris 1 (MI)</div>
+      <span class="contract-badge badge-critical">HIGH RISK</span>
+    </div>
+    <div class="contract-detail">📅 Renewal Date: Jan 15, 2026 (57 days) • Revenue: $1.2M/year</div>
+    <div class="contract-detail">⚠️ Subsidy Reliance: 82% (3 consecutive months >80%)</div>
+    <div class="contract-detail">📊 Action: Schedule renewal meeting, discuss pricing adjustment or volume increase</div>
+  </div>
+
+  <div class="contract-card" style="border-left-color: #ef4444;">
+    <div class="contract-header">
+      <div class="contract-name">Riverview De Novo (MI)</div>
+      <span class="contract-badge badge-critical">HIGH RISK</span>
+    </div>
+    <div class="contract-detail">📅 Renewal Date: Feb 28, 2026 (101 days) • Revenue: $1.1M/year</div>
+    <div class="contract-detail">⚠️ Subsidy Reliance: 78% (Low case volume, high labor floor)</div>
+    <div class="contract-detail">📊 Action: Review staffing model, consider labor cost optimization</div>
+  </div>
+
+  <div class="contract-card" style="border-left-color: #f59e0b;">
+    <div class="contract-header">
+      <div class="contract-name">IU Health Lafayette</div>
+      <span class="contract-badge badge-warning">MONITOR</span>
+    </div>
+    <div class="contract-detail">📅 Renewal Date: Mar 31, 2026 (132 days) • Revenue: $890K/year</div>
+    <div class="contract-detail">📊 Staffing FTE: 8.5 vs. Contracted 9.0 (variance alert)</div>
+    <div class="contract-detail">📊 Action: Hire 1 additional provider to meet contract terms</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Subsidy Reliance by ASC (Labor Floor %)</div>
+    <div class="chart-container">
+      <canvas id="subsidyReliance"></canvas>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Contracts by Renewal Timeline</div>
+    <div class="chart-container">
+      <canvas id="renewalTimeline"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">IU Health Performance Metrics (Collections vs. 98% Threshold)</div>
+  <div class="table-grid" style="grid-template-columns: 150px 120px 120px 100px;">
+    <div class="table-header">IU Health Location</div>
+    <div class="table-header">Collections Rate</div>
+    <div class="table-header">vs. 98% Threshold</div>
+    <div class="table-header">Status</div>
+
+    <div class="table-cell asc-name">IU Health 1</div>
+    <div class="table-cell value-green">98.5%</div>
+    <div class="table-cell value-green">+0.5%</div>
+    <div class="table-cell value-green">✓ Compliant</div>
+
+    <div class="table-cell asc-name">IU Health 2</div>
+    <div class="table-cell value-green">98.2%</div>
+    <div class="table-cell value-green">+0.2%</div>
+    <div class="table-cell value-green">✓ Compliant</div>
+
+    <div class="table-cell asc-name">IU Health 3</div>
+    <div class="table-cell value-green">99.1%</div>
+    <div class="table-cell value-green">+1.1%</div>
+    <div class="table-cell value-green">✓ Compliant</div>
+
+    <div class="table-cell asc-name">IU Lafayette</div>
+    <div class="table-cell value-orange">97.5%</div>
+    <div class="table-cell value-orange">-0.5%</div>
+    <div class="table-cell value-orange">⚠ Monitor</div>
+
+    <div class="table-cell asc-name">IU Greenwood</div>
+    <div class="table-cell value-green">98.8%</div>
+    <div class="table-cell value-green">+0.8%</div>
+    <div class="table-cell value-green">✓ Compliant</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">State-Specific Regulatory Compliance</div>
+    <div class="table-grid" style="grid-template-columns: 100px 1fr 100px;">
+      <div class="table-header">State</div>
+      <div class="table-header">Requirement</div>
+      <div class="table-header">Status</div>
+
+      <div class="table-cell">Michigan</div>
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">CPOM Compliance (No fee-splitting)</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell">Michigan</div>
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">CRNA Supervision Requirements</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell">Indiana</div>
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">CRNA Practice Act Compliance</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell">Indiana</div>
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Scope of Practice Documentation</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell">Multi-State</div>
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Stark Law / Anti-Kickback Compliance</div>
+      <div class="table-cell value-green">✓</div>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Legal & Compliance Incidents (Last 12 Months)</div>
+    <div class="chart-container">
+      <canvas id="incidents"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">New ASC Contract Onboarding Checklist Status</div>
+  <div class="table-grid" style="grid-template-columns: 150px repeat(5, 1fr);">
+    <div class="table-header">New ASC</div>
+    <div class="table-header">Staffing</div>
+    <div class="table-header">Credentialing</div>
+    <div class="table-header">Payer Setup</div>
+    <div class="table-header">Billing</div>
+    <div class="table-header">Go-Live</div>
+
+    <div class="table-cell asc-name">Riverview De Novo</div>
+    <div class="table-cell value-green">✓ Complete</div>
+    <div class="table-cell value-green">✓ Complete</div>
+    <div class="table-cell value-green">✓ Complete</div>
+    <div class="table-cell value-green">✓ Complete</div>
+    <div class="table-cell value-green">Nov 2025</div>
+
+    <div class="table-cell asc-name">IU Lafayette</div>
+    <div class="table-cell value-green">✓ Complete</div>
+    <div class="table-cell value-orange">⏳ 85%</div>
+    <div class="table-cell value-green">✓ Complete</div>
+    <div class="table-cell value-orange">⏳ In Progress</div>
+    <div class="table-cell">Dec 2025</div>
+
+    <div class="table-cell asc-name">BNJ Utica</div>
+    <div class="table-cell value-orange">⏳ 60%</div>
+    <div class="table-cell value-orange">⏳ 40%</div>
+    <div class="table-cell">Pending</div>
+    <div class="table-cell">Pending</div>
+    <div class="table-cell">Jan 2026</div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('subsidyReliance'), {
+  type: 'bar',
+  data: {
+    labels: ['Solaris 1', 'Riverview', 'BNJ Troy', 'Solaris 2', 'EEC 12 Mi', 'Corewell 2', 'IU Lafayette', 'IU Health 1', 'IU Health 2', 'IU Health 3'],
+    datasets: [{
+      label: 'Subsidy %',
+      data: [82, 78, 65, 58, 52, 48, 42, 15, 12, 8],
+      backgroundColor: ['#ef4444', '#ef4444', '#f59e0b', '#f59e0b', '#f59e0b', '#10b981', '#10b981', '#10b981', '#10b981', '#10b981']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('renewalTimeline'), {
+  type: 'doughnut',
+  data: {
+    labels: ['0-90 Days (3)', '91-180 Days (5)', '181-365 Days (8)', '> 365 Days (13)'],
+    datasets: [{
+      data: [3, 5, 8, 13],
+      backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#10b981']
+    }]
+  },
+  options: { ...cfg, plugins: { legend: { position: 'right', labels: { color: '#e8eaed', padding: 15, font: { size: 12 } } } } }
+});
+
+new Chart(document.getElementById('incidents'), {
+  type: 'bar',
+  data: {
+    labels: ['Billing Dispute', 'Contract Term Dispute', 'Provider Complaint', 'Payer Audit', 'Regulatory Inquiry', 'Other'],
+    datasets: [{
+      label: 'Incidents',
+      data: [2, 1, 3, 1, 0, 1],
+      backgroundColor: ['#f59e0b', '#ef4444', '#3b82f6', '#8b5cf6', '#10b981', '#6b7280']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 10 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', stepSize: 1 } }
+    }
+  }
+});
+</script>
+</body>
+</html>

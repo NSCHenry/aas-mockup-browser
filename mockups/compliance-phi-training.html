@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAS - PHI Incident Response & Training</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.value-orange { color: #f59e0b; }
+.value-red { color: #ef4444; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.incident-card { background: rgba(255,255,255,0.03); border-left: 4px solid #3b82f6; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.incident-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.incident-title { font-size: 14px; font-weight: 600; }
+.incident-badge { padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+.badge-critical { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+.badge-moderate { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+.badge-low { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+.badge-closed { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+.incident-detail { font-size: 12px; color: #9aa0a6; margin-bottom: 4px; }
+.table-grid { display: grid; grid-template-columns: 150px repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+.table-header { font-size: 11px; color: #9aa0a6; font-weight: 600; padding: 12px 8px; background: rgba(255,255,255,0.05); border-radius: 4px; text-align: center; }
+.table-cell { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 12px 8px; text-align: center; font-size: 13px; }
+.dept-name { text-align: left; font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>PHI Incident Response & Training</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Breach Management & Workforce Training</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">HIPAA Training Completion</div>
+    <div class="metric-value value-green">97.2%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Reportable Breaches (YTD)</div>
+    <div class="metric-value value-green">0</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Near-Miss Incidents (30d)</div>
+    <div class="metric-value value-orange">3</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Avg Breach Detection Time</div>
+    <div class="metric-value value-green">2.1 days</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Last Risk Assessment</div>
+    <div class="metric-value value-green">Feb 2025</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Recent Incidents & Near-Miss Events</div>
+
+  <div class="incident-card" style="border-left-color: #f59e0b;">
+    <div class="incident-header">
+      <div class="incident-title">Email Misdirection - Patient PHI</div>
+      <span class="incident-badge badge-moderate">NEAR-MISS</span>
+    </div>
+    <div class="incident-detail">📅 Date: Nov 12, 2025 • Status: Closed</div>
+    <div class="incident-detail">📝 Description: Billing staff emailed patient invoice to wrong recipient (same last name)</div>
+    <div class="incident-detail">⚡ Action Taken: Email recalled within 5 minutes, recipient confirmed deletion</div>
+    <div class="incident-detail">✅ Corrective Action: Implemented double-check protocol for email recipients</div>
+  </div>
+
+  <div class="incident-card" style="border-left-color: #3b82f6;">
+    <div class="incident-header">
+      <div class="incident-title">Unencrypted Laptop Left in Vehicle</div>
+      <span class="incident-badge badge-low">LOW RISK</span>
+    </div>
+    <div class="incident-detail">📅 Date: Nov 5, 2025 • Status: Closed</div>
+    <div class="incident-detail">📝 Description: Provider laptop (unencrypted) left in locked vehicle overnight</div>
+    <div class="incident-detail">⚡ Action Taken: Device recovered, no theft occurred, forced encryption enabled</div>
+    <div class="incident-detail">✅ Corrective Action: Mandatory BitLocker for all provider laptops by Dec 1</div>
+  </div>
+
+  <div class="incident-card" style="border-left-color: #10b981;">
+    <div class="incident-header">
+      <div class="incident-title">Unauthorized Fax Recipient</div>
+      <span class="incident-badge badge-closed">CLOSED</span>
+    </div>
+    <div class="incident-detail">📅 Date: Oct 28, 2025 • Status: Closed</div>
+    <div class="incident-detail">📝 Description: Pre-op records faxed to wrong ASC due to speed dial error</div>
+    <div class="incident-detail">⚡ Action Taken: Recipient ASC confirmed shredding of records per BAA</div>
+    <div class="incident-detail">✅ Corrective Action: Speed dial labels updated, training refresher conducted</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">HIPAA Training Completion by Department</div>
+    <div class="chart-container">
+      <canvas id="trainingCompletion"></canvas>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Breach Root Cause Analysis (Last 24 Months)</div>
+    <div class="chart-container">
+      <canvas id="breachRootCause"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Training Status by Employee Type</div>
+  <div class="table-grid">
+    <div class="table-header">Department</div>
+    <div class="table-header">Total Staff</div>
+    <div class="table-header">Training Complete</div>
+    <div class="table-header">Overdue</div>
+    <div class="table-header">Completion Rate</div>
+
+    <div class="table-cell dept-name">Providers (Clinical)</div>
+    <div class="table-cell">199</div>
+    <div class="table-cell value-green">192</div>
+    <div class="table-cell value-orange">7</div>
+    <div class="table-cell">96.5%</div>
+
+    <div class="table-cell dept-name">Back Office</div>
+    <div class="table-cell">5</div>
+    <div class="table-cell value-green">5</div>
+    <div class="table-cell value-green">0</div>
+    <div class="table-cell value-green">100%</div>
+
+    <div class="table-cell dept-name">Billing & RCM</div>
+    <div class="table-cell">8</div>
+    <div class="table-cell value-green">8</div>
+    <div class="table-cell value-green">0</div>
+    <div class="table-cell value-green">100%</div>
+
+    <div class="table-cell dept-name">HR & Credentialing</div>
+    <div class="table-cell">2</div>
+    <div class="table-cell value-green">2</div>
+    <div class="table-cell value-green">0</div>
+    <div class="table-cell value-green">100%</div>
+
+    <div class="table-cell dept-name">IT & Operations</div>
+    <div class="table-cell">3</div>
+    <div class="table-cell value-green">3</div>
+    <div class="table-cell value-green">0</div>
+    <div class="table-cell value-green">100%</div>
+
+    <div class="table-cell dept-name">Leadership</div>
+    <div class="table-cell">4</div>
+    <div class="table-cell value-green">4</div>
+    <div class="table-cell value-green">0</div>
+    <div class="table-cell value-green">100%</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Breach Notification Timeline Performance</div>
+    <div class="table-grid" style="grid-template-columns: 1fr 120px 100px;">
+      <div class="table-header">Metric</div>
+      <div class="table-header">Actual</div>
+      <div class="table-header">Target</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Days to Breach Discovery</div>
+      <div class="table-cell value-green">2.1</div>
+      <div class="table-cell">< 5 days</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Days to HHS Notification</div>
+      <div class="table-cell value-green">N/A</div>
+      <div class="table-cell">< 60 days</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Days to Individual Notification</div>
+      <div class="table-cell value-green">N/A</div>
+      <div class="table-cell">< 60 days</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Corrective Action Plan Completion</div>
+      <div class="table-cell value-green">100%</div>
+      <div class="table-cell">100%</div>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Patient Privacy Complaints</div>
+    <div class="chart-container" style="height: 250px;">
+      <canvas id="privacyComplaints"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Annual HIPAA Risk Assessment</div>
+  <div class="grid-2">
+    <div>
+      <div class="metric">
+        <div class="metric-label">Last Completed</div>
+        <div class="metric-value value-green">Feb 2025</div>
+      </div>
+      <div class="metric" style="margin-top: 16px;">
+        <div class="metric-label">Next Due Date</div>
+        <div class="metric-value value-blue">Feb 2026</div>
+      </div>
+    </div>
+    <div>
+      <div style="padding: 20px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+        <div style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">2025 Risk Assessment Summary</div>
+        <div style="font-size: 12px; color: #9aa0a6; line-height: 1.8;">
+          ✓ Technical safeguards reviewed<br>
+          ✓ Physical safeguards assessed<br>
+          ✓ Administrative safeguards evaluated<br>
+          ✓ 12 risks identified, 10 remediated<br>
+          ⏳ 2 risks in progress (mobile encryption, MFA)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Policies & Procedures Last Review Date</div>
+  <div class="table-grid" style="grid-template-columns: 200px 150px 120px;">
+    <div class="table-header">Policy Document</div>
+    <div class="table-header">Last Updated</div>
+    <div class="table-header">Status</div>
+
+    <div class="table-cell" style="text-align: left; padding-left: 12px;">HIPAA Privacy Policy</div>
+    <div class="table-cell">Jan 2025</div>
+    <div class="table-cell value-green">✓ Current</div>
+
+    <div class="table-cell" style="text-align: left; padding-left: 12px;">HIPAA Security Policy</div>
+    <div class="table-cell">Jan 2025</div>
+    <div class="table-cell value-green">✓ Current</div>
+
+    <div class="table-cell" style="text-align: left; padding-left: 12px;">Breach Notification Policy</div>
+    <div class="table-cell">Mar 2025</div>
+    <div class="table-cell value-green">✓ Current</div>
+
+    <div class="table-cell" style="text-align: left; padding-left: 12px;">Incident Response Plan</div>
+    <div class="table-cell">Feb 2025</div>
+    <div class="table-cell value-green">✓ Current</div>
+
+    <div class="table-cell" style="text-align: left; padding-left: 12px;">Business Associate Management</div>
+    <div class="table-cell">Apr 2025</div>
+    <div class="table-cell value-green">✓ Current</div>
+
+    <div class="table-cell" style="text-align: left; padding-left: 12px;">Remote Work Policy</div>
+    <div class="table-cell">Sep 2024</div>
+    <div class="table-cell value-orange">⚠ Review Needed</div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('trainingCompletion'), {
+  type: 'bar',
+  data: {
+    labels: ['Providers', 'Back Office', 'Billing', 'HR', 'IT', 'Leadership'],
+    datasets: [{
+      label: 'Completion Rate (%)',
+      data: [96.5, 100, 100, 100, 100, 100],
+      backgroundColor: ['#f59e0b', '#10b981', '#10b981', '#10b981', '#10b981', '#10b981']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, min: 95, max: 100 }
+    }
+  }
+});
+
+new Chart(document.getElementById('breachRootCause'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Email Misdirection (3)', 'Lost Device (2)', 'Unauthorized Access (1)', 'Improper Disposal (1)', 'Fax Error (2)'],
+    datasets: [{
+      data: [3, 2, 1, 1, 2],
+      backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899']
+    }]
+  },
+  options: { ...cfg, plugins: { legend: { position: 'right', labels: { color: '#e8eaed', padding: 12, font: { size: 11 } } } } }
+});
+
+new Chart(document.getElementById('privacyComplaints'), {
+  type: 'bar',
+  data: {
+    labels: ['Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
+    datasets: [{
+      label: 'Patient Complaints',
+      data: [1, 0, 2, 1],
+      backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#3b82f6']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', stepSize: 1 } }
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAS - PHI Security & Access Control</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.value-orange { color: #f59e0b; }
+.value-red { color: #ef4444; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.alert-box { background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.alert-title { font-size: 14px; font-weight: 600; color: #ef4444; margin-bottom: 8px; }
+.alert-detail { font-size: 12px; color: #9aa0a6; }
+.table-grid { display: grid; grid-template-columns: 150px repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+.table-header { font-size: 11px; color: #9aa0a6; font-weight: 600; padding: 12px 8px; background: rgba(255,255,255,0.05); border-radius: 4px; text-align: center; }
+.table-cell { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 12px 8px; text-align: center; font-size: 13px; }
+.user-name { text-align: left; font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>PHI Security & Access Control</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • HIPAA Security Rule Compliance</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Total System Users</div>
+    <div class="metric-value value-blue">215</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">MFA Adoption Rate</div>
+    <div class="metric-value value-green">98.6%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Unauthorized Access Attempts (30d)</div>
+    <div class="metric-value value-green">0</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">PHI Encryption Status</div>
+    <div class="metric-value value-green">100%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Access Violations (30d)</div>
+    <div class="metric-value value-orange">2</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">🚨 Security Alerts - Immediate Action Required</div>
+  <div class="grid-2">
+    <div>
+      <div class="alert-box">
+        <div class="alert-title">3 Terminated Employees with Active Access</div>
+        <div class="alert-detail">Accounts not disabled within 24 hours • Immediate revocation required</div>
+        <div class="alert-detail">Users: jsmith@aas.com, mwilliams@aas.com, dbrown@aas.com</div>
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Role-Based Access Violation Detected</div>
+        <div class="alert-detail">2 billing staff accessed clinical records outside role scope</div>
+        <div class="alert-detail">Action: Review access permissions and audit log</div>
+      </div>
+    </div>
+    <div>
+      <div class="alert-box">
+        <div class="alert-title">5 Devices Without Encryption</div>
+        <div class="alert-detail">Mobile devices accessing PHI without full-disk encryption</div>
+        <div class="alert-detail">Action: Enable BitLocker/FileVault or revoke PHI access</div>
+      </div>
+      <div class="alert-box" style="background: rgba(245, 158, 11, 0.1); border-left-color: #f59e0b;">
+        <div class="alert-title" style="color: #f59e0b;">8 Users Missing MFA</div>
+        <div class="alert-detail">1.4% of users without multi-factor authentication enabled</div>
+        <div class="alert-detail">Action: Enforce MFA by Dec 1, 2025</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">User Access Audit Trail Completeness</div>
+    <div class="table-grid" style="grid-template-columns: 1fr 120px 100px;">
+      <div class="table-header">System</div>
+      <div class="table-header">Logging Enabled</div>
+      <div class="table-header">Status</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Physicians Choice / VBRCM</div>
+      <div class="table-cell value-green">✓ Yes</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Connecteam (HR/Credentialing)</div>
+      <div class="table-cell value-green">✓ Yes</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Office 365 (Email)</div>
+      <div class="table-cell value-green">✓ Yes</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Azure Cloud Storage</div>
+      <div class="table-cell value-green">✓ Yes</div>
+      <div class="table-cell value-green">✓</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Paychex (Payroll)</div>
+      <div class="table-cell value-green">✓ Yes</div>
+      <div class="table-cell value-green">✓</div>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">MFA Adoption Rate by Department</div>
+    <div class="chart-container" style="height: 250px;">
+      <canvas id="mfaAdoption"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Password Policy Compliance</div>
+  <div class="grid-2">
+    <div class="chart-container" style="height: 250px;">
+      <canvas id="passwordCompliance"></canvas>
+    </div>
+    <div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div class="metric">
+          <div class="metric-label">Compliant Users</div>
+          <div class="metric-value value-green">207</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">Expired Passwords</div>
+          <div class="metric-value value-orange">8</div>
+        </div>
+      </div>
+      <div style="margin-top: 16px; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 8px;">
+        <div style="font-size: 13px; font-weight: 600; margin-bottom: 12px;">Policy Requirements:</div>
+        <div style="font-size: 12px; color: #9aa0a6; line-height: 1.6;">
+          ✓ Minimum 12 characters<br>
+          ✓ Upper & lowercase letters<br>
+          ✓ Numbers and special characters<br>
+          ✓ 90-day expiration<br>
+          ✓ No password reuse (last 12)
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Encryption Status (PHI Data)</div>
+    <div class="chart-container">
+      <canvas id="encryption"></canvas>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Mobile Device Security Compliance</div>
+    <div class="table-grid" style="grid-template-columns: 1fr 100px 100px;">
+      <div class="table-header">Security Control</div>
+      <div class="table-header">Compliant</div>
+      <div class="table-header">Status</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Device Encryption Enabled</div>
+      <div class="table-cell value-green">58/63</div>
+      <div class="table-cell value-orange">92%</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">VPN Required for PHI Access</div>
+      <div class="table-cell value-green">63/63</div>
+      <div class="table-cell value-green">100%</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Remote Wipe Capability</div>
+      <div class="table-cell value-green">63/63</div>
+      <div class="table-cell value-green">100%</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Auto-Lock (5 min timeout)</div>
+      <div class="table-cell value-green">61/63</div>
+      <div class="table-cell value-green">97%</div>
+
+      <div class="table-cell" style="text-align: left; padding-left: 12px;">Anti-Malware Software</div>
+      <div class="table-cell value-green">63/63</div>
+      <div class="table-cell value-green">100%</div>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Privileged Access Monitoring (Admin Accounts)</div>
+  <div class="table-grid" style="grid-template-columns: 150px 120px 120px 120px;">
+    <div class="table-header">User</div>
+    <div class="table-header">Access Level</div>
+    <div class="table-header">Last Activity</div>
+    <div class="table-header">Status</div>
+
+    <div class="table-cell user-name">admin@aas.com</div>
+    <div class="table-cell">System Admin</div>
+    <div class="table-cell">Nov 18, 2025</div>
+    <div class="table-cell value-green">✓ Active</div>
+
+    <div class="table-cell user-name">it.manager@aas.com</div>
+    <div class="table-cell">IT Admin</div>
+    <div class="table-cell">Nov 19, 2025</div>
+    <div class="table-cell value-green">✓ Active</div>
+
+    <div class="table-cell user-name">billing.admin@aas.com</div>
+    <div class="table-cell">Billing Admin</div>
+    <div class="table-cell">Nov 20, 2025</div>
+    <div class="table-cell value-green">✓ Active</div>
+
+    <div class="table-cell user-name">hr.director@aas.com</div>
+    <div class="table-cell">HR Admin</div>
+    <div class="table-cell">Nov 19, 2025</div>
+    <div class="table-cell value-green">✓ Active</div>
+
+    <div class="table-cell user-name">legacy.admin@aas.com</div>
+    <div class="table-cell">System Admin</div>
+    <div class="table-cell">Aug 12, 2025</div>
+    <div class="table-cell value-red">⚠ Stale</div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('mfaAdoption'), {
+  type: 'bar',
+  data: {
+    labels: ['Providers', 'Back Office', 'IT', 'Billing', 'HR', 'Leadership'],
+    datasets: [{
+      label: 'MFA Enabled (%)',
+      data: [97.5, 100, 100, 98.5, 100, 100],
+      backgroundColor: ['#f59e0b', '#10b981', '#10b981', '#10b981', '#10b981', '#10b981']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, min: 95, max: 100 }
+    }
+  }
+});
+
+new Chart(document.getElementById('passwordCompliance'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Compliant (207)', 'Expired (8)', 'Weak Password (0)'],
+    datasets: [{
+      data: [207, 8, 0],
+      backgroundColor: ['#10b981', '#f59e0b', '#ef4444']
+    }]
+  },
+  options: { ...cfg, plugins: { legend: { position: 'right', labels: { color: '#e8eaed', padding: 15 } } } }
+});
+
+new Chart(document.getElementById('encryption'), {
+  type: 'bar',
+  data: {
+    labels: ['PHI at Rest', 'PHI in Transit', 'Email (O365)', 'Azure Cloud', 'Backup Storage', 'Mobile Devices'],
+    datasets: [{
+      label: 'Encryption Coverage',
+      data: [100, 100, 100, 100, 100, 92],
+      backgroundColor: ['#10b981', '#10b981', '#10b981', '#10b981', '#10b981', '#f59e0b']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 10 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, max: 100 }
+    }
+  }
+});
+</script>
+</body>
+</html>

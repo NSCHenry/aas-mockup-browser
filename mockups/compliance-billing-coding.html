@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAS - Billing & Coding Compliance</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.value-orange { color: #f59e0b; }
+.value-red { color: #ef4444; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.alert-box { background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+.alert-title { font-size: 14px; font-weight: 600; color: #ef4444; margin-bottom: 8px; }
+.alert-detail { font-size: 12px; color: #9aa0a6; }
+.table-grid { display: grid; grid-template-columns: 150px repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+.table-header { font-size: 11px; color: #9aa0a6; font-weight: 600; padding: 12px 8px; background: rgba(255,255,255,0.05); border-radius: 4px; text-align: center; }
+.table-cell { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 12px 8px; text-align: center; font-size: 13px; }
+.asc-name { text-align: left; font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Billing & Coding Compliance</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • RCM Performance & Compliance Monitoring</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Clean Claim Rate</div>
+    <div class="metric-value value-green">96.2%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Coding Error Rate</div>
+    <div class="metric-value value-green">1.8%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Claims Flagged for Review</div>
+    <div class="metric-value value-orange">42</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Documentation Compliance</div>
+    <div class="metric-value value-green">98.5%</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Payer Audit Risk Score</div>
+    <div class="metric-value value-green">Low</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">🚨 Compliance Alerts - Action Required</div>
+  <div class="grid-2">
+    <div>
+      <div class="alert-box">
+        <div class="alert-title">IU Health 1 - Missing 99100 Modifier</div>
+        <div class="alert-detail">8 claims missing age >70 modifier • Potential underbilling of $1,240</div>
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Solaris 2 - Duplicate Claim Submissions</div>
+        <div class="alert-detail">3 duplicate claims detected • Risk of payer audit • Review required</div>
+      </div>
+    </div>
+    <div>
+      <div class="alert-box">
+        <div class="alert-title">BNJ Troy - Time Unit Documentation Gaps</div>
+        <div class="alert-detail">12 claims missing start/stop times • At risk for denial on audit</div>
+      </div>
+      <div class="alert-box">
+        <div class="alert-title">Riverview ASC - Unbundling Detected</div>
+        <div class="alert-detail">2 claims flagged for improper unbundling • Requires immediate review</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Clean Claim Rate by ASC (Top 10)</div>
+    <div class="chart-container">
+      <canvas id="cleanClaimRate"></canvas>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">Clean Claim Rate by Payer</div>
+    <div class="chart-container">
+      <canvas id="cleanClaimPayer"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Coding Audit Results (Last 6 Months)</div>
+  <div class="table-grid" style="grid-template-columns: 100px 120px 120px 100px 100px;">
+    <div class="table-header">Month</div>
+    <div class="table-header">Claims Audited</div>
+    <div class="table-header">Errors Found</div>
+    <div class="table-header">Error Rate</div>
+    <div class="table-header">Error Type</div>
+
+    <div class="table-cell">June 2025</div>
+    <div class="table-cell">250</div>
+    <div class="table-cell value-orange">6</div>
+    <div class="table-cell">2.4%</div>
+    <div class="table-cell">Modifier</div>
+
+    <div class="table-cell">July 2025</div>
+    <div class="table-cell">280</div>
+    <div class="table-cell value-orange">5</div>
+    <div class="table-cell">1.8%</div>
+    <div class="table-cell">Time Units</div>
+
+    <div class="table-cell">Aug 2025</div>
+    <div class="table-cell">265</div>
+    <div class="table-cell value-orange">4</div>
+    <div class="table-cell">1.5%</div>
+    <div class="table-cell">Documentation</div>
+
+    <div class="table-cell">Sept 2025</div>
+    <div class="table-cell">290</div>
+    <div class="table-cell value-orange">7</div>
+    <div class="table-cell">2.4%</div>
+    <div class="table-cell">99100 Modifier</div>
+
+    <div class="table-cell">Oct 2025</div>
+    <div class="table-cell">275</div>
+    <div class="table-cell value-green">3</div>
+    <div class="table-cell value-green">1.1%</div>
+    <div class="table-cell">Time Units</div>
+
+    <div class="table-cell">Nov 2025</div>
+    <div class="table-cell">285</div>
+    <div class="table-cell value-green">5</div>
+    <div class="table-cell">1.8%</div>
+    <div class="table-cell">Modifier</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Claims Flagged for Compliance Review</div>
+    <div class="chart-container">
+      <canvas id="flaggedClaims"></canvas>
+    </div>
+  </div>
+
+  <div class="tile">
+    <div class="tile-title">ASC Contract Compliance Status</div>
+    <div class="table-grid" style="grid-template-columns: 1fr 120px 100px;">
+      <div class="table-header">ASC</div>
+      <div class="table-header">Collections vs. Floor</div>
+      <div class="table-header">Status</div>
+
+      <div class="table-cell asc-name">IU Health 1</div>
+      <div class="table-cell value-green">102%</div>
+      <div class="table-cell value-green">✓ Compliant</div>
+
+      <div class="table-cell asc-name">IU Health 2</div>
+      <div class="table-cell value-green">98%</div>
+      <div class="table-cell value-green">✓ Compliant</div>
+
+      <div class="table-cell asc-name">Riverview ASC</div>
+      <div class="table-cell value-orange">92%</div>
+      <div class="table-cell value-orange">⚠ Monitor</div>
+
+      <div class="table-cell asc-name">Solaris 1</div>
+      <div class="table-cell value-orange">89%</div>
+      <div class="table-cell value-orange">⚠ Monitor</div>
+
+      <div class="table-cell asc-name">BNJ Troy</div>
+      <div class="table-cell value-green">105%</div>
+      <div class="table-cell value-green">✓ Compliant</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('cleanClaimRate'), {
+  type: 'bar',
+  data: {
+    labels: ['IU Health 1', 'IU Health 2', 'Riverview', 'BNJ Troy', 'Solaris 1', 'Solaris 2', 'Corewell 2', 'IU Lafayette', 'IU Greenwood', 'EEC 12 Mile'],
+    datasets: [{
+      label: 'Clean Claim Rate (%)',
+      data: [98.2, 97.5, 94.8, 95.2, 93.5, 96.8, 97.2, 98.5, 96.5, 95.8],
+      backgroundColor: ['#10b981', '#10b981', '#f59e0b', '#f59e0b', '#f59e0b', '#10b981', '#10b981', '#10b981', '#10b981', '#10b981']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, min: 90, max: 100 },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } }
+    }
+  }
+});
+
+new Chart(document.getElementById('cleanClaimPayer'), {
+  type: 'bar',
+  data: {
+    labels: ['BCBS', 'UnitedHealthcare', 'Aetna', 'Cigna', 'Medicare', 'Medicaid', 'Workers Comp', 'Self-Pay'],
+    datasets: [{
+      label: 'Clean Claim Rate (%)',
+      data: [97.5, 96.2, 95.8, 96.5, 98.2, 92.5, 94.2, 88.5],
+      backgroundColor: ['#10b981', '#10b981', '#10b981', '#10b981', '#10b981', '#f59e0b', '#f59e0b', '#ef4444']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 10 } } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, max: 100 }
+    }
+  }
+});
+
+new Chart(document.getElementById('flaggedClaims'), {
+  type: 'bar',
+  data: {
+    labels: ['Duplicate Claims', 'Unbundling', 'Upcoding Suspected', 'Missing Documentation', 'Time Unit Errors', 'Modifier Errors'],
+    datasets: [{
+      label: 'Claims Flagged',
+      data: [8, 5, 3, 12, 9, 5],
+      backgroundColor: ['#ef4444', '#ef4444', '#f59e0b', '#f59e0b', '#3b82f6', '#3b82f6']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } }
+    }
+  }
+});
+</script>
+</body>
+</html>

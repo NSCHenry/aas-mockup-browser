@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Patient Satisfaction - By Location</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; background: #1a1d2e; color: #e8eaed; padding: 20px; min-width: 1024px; }
+.header { margin-bottom: 30px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #9aa0a6; font-size: 14px; }
+.metric-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+.metric { padding: 20px; background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 8px; }
+.metric-value { font-size: 32px; font-weight: 700; }
+.value-green { color: #4ade80; }
+.value-blue { color: #3b82f6; }
+.tile { background: linear-gradient(145deg, #252940 0%, #2d3348 100%); border-radius: 12px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-bottom: 20px; }
+.tile-title { font-size: 18px; margin-bottom: 20px; font-weight: 600; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.chart-container { position: relative; height: 300px; margin-top: 16px; }
+.location-grid { display: grid; gap: 12px; margin-top: 16px; }
+.location-card { background: rgba(255,255,255,0.02); border-radius: 8px; padding: 20px; position: relative; }
+.location-excellent { border-left: 4px solid #10b981; }
+.location-good { border-left: 4px solid #4ade80; }
+.location-fair { border-left: 4px solid #fbbf24; }
+.location-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.location-name { font-weight: 600; font-size: 16px; }
+.location-score { font-size: 28px; font-weight: 700; }
+.location-excellent .location-score { color: #10b981; }
+.location-good .location-score { color: #4ade80; }
+.location-fair .location-score { color: #fbbf24; }
+.location-details { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.location-detail { font-size: 12px; }
+.location-detail-label { color: #9aa0a6; display: block; margin-bottom: 4px; }
+.location-detail-value { font-weight: 600; }
+</style>
+</head><body>
+<div class="header">
+  <h1>Patient Satisfaction - By Location</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • ASC Performance Breakdown</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Locations Tracked</div>
+    <div class="metric-value value-blue">29</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Above 4.5</div>
+    <div class="metric-value value-green">27</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Need Improvement</div>
+    <div class="metric-value" style="color: #fbbf24;">2</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Avg Across All</div>
+    <div class="metric-value value-green">4.8/5.0</div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Satisfaction by State</div>
+    <div class="chart-container">
+      <canvas id="by-state"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Satisfaction by ASC System</div>
+    <div class="chart-container">
+      <canvas id="by-system"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Top Performing Locations (November 2025)</div>
+  <div class="location-grid">
+    <div class="location-card location-excellent">
+      <div class="location-header">
+        <div class="location-name">IU Health 1 - Indianapolis, IN</div>
+        <div class="location-score">4.9</div>
+      </div>
+      <div class="location-details">
+        <div class="location-detail">
+          <span class="location-detail-label">Surveys</span>
+          <span class="location-detail-value">287</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Response Rate</span>
+          <span class="location-detail-value">72%</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Cases</span>
+          <span class="location-detail-value">398</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Trend</span>
+          <span class="location-detail-value" style="color: #4ade80;">↑ +0.2</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="location-card location-excellent">
+      <div class="location-header">
+        <div class="location-name">Corewell 1 - Troy, MI</div>
+        <div class="location-score">4.9</div>
+      </div>
+      <div class="location-details">
+        <div class="location-detail">
+          <span class="location-detail-label">Surveys</span>
+          <span class="location-detail-value">312</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Response Rate</span>
+          <span class="location-detail-value">69%</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Cases</span>
+          <span class="location-detail-value">453</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Trend</span>
+          <span class="location-detail-value" style="color: #4ade80;">↑ +0.1</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="location-card location-excellent">
+      <div class="location-header">
+        <div class="location-name">IU Health 2 - Indianapolis, IN</div>
+        <div class="location-score">4.8</div>
+      </div>
+      <div class="location-details">
+        <div class="location-detail">
+          <span class="location-detail-label">Surveys</span>
+          <span class="location-detail-value">265</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Response Rate</span>
+          <span class="location-detail-value">70%</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Cases</span>
+          <span class="location-detail-value">379</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Trend</span>
+          <span class="location-detail-value">→ 0.0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="location-card location-good">
+      <div class="location-header">
+        <div class="location-name">Riverview - Troy, MI</div>
+        <div class="location-score">4.8</div>
+      </div>
+      <div class="location-details">
+        <div class="location-detail">
+          <span class="location-detail-label">Surveys</span>
+          <span class="location-detail-value">198</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Response Rate</span>
+          <span class="location-detail-value">68%</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Cases</span>
+          <span class="location-detail-value">291</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Trend</span>
+          <span class="location-detail-value" style="color: #4ade80;">↑ +0.3</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="location-card location-good">
+      <div class="location-header">
+        <div class="location-name">IU Greenwood - Greenwood, IN</div>
+        <div class="location-score">4.7</div>
+      </div>
+      <div class="location-details">
+        <div class="location-detail">
+          <span class="location-detail-label">Surveys</span>
+          <span class="location-detail-value">176</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Response Rate</span>
+          <span class="location-detail-value">66%</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Cases</span>
+          <span class="location-detail-value">267</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Trend</span>
+          <span class="location-detail-value" style="color: #4ade80;">↑ +0.1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Locations Needing Attention</div>
+  <div class="location-grid">
+    <div class="location-card location-fair">
+      <div class="location-header">
+        <div class="location-name">Solaris 3 - Elkhart, IN</div>
+        <div class="location-score">4.3</div>
+      </div>
+      <div class="location-details">
+        <div class="location-detail">
+          <span class="location-detail-label">Surveys</span>
+          <span class="location-detail-value">87</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Response Rate</span>
+          <span class="location-detail-value">58%</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Cases</span>
+          <span class="location-detail-value">150</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Trend</span>
+          <span class="location-detail-value" style="color: #ff6b6b;">↓ -0.2</span>
+        </div>
+      </div>
+      <div style="margin-top: 12px; padding: 12px; background: rgba(251,191,36,0.1); border-radius: 6px; font-size: 12px;">
+        <div style="font-weight: 600; margin-bottom: 6px; color: #fbbf24;">Key Issues:</div>
+        <div style="color: #9aa0a6;">• Pain management scores below average (4.1/5.0)<br>• Post-op nausea complaints up 15%<br>• Pre-op wait time concerns</div>
+      </div>
+    </div>
+
+    <div class="location-card location-fair">
+      <div class="location-header">
+        <div class="location-name">Solaris 2 - Fort Wayne, IN</div>
+        <div class="location-score">4.4</div>
+      </div>
+      <div class="location-details">
+        <div class="location-detail">
+          <span class="location-detail-label">Surveys</span>
+          <span class="location-detail-value">93</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Response Rate</span>
+          <span class="location-detail-value">61%</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Cases</span>
+          <span class="location-detail-value">152</span>
+        </div>
+        <div class="location-detail">
+          <span class="location-detail-label">Trend</span>
+          <span class="location-detail-value" style="color: #ff6b6b;">↓ -0.1</span>
+        </div>
+      </div>
+      <div style="margin-top: 12px; padding: 12px; background: rgba(251,191,36,0.1); border-radius: 6px; font-size: 12px;">
+        <div style="font-weight: 600; margin-bottom: 6px; color: #fbbf24;">Key Issues:</div>
+        <div style="color: #9aa0a6;">• Communication scores declining (4.3/5.0)<br>• Recovery room comfort concerns<br>• Request more post-op instructions</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Satisfaction Trend - Top 5 Locations</div>
+    <div class="chart-container">
+      <canvas id="top-locations-trend"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Survey Volume by Location Type</div>
+    <div class="chart-container">
+      <canvas id="volume-by-type"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
+
+new Chart(document.getElementById('by-state'), {
+  type: 'bar',
+  data: {
+    labels: ['Michigan', 'Indiana'],
+    datasets: [{
+      label: 'Avg Satisfaction',
+      data: [4.8, 4.7],
+      backgroundColor: ['#10b981', '#4ade80']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 0, max: 5 }
+    }
+  }
+});
+
+new Chart(document.getElementById('by-system'), {
+  type: 'bar',
+  data: {
+    labels: ['IU Health', 'Corewell', 'Beaumont NJ', 'Solaris', 'Riverview'],
+    datasets: [{
+      label: 'Avg Satisfaction',
+      data: [4.8, 4.8, 4.7, 4.4, 4.8],
+      backgroundColor: ['#10b981', '#10b981', '#4ade80', '#fbbf24', '#10b981']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 0, max: 5 }
+    }
+  }
+});
+
+new Chart(document.getElementById('top-locations-trend'), {
+  type: 'line',
+  data: {
+    labels: ['Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [
+      { label: 'IU Health 1', data: [4.7,4.8,4.8,4.9,4.9,4.9], borderColor: '#10b981', tension: 0.4, borderWidth: 2 },
+      { label: 'Corewell 1', data: [4.8,4.8,4.8,4.9,4.8,4.9], borderColor: '#3b82f6', tension: 0.4, borderWidth: 2 },
+      { label: 'IU Health 2', data: [4.7,4.8,4.8,4.8,4.8,4.8], borderColor: '#f59e0b', tension: 0.4, borderWidth: 2 },
+      { label: 'Riverview', data: [4.5,4.6,4.6,4.7,4.7,4.8], borderColor: '#8b5cf6', tension: 0.4, borderWidth: 2 },
+      { label: 'IU Greenwood', data: [4.6,4.6,4.7,4.7,4.7,4.7], borderColor: '#ec4899', tension: 0.4, borderWidth: 2 }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, min: 4.0, max: 5.0 }
+    }
+  }
+});
+
+new Chart(document.getElementById('volume-by-type'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Multi-Specialty (45%)', 'Orthopedic (32%)', 'GI/Endo (23%)'],
+    datasets: [{
+      data: [45, 32, 23],
+      backgroundColor: ['#10b981', '#3b82f6', '#f59e0b']
+    }]
+  },
+  options: { ...cfg }
+});
+</script>
+</body></html>

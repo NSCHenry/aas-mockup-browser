@@ -68,6 +68,44 @@ h1 { font-size: 28px; margin-bottom: 8px; }
     </div>
   </div>
 </div>
+
+<div class="tile" style="max-width: 1600px;">
+  <div class="tile-title">Win Rate by Source</div>
+  <div class="chart-container" style="height: 300px;"><canvas id="winRateSource"></canvas></div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1600px;">
+  <div class="tile">
+    <div class="tile-title">Win Rate by ASC Type</div>
+    <div class="chart-container" style="height: 300px;"><canvas id="winRateType"></canvas></div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Lost Opportunities by Reason (Last 12 Months)</div>
+    <div class="chart-container" style="height: 300px;"><canvas id="lostReasons"></canvas></div>
+  </div>
+</div>
+
+<div class="tile" style="max-width: 1600px;">
+  <div class="tile-title">Provider Referral Performance</div>
+  <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px;">
+    <div class="metric">
+      <div class="metric-label">Referrals Received (YTD)</div>
+      <div class="metric-value value-blue">23</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Converted to Opportunities</div>
+      <div class="metric-value value-green">18</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Signed Contracts</div>
+      <div class="metric-value value-green">6</div>
+    </div>
+    <div class="metric">
+      <div class="metric-label">Referral → Contract Rate</div>
+      <div class="metric-value value-green">26%</div>
+    </div>
+  </div>
+</div>
 <script>
 const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
 
@@ -145,6 +183,68 @@ new Chart(document.getElementById('velocity'), {
     scales: {
       x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
       y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + ' days' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('winRateSource'), {
+  type: 'bar',
+  data: {
+    labels: ['Inbound RFP', 'Management Co. Referral', 'Provider Referral', 'Outbound Prospecting', 'Conference/Trade Show'],
+    datasets: [{
+      label: 'Win Rate (%)',
+      data: [38, 52, 61, 28, 45],
+      backgroundColor: ['#3b82f6', '#10b981', '#4ade80', '#f59e0b', '#ec4899']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, max: 100 }
+    }
+  }
+});
+
+new Chart(document.getElementById('winRateType'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Independent ASC (48%)', 'Mgmt Co-Owned (42%)', 'Hospital-Owned (35%)', 'Multi-Specialty (51%)', 'Single-Specialty (39%)'],
+    datasets: [{
+      data: [48, 42, 35, 51, 39],
+      backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: {
+      legend: { position: 'right', labels: { color: '#e8eaed', padding: 15, font: { size: 12 } } },
+      tooltip: {
+        backgroundColor: 'rgba(37,41,64,0.95)',
+        callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + '%' }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('lostReasons'), {
+  type: 'bar',
+  data: {
+    labels: ['Pricing Too High', 'Lack of Differentiation', 'Labor Availability Concerns', 'Incumbent Advantage', 'Timeline Mismatch', 'Other'],
+    datasets: [{
+      label: 'Lost Opportunities',
+      data: [12, 8, 5, 7, 3, 4],
+      backgroundColor: ['#ef4444', '#f59e0b', '#fbbf24', '#ec4899', '#8b5cf6', '#6b7280']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } }
     }
   }
 });

@@ -231,19 +231,93 @@ h1 { font-size: 28px; margin-bottom: 8px; }
     </div>
 
     <div class="tile">
-      <div class="tile-title">Compensation Analysis</div>
+      <div class="tile-title">Compensation vs. Market</div>
       <div class="metric-row">
         <div class="metric">
-          <div class="metric-label">Avg MDA Offer</div>
-          <div class="metric-value" style="font-size: 20px;">$192K</div>
+          <div class="metric-label">MDA Percentile</div>
+          <div class="metric-value value-green" style="font-size: 20px;">62nd</div>
         </div>
         <div class="metric">
-          <div class="metric-label">Avg CRNA Offer</div>
-          <div class="metric-value" style="font-size: 20px;">$171K</div>
+          <div class="metric-label">CRNA Percentile</div>
+          <div class="metric-value value-green" style="font-size: 20px;">64th</div>
         </div>
       </div>
       <div class="chart-container" style="height: 180px;">
         <canvas id="compensation"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1800px; margin-top: 0;">
+  <div class="tile">
+    <div class="tile-title">Provider Breakdown by Employment Status</div>
+    <div class="chart-container" style="height: 300px;">
+      <canvas id="employmentStatus"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">PRN Scheduling Flexibility Utilization</div>
+    <div class="metric-row">
+      <div class="metric">
+        <div class="metric-label">Flex-Up Events (30d)</div>
+        <div class="metric-value value-green">42</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Flex-Down Events (30d)</div>
+        <div class="metric-value value-blue">28</div>
+      </div>
+    </div>
+    <div class="chart-container" style="height: 200px;">
+      <canvas id="prnFlex"></canvas>
+    </div>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1800px;">
+  <div class="tile">
+    <div class="tile-title">University & CRNA Program Partnerships</div>
+    <div class="position-grid" style="grid-template-columns: 1fr 120px 120px;">
+      <div class="grid-header">Program</div>
+      <div class="grid-header">Hires YTD</div>
+      <div class="grid-header">Pipeline</div>
+      <div class="grid-cell position-name">Wayne State University</div>
+      <div class="grid-cell value-green">5</div>
+      <div class="grid-cell">3</div>
+      <div class="grid-cell position-name">Oakland University</div>
+      <div class="grid-cell value-green">4</div>
+      <div class="grid-cell">2</div>
+      <div class="grid-cell position-name">Rush University (IL)</div>
+      <div class="grid-cell value-green">3</div>
+      <div class="grid-cell">4</div>
+      <div class="grid-cell position-name">University of Michigan</div>
+      <div class="grid-cell value-green">2</div>
+      <div class="grid-cell">1</div>
+      <div class="grid-cell position-name">Indiana University</div>
+      <div class="grid-cell value-green">4</div>
+      <div class="grid-cell">5</div>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Coverage Gaps & Locum Usage</div>
+    <div class="metric-row">
+      <div class="metric">
+        <div class="metric-label">Coverage Gap Events (30d)</div>
+        <div class="metric-value" style="color: #fbbf24;">3</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Locum Hours Used</div>
+        <div class="metric-value value-blue">127.5</div>
+      </div>
+    </div>
+    <div class="metric-row">
+      <div class="metric">
+        <div class="metric-label">Emergency Backup Rate</div>
+        <div class="metric-value value-green">98.7%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Avg Fill Time (hours)</div>
+        <div class="metric-value value-green">4.2</div>
       </div>
     </div>
   </div>
@@ -306,18 +380,74 @@ new Chart(document.getElementById('compensation'), {
   type: 'bar',
   data: {
     labels: ['MI MDA', 'IN MDA', 'MI CRNA', 'IN CRNA'],
-    datasets: [{
-      label: 'Avg Offer ($K)',
-      data: [195, 188, 174, 168],
-      backgroundColor: ['#3b82f6', '#60a5fa', '#10b981', '#34d399']
-    }]
+    datasets: [
+      {
+        label: 'AAS Offer',
+        data: [195, 188, 174, 168],
+        backgroundColor: ['#3b82f6', '#60a5fa', '#10b981', '#34d399']
+      },
+      {
+        label: 'Market 50th %ile',
+        data: [185, 180, 165, 160],
+        backgroundColor: ['rgba(107, 114, 128, 0.3)', 'rgba(107, 114, 128, 0.3)', 'rgba(107, 114, 128, 0.3)', 'rgba(107, 114, 128, 0.3)']
+      }
+    ]
   },
   options: {
     ...cfg,
-    plugins: { legend: { display: false } },
     scales: {
       x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
       y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$' + v + 'K' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('employmentStatus'), {
+  type: 'bar',
+  data: {
+    labels: ['Full-Time', 'Part-Time', 'PRN'],
+    datasets: [
+      { label: 'MDAs', data: [35, 8, 9], backgroundColor: '#3b82f6' },
+      { label: 'CRNAs', data: [98, 22, 27], backgroundColor: '#10b981' }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('prnFlex'), {
+  type: 'line',
+  data: {
+    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+    datasets: [
+      {
+        label: 'Flex-Up Events',
+        data: [12, 8, 14, 8],
+        borderColor: '#10b981',
+        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+        tension: 0.3,
+        fill: true
+      },
+      {
+        label: 'Flex-Down Events',
+        data: [5, 8, 10, 5],
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        tension: 0.3,
+        fill: true
+      }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', stepSize: 2 } }
     }
   }
 });
