@@ -510,6 +510,394 @@ class ScenarioEngine {
 
     return recommendation;
   }
+
+  // ============================================================================
+  // NEW SCENARIO CALCULATIONS
+  // ============================================================================
+
+  /**
+   * Calculate Contract Profitability & Subsidy Analysis
+   */
+  calculateContractProfitability(centerId, volumeChangePercent, collectionRateChange, floorChange) {
+    const center = this.baseline.centers.find(c => c.id === centerId);
+    if (!center) return null;
+
+    // Current state
+    const currentWeeklyCases = center.casesPerWeek;
+    const currentReimbursement = center.reimbursementRate;
+    const currentCollectionRate = center.collectionRate / 100;
+    const currentFloor = center.contractFloor;
+    const currentSubsidy = center.subsidyAmount;
+
+    // Calculate current revenue
+    const currentWeeklyRevenue = currentWeeklyCases * currentReimbursement * currentCollectionRate;
+    const currentMonthlyRevenue = currentWeeklyRevenue * 4.33; // avg weeks per month
+
+    // Calculate current costs (provider salaries + OT)
+    const providersAtCenter = this.baseline.providers.filter(p => p.center === centerId);
+    const monthlySalaries = providersAtCenter.reduce((sum, p) => {
+      const annualSalary = p.type === 'MDA' ? this.baseline.costs.mdaSalary : this.baseline.costs.crnaSalary;
+      return sum + (annualSalary / 12);
+    }, 0);
+
+    const weeklyOTCost = center.overtimeHours *
+      (providersAtCenter[0]?.type === 'MDA' ? this.baseline.costs.mdaHourlyRate : this.baseline.costs.crnaHourlyRate) *
+      this.baseline.costs.overtimeMultiplier;
+    const monthlyOTCost = weeklyOTCost * 4.33;
+
+    const currentMonthlyCost = monthlySalaries + monthlyOTCost;
+    const currentMargin = currentMonthlyRevenue - currentMonthlyCost;
+    const currentMarginPercent = currentMonthlyRevenue > 0 ? (currentMargin / currentMonthlyRevenue) * 100 : 0;
+
+    // New scenario
+    const newWeeklyCases = currentWeeklyCases * (1 + volumeChangePercent / 100);
+    const newCollectionRate = (center.collectionRate + collectionRateChange) / 100;
+    const newFloor = currentFloor + floorChange;
+
+    const newWeeklyRevenue = newWeeklyCases * currentReimbursement * newCollectionRate;
+    const newMonthlyRevenue = newWeeklyRevenue * 4.33;
+
+    // Cost scales slightly with volume (more OT if volume up)
+    const volumeRatio = newWeeklyCases / currentWeeklyCases;
+    const newWeeklyOTCost = weeklyOTCost * volumeRatio;
+    const newMonthlyOTCost = newWeeklyOTCost * 4.33;
+    const newMonthlyCost = monthlySalaries + newMonthlyOTCost;
+
+    const newMargin = newMonthlyRevenue - newMonthlyCost;
+    const newSubsidy = Math.max(0, newFloor - newMargin);
+    const newMarginPercent = newMonthlyRevenue > 0 ? (newMargin / newMonthlyRevenue) * 100 : 0;
+
+    // Break-even volume calculation
+    const breakEvenVolume = (currentMonthlyCost - (currentFloor * 0)) / (currentReimbursement * currentCollectionRate * 4.33);
+
+    return {
+      scenario: 'contractProfitability',
+      inputs: {
+        centerName: center.name,
+        volumeChange: volumeChangePercent,
+        collectionChange: collectionRateChange,
+        floorChange: floorChange
+      },
+      center: {
+        revenue: { before: currentMonthlyRevenue, after: newMonthlyRevenue, delta: newMonthlyRevenue - currentMonthlyRevenue },
+        costs: { before: currentMonthlyCost, after: newMonthlyCost, delta: newMonthlyCost - currentMonthlyCost },
+        margin: { before: currentMargin, after: newMargin, delta: newMargin - currentMargin },
+        marginPercent: { before: currentMarginPercent, after: newMarginPercent, delta: newMarginPercent - currentMarginPercent },
+        subsidy: { before: currentSubsidy, after: newSubsidy, delta: newSubsidy - currentSubsidy },
+        breakEvenCases: Math.max(0, breakEvenVolume)
+      },
+      financial: {
+        annualSubsidyChange: (newSubsidy - currentSubsidy) * 12,
+        annualMarginChange: (newMargin - currentMargin) * 12
+      },
+      recommendation: this._generateProfitabilityRecommendation(center, volumeChangePercent, newMargin, currentMargin, newSubsidy, currentSubsidy)
+    };
+  }
+
+  /**
+   * Calculate Market Expansion Readiness & ROI
+   */
+  calculateMarketExpansion(state, contractCount, avgCasesPerWeek, timeline) {
+    const stateRate = this.baseline.stateReimbursementRates[state];
+    if (!stateRate) return null;
+
+    const expansionCosts = this.baseline.marketExpansionCosts;
+
+    // Calculate startup costs
+    const totalStartupCost = Object.values(expansionCosts).reduce((sum, cost) => sum + cost, 0);
+
+    // Estimate providers needed (assume 40 cases/week per provider)
+    const providersNeeded = Math.ceil((contractCount * avgCasesPerWeek) / 40);
+    const mdaCount = Math.ceil(providersNeeded * 0.4);
+    const crnaCount = providersNeeded - mdaCount;
+
+    // Calculate annual labor costs
+    const annualLaborCost = (mdaCount * this.baseline.costs.mdaSalary + crnaCount * this.baseline.costs.crnaSalary) *
+      this.baseline.costs.benefitsMultiplier;
+
+    // Calculate revenue ramp (assume staggered contract wins)
+    const monthlyProjections = [];
+    let cumulativeCashFlow = -totalStartupCost;
+
+    for (let month = 0; month <= timeline; month++) {
+      // Contracts won progressively
+      const contractsWon = Math.min(contractCount, Math.floor((month / timeline) * contractCount) + 1);
+      const weeklyCases = contractsWon * avgCasesPerWeek;
+      const monthlyRevenue = weeklyCases * 4.33 * stateRate * 0.88; // 88% collection rate assumption
+      const monthlyCost = annualLaborCost / 12;
+
+      const monthlyMargin = monthlyRevenue - monthlyCost;
+      cumulativeCashFlow += monthlyMargin;
+
+      monthlyProjections.push({
+        month,
+        contracts: contractsWon,
+        revenue: monthlyRevenue,
+        cost: monthlyCost,
+        margin: monthlyMargin,
+        cumulativeCashFlow
+      });
+    }
+
+    // Find break-even month
+    const breakEvenMonth = monthlyProjections.findIndex(p => p.cumulativeCashFlow >= 0);
+
+    return {
+      scenario: 'marketExpansion',
+      inputs: {
+        state,
+        contractCount,
+        avgCasesPerWeek,
+        timeline
+      },
+      investment: {
+        startupCosts: totalStartupCost,
+        annualLaborCost,
+        providersNeeded: { mda: mdaCount, crna: crnaCount }
+      },
+      financial: {
+        breakEvenMonth: breakEvenMonth > 0 ? breakEvenMonth : 'Not within timeframe',
+        totalInvestment: totalStartupCost + annualLaborCost,
+        projectedAnnualRevenue: monthlyProjections[timeline]?.revenue * 12 || 0,
+        projectedAnnualMargin: monthlyProjections[timeline]?.margin * 12 || 0,
+        roi: monthlyProjections[timeline] ? ((monthlyProjections[timeline].cumulativeCashFlow / totalStartupCost) * 100) : 0
+      },
+      timeline: monthlyProjections,
+      recommendation: this._generateExpansionRecommendation(state, contractCount, breakEvenMonth, totalStartupCost)
+    };
+  }
+
+  /**
+   * Calculate Provider Retention & Turnover Impact
+   */
+  calculateProviderTurnover(providerIds, replacementMonths, coverageStrategy) {
+    const providers = providerIds.map(id => this.baseline.providers.find(p => p.id === id)).filter(p => p);
+    if (providers.length === 0) return null;
+
+    // Get affected centers
+    const affectedCenters = [...new Set(providers.map(p => p.center))];
+    const centerData = affectedCenters.map(centerId => {
+      const center = this.baseline.centers.find(c => c.id === centerId);
+      const providersAtCenter = this.baseline.providers.filter(p => p.center === centerId);
+      const leavingFromCenter = providers.filter(p => p.center === centerId);
+
+      return {
+        center,
+        current: providersAtCenter.length,
+        leaving: leavingFromCenter.length,
+        remaining: providersAtCenter.length - leavingFromCenter.length
+      };
+    });
+
+    // Calculate replacement costs
+    const recruitmentCosts = providers.reduce((sum, p) => sum + p.recruitmentCost, 0);
+    const relocationCosts = providers.length * this.baseline.costs.relocationCost;
+
+    // Calculate coverage gap cost based on strategy
+    let tempCoverageCost = 0;
+    let coverageImpact = '';
+
+    switch (coverageStrategy) {
+      case 'overtime':
+        // Remaining providers pick up slack with OT
+        const weeklyHoursNeeded = providers.reduce((sum, p) => sum + p.weeklyHours, 0);
+        const weeksUncovered = replacementMonths * 4.33;
+        const otHourlyRate = providers[0]?.type === 'MDA' ? this.baseline.costs.mdaHourlyRate : this.baseline.costs.crnaHourlyRate;
+        tempCoverageCost = weeklyHoursNeeded * weeksUncovered * otHourlyRate * this.baseline.costs.overtimeMultiplier;
+        coverageImpact = `Remaining providers work ${Math.round(weeklyHoursNeeded / centerData[0].remaining)} additional hours/week`;
+        break;
+
+      case 'prn':
+        // Use PRN contractors (typically 30% premium)
+        const prnRate = providers[0]?.type === 'MDA' ? this.baseline.costs.mdaHourlyRate * 1.3 : this.baseline.costs.crnaHourlyRate * 1.3;
+        tempCoverageCost = providers.reduce((sum, p) => sum + p.weeklyHours, 0) * replacementMonths * 4.33 * prnRate;
+        coverageImpact = `PRN providers cover ${providers.reduce((sum, p) => sum + p.weeklyHours, 0)} hrs/week at premium rates`;
+        break;
+
+      case 'reduced':
+        // Reduce coverage hours (revenue loss)
+        const avgCaseRevenue = 850; // average reimbursement
+        const casesLost = providers.length * 8; // assume 8 cases/week per provider
+        tempCoverageCost = casesLost * replacementMonths * 4.33 * avgCaseRevenue * 0.88;
+        coverageImpact = `Reduce coverage by ~${casesLost} cases/week (potential revenue loss)`;
+        break;
+    }
+
+    const totalCost = recruitmentCosts + relocationCosts + tempCoverageCost;
+
+    return {
+      scenario: 'providerTurnover',
+      inputs: {
+        providers: providers.map(p => p.name),
+        replacementMonths,
+        coverageStrategy
+      },
+      impact: {
+        centersAffected: centerData,
+        coverageGap: coverageImpact,
+        burnoutRisk: centerData.some(c => c.remaining < 2) ? 'High' : 'Moderate'
+      },
+      financial: {
+        recruitmentCosts,
+        relocationCosts,
+        temporaryCoverageCost: tempCoverageCost,
+        totalCost,
+        timeToStabilize: replacementMonths + 2 // +2 months for onboarding
+      },
+      recommendation: this._generateTurnoverRecommendation(providers, totalCost, centerData, coverageStrategy)
+    };
+  }
+
+  /**
+   * Calculate RCM Optimization Impact
+   */
+  calculateRCMOptimization(centerId, denialReduction, collectionImprovement, investment) {
+    const center = centerId === 'all' ? null : this.baseline.centers.find(c => c.id === centerId);
+    const centers = center ? [center] : this.baseline.centers;
+
+    let results = {
+      scenario: 'rcmOptimization',
+      inputs: {
+        scope: center ? center.name : 'Network-wide',
+        denialReduction,
+        collectionImprovement,
+        investment
+      },
+      improvements: [],
+      financial: {
+        totalAdditionalRevenue: 0,
+        totalInvestment: investment,
+        annualROI: 0,
+        paybackMonths: 0,
+        subsidyReduction: 0,
+        contractsImproved: 0
+      },
+      recommendation: ''
+    };
+
+    centers.forEach(c => {
+      // Current state
+      const weeklyRevenue = c.casesPerWeek * c.reimbursementRate * (c.collectionRate / 100);
+      const annualRevenue = weeklyRevenue * 52;
+
+      // Improved state
+      const newCollectionRate = Math.min(98, c.collectionRate + collectionImprovement);
+      const denialImpact = (c.denialRate / 100) * denialReduction; // % of revenue recovered
+      const newWeeklyRevenue = c.casesPerWeek * c.reimbursementRate * (newCollectionRate / 100) * (1 + denialImpact);
+      const newAnnualRevenue = newWeeklyRevenue * 52;
+
+      const additionalRevenue = newAnnualRevenue - annualRevenue;
+
+      // Check if margin improves enough to reduce subsidy
+      const subsidyReduction = Math.min(c.subsidyAmount, additionalRevenue / 12) * 12;
+
+      results.improvements.push({
+        centerName: c.name,
+        currentRevenue: annualRevenue,
+        newRevenue: newAnnualRevenue,
+        additionalRevenue,
+        subsidyReduction
+      });
+
+      results.financial.totalAdditionalRevenue += additionalRevenue;
+      results.financial.subsidyReduction += subsidyReduction;
+      if (subsidyReduction > 0) results.financial.contractsImproved++;
+    });
+
+    results.financial.annualROI = investment > 0 ? ((results.financial.totalAdditionalRevenue / investment) * 100) : 0;
+    results.financial.paybackMonths = investment > 0 ? Math.ceil((investment / results.financial.totalAdditionalRevenue) * 12) : 0;
+
+    results.recommendation = this._generateRCMRecommendation(
+      results.financial.totalAdditionalRevenue,
+      investment,
+      results.financial.paybackMonths,
+      results.financial.contractsImproved
+    );
+
+    return results;
+  }
+
+  // Helper methods for new scenarios
+
+  _generateProfitabilityRecommendation(center, volumeChange, newMargin, currentMargin, newSubsidy, currentSubsidy) {
+    let rec = `Contract profitability analysis for ${center.name}:\n`;
+
+    const marginChange = newMargin - currentMargin;
+    const subsidyChange = newSubsidy - currentSubsidy;
+
+    if (marginChange > 0 && subsidyChange < 0) {
+      rec += `• Margin improves by $${Math.round(Math.abs(marginChange)).toLocaleString()}/month\n`;
+      rec += `• Subsidy reduced by $${Math.round(Math.abs(subsidyChange)).toLocaleString()}/month\n`;
+      rec += `\nRecommendation: STRONG IMPROVEMENTS - ${volumeChange > 0 ? 'Volume growth' : 'Collection improvements'} significantly enhance contract profitability.`;
+    } else if (subsidyChange > 0) {
+      rec += `• ⚠️ Subsidy increases by $${Math.round(subsidyChange).toLocaleString()}/month\n`;
+      rec += `• Contract becoming less profitable\n`;
+      rec += `\nRecommendation: CONCERNING TREND - Renegotiate floor or focus on RCM improvements to avoid contract becoming margin-dilutive.`;
+    } else {
+      rec += `• Margin remains relatively stable\n`;
+      rec += `\nRecommendation: STABLE - Monitor closely but no immediate action needed.`;
+    }
+
+    return rec;
+  }
+
+  _generateExpansionRecommendation(state, contracts, breakEvenMonth, investment) {
+    let rec = `Market expansion to ${state} with ${contracts} contract(s):\n`;
+
+    if (breakEvenMonth > 0 && breakEvenMonth <= 24) {
+      rec += `• Break-even achieved in ${breakEvenMonth} months\n`;
+      rec += `• Total investment: $${Math.round(investment).toLocaleString()}\n`;
+      rec += `• ${contracts} contract(s) provide sufficient scale\n`;
+      rec += `\nRecommendation: GO - Reasonable path to profitability with acceptable risk.`;
+    } else if (breakEvenMonth > 24) {
+      rec += `• Break-even beyond 24 months\n`;
+      rec += `• Requires sustained contract pipeline\n`;
+      rec += `\nRecommendation: CAUTIOUS - Consider securing additional commitments before launching or start with lower overhead model.`;
+    } else {
+      rec += `• ⚠️ Does not break even within timeframe\n`;
+      rec += `• Need more contracts or higher volume\n`;
+      rec += `\nRecommendation: NOT READY - Increase contract count to minimum ${Math.ceil(contracts * 1.5)} or delay until pipeline stronger.`;
+    }
+
+    return rec;
+  }
+
+  _generateTurnoverRecommendation(providers, totalCost, centerData, strategy) {
+    let rec = `Impact of losing ${providers.length} provider(s):\n`;
+
+    rec += `• Total cost: $${Math.round(totalCost).toLocaleString()}\n`;
+    rec += `• ${centerData.length} center(s) affected\n`;
+
+    const criticalCenters = centerData.filter(c => c.remaining < 2);
+    if (criticalCenters.length > 0) {
+      rec += `• ⚠️ CRITICAL: ${criticalCenters[0].center.name} drops to ${criticalCenters[0].remaining} provider(s)\n`;
+      rec += `\nRecommendation: HIGH PRIORITY - Immediate retention efforts needed. Consider counter-offers, workload adjustments, or emergency recruiting.`;
+    } else {
+      rec += `• Coverage maintainable with ${strategy} strategy\n`;
+      rec += `\nRecommendation: MANAGEABLE - Execute replacement plan but expect $${Math.round(totalCost).toLocaleString()} impact. Invest in retention to prevent future turnover.`;
+    }
+
+    return rec;
+  }
+
+  _generateRCMRecommendation(revenue, investment, payback, contractsImproved) {
+    let rec = `RCM optimization results:\n`;
+
+    rec += `• Additional revenue: $${Math.round(revenue).toLocaleString()}/year\n`;
+    rec += `• Investment required: $${Math.round(investment).toLocaleString()}\n`;
+    rec += `• Payback period: ${payback} months\n`;
+    rec += `• ${contractsImproved} contract(s) shift toward profitability\n`;
+
+    if (payback <= 12 && revenue > investment * 0.5) {
+      rec += `\nRecommendation: HIGHLY RECOMMENDED - Excellent ROI with short payback. RCM improvements are the most controllable margin lever.`;
+    } else if (payback <= 24) {
+      rec += `\nRecommendation: RECOMMENDED - Solid investment with acceptable payback period. Proceed with implementation.`;
+    } else {
+      rec += `\nRecommendation: EVALUATE ALTERNATIVES - Consider lower-cost RCM improvements or phase implementation to reduce upfront investment.`;
+    }
+
+    return rec;
+  }
 }
 
 // Export for use in other modules

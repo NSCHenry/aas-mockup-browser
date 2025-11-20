@@ -11,7 +11,14 @@
       },
       "casesPerWeek": 38,
       "coverageRate": 100,
-      "capacity": 45
+      "capacity": 45,
+      "subsidyAmount": 8500,
+      "reimbursementRate": 875,
+      "payerMix": { "commercial": 65, "medicare": 25, "medicaid": 10 },
+      "denialRate": 12,
+      "collectionRate": 88,
+      "arDays": 42,
+      "contractFloor": 45000
     },
     {
       "id": "iu-health-2",
@@ -24,7 +31,14 @@
       },
       "casesPerWeek": 31,
       "coverageRate": 98,
-      "capacity": 35
+      "capacity": 35,
+      "subsidyAmount": 12000,
+      "reimbursementRate": 820,
+      "payerMix": { "commercial": 58, "medicare": 30, "medicaid": 12 },
+      "denialRate": 15,
+      "collectionRate": 85,
+      "arDays": 48,
+      "contractFloor": 38000
     },
     {
       "id": "iu-health-3",
@@ -37,7 +51,14 @@
       },
       "casesPerWeek": 35,
       "coverageRate": 97,
-      "capacity": 40
+      "capacity": 40,
+      "subsidyAmount": 5500,
+      "reimbursementRate": 890,
+      "payerMix": { "commercial": 70, "medicare": 22, "medicaid": 8 },
+      "denialRate": 10,
+      "collectionRate": 90,
+      "arDays": 38,
+      "contractFloor": 42000
     },
     {
       "id": "corewell-1",
@@ -50,7 +71,14 @@
       },
       "casesPerWeek": 33,
       "coverageRate": 100,
-      "capacity": 42
+      "capacity": 42,
+      "subsidyAmount": 3000,
+      "reimbursementRate": 940,
+      "payerMix": { "commercial": 75, "medicare": 18, "medicaid": 7 },
+      "denialRate": 8,
+      "collectionRate": 92,
+      "arDays": 35,
+      "contractFloor": 35000
     },
     {
       "id": "corewell-2",
@@ -63,7 +91,14 @@
       },
       "casesPerWeek": 28,
       "coverageRate": 98,
-      "capacity": 35
+      "capacity": 35,
+      "subsidyAmount": 6500,
+      "reimbursementRate": 910,
+      "payerMix": { "commercial": 68, "medicare": 24, "medicaid": 8 },
+      "denialRate": 11,
+      "collectionRate": 89,
+      "arDays": 40,
+      "contractFloor": 32000
     },
     {
       "id": "riverview",
@@ -76,7 +111,14 @@
       },
       "casesPerWeek": 48,
       "coverageRate": 88,
-      "capacity": 50
+      "capacity": 50,
+      "subsidyAmount": 18000,
+      "reimbursementRate": 780,
+      "payerMix": { "commercial": 52, "medicare": 35, "medicaid": 13 },
+      "denialRate": 18,
+      "collectionRate": 82,
+      "arDays": 55,
+      "contractFloor": 52000
     },
     {
       "id": "bnj-troy",
@@ -89,7 +131,14 @@
       },
       "casesPerWeek": 24,
       "coverageRate": 96,
-      "capacity": 30
+      "capacity": 30,
+      "subsidyAmount": 7200,
+      "reimbursementRate": 900,
+      "payerMix": { "commercial": 72, "medicare": 20, "medicaid": 8 },
+      "denialRate": 9,
+      "collectionRate": 91,
+      "arDays": 36,
+      "contractFloor": 28000
     },
     {
       "id": "bnj-utica",
@@ -102,7 +151,14 @@
       },
       "casesPerWeek": 29,
       "coverageRate": 95,
-      "capacity": 35
+      "capacity": 35,
+      "subsidyAmount": 6000,
+      "reimbursementRate": 920,
+      "payerMix": { "commercial": 69, "medicare": 23, "medicaid": 8 },
+      "denialRate": 10,
+      "collectionRate": 90,
+      "arDays": 37,
+      "contractFloor": 34000
     },
     {
       "id": "solaris-1",
@@ -115,7 +171,14 @@
       },
       "casesPerWeek": 24,
       "coverageRate": 88.5,
-      "capacity": 35
+      "capacity": 35,
+      "subsidyAmount": 22000,
+      "reimbursementRate": 750,
+      "payerMix": { "commercial": 48, "medicare": 38, "medicaid": 14 },
+      "denialRate": 20,
+      "collectionRate": 80,
+      "arDays": 60,
+      "contractFloor": 38000
     },
     {
       "id": "solaris-2",
@@ -128,7 +191,14 @@
       },
       "casesPerWeek": 27,
       "coverageRate": 87,
-      "capacity": 35
+      "capacity": 35,
+      "subsidyAmount": 15000,
+      "reimbursementRate": 810,
+      "payerMix": { "commercial": 55, "medicare": 32, "medicaid": 13 },
+      "denialRate": 16,
+      "collectionRate": 84,
+      "arDays": 52,
+      "contractFloor": 36000
     },
     {
       "id": "solaris-3",
@@ -141,7 +211,14 @@
       },
       "casesPerWeek": 28,
       "coverageRate": 89,
-      "capacity": 35
+      "capacity": 35,
+      "subsidyAmount": 10000,
+      "reimbursementRate": 840,
+      "payerMix": { "commercial": 60, "medicare": 28, "medicaid": 12 },
+      "denialRate": 13,
+      "collectionRate": 87,
+      "arDays": 45,
+      "contractFloor": 35000
     }
   ],
   "providers": [
@@ -152,7 +229,10 @@
       "center": "iu-health-1",
       "weeklyHours": 42,
       "overtimeHours": 2,
-      "onCallRotations": 2
+      "onCallRotations": 2,
+      "recruitmentCost": 75000,
+      "retentionRisk": "low",
+      "caseComplexityScore": 7
     },
     {
       "id": "chen",
@@ -161,7 +241,10 @@
       "center": "iu-health-1",
       "weeklyHours": 46.5,
       "overtimeHours": 6.5,
-      "onCallRotations": 1
+      "onCallRotations": 1,
+      "recruitmentCost": 75000,
+      "retentionRisk": "medium",
+      "caseComplexityScore": 8
     },
     {
       "id": "martinez",
@@ -170,7 +253,10 @@
       "center": "iu-health-2",
       "weeklyHours": 44,
       "overtimeHours": 4,
-      "onCallRotations": 4
+      "onCallRotations": 4,
+      "recruitmentCost": 35000,
+      "retentionRisk": "medium",
+      "caseComplexityScore": 6
     },
     {
       "id": "johnson",
@@ -179,7 +265,10 @@
       "center": "iu-health-2",
       "weeklyHours": 42,
       "overtimeHours": 2,
-      "onCallRotations": 2
+      "onCallRotations": 2,
+      "recruitmentCost": 35000,
+      "retentionRisk": "low",
+      "caseComplexityScore": 5
     },
     {
       "id": "lee",
@@ -188,7 +277,10 @@
       "center": "iu-health-2",
       "weeklyHours": 46,
       "overtimeHours": 6,
-      "onCallRotations": 3
+      "onCallRotations": 3,
+      "recruitmentCost": 35000,
+      "retentionRisk": "high",
+      "caseComplexityScore": 7
     },
     {
       "id": "patel",
@@ -197,7 +289,10 @@
       "center": "iu-health-3",
       "weeklyHours": 41,
       "overtimeHours": 1,
-      "onCallRotations": 2
+      "onCallRotations": 2,
+      "recruitmentCost": 75000,
+      "retentionRisk": "low",
+      "caseComplexityScore": 8
     },
     {
       "id": "williams",
@@ -206,7 +301,10 @@
       "center": "iu-health-3",
       "weeklyHours": 45.5,
       "overtimeHours": 5.5,
-      "onCallRotations": 1
+      "onCallRotations": 1,
+      "recruitmentCost": 75000,
+      "retentionRisk": "low",
+      "caseComplexityScore": 9
     },
     {
       "id": "davis",
@@ -215,7 +313,10 @@
       "center": "corewell-1",
       "weeklyHours": 41,
       "overtimeHours": 1,
-      "onCallRotations": 2
+      "onCallRotations": 2,
+      "recruitmentCost": 35000,
+      "retentionRisk": "low",
+      "caseComplexityScore": 5
     },
     {
       "id": "brown",
@@ -224,7 +325,10 @@
       "center": "corewell-1",
       "weeklyHours": 42,
       "overtimeHours": 2,
-      "onCallRotations": 2
+      "onCallRotations": 2,
+      "recruitmentCost": 35000,
+      "retentionRisk": "low",
+      "caseComplexityScore": 6
     },
     {
       "id": "wilson",
@@ -233,7 +337,10 @@
       "center": "corewell-1",
       "weeklyHours": 41,
       "overtimeHours": 1,
-      "onCallRotations": 1
+      "onCallRotations": 1,
+      "recruitmentCost": 35000,
+      "retentionRisk": "low",
+      "caseComplexityScore": 5
     },
     {
       "id": "thompson",
@@ -242,7 +349,10 @@
       "center": "riverview",
       "weeklyHours": 48.5,
       "overtimeHours": 8.5,
-      "onCallRotations": 0
+      "onCallRotations": 0,
+      "recruitmentCost": 75000,
+      "retentionRisk": "high",
+      "caseComplexityScore": 9
     },
     {
       "id": "rodriguez",
@@ -251,7 +361,10 @@
       "center": "riverview",
       "weeklyHours": 50,
       "overtimeHours": 10,
-      "onCallRotations": 0
+      "onCallRotations": 0,
+      "recruitmentCost": 75000,
+      "retentionRisk": "high",
+      "caseComplexityScore": 8
     },
     {
       "id": "garcia",
@@ -260,7 +373,10 @@
       "center": "bnj-troy",
       "weeklyHours": 43,
       "overtimeHours": 3,
-      "onCallRotations": 2
+      "onCallRotations": 2,
+      "recruitmentCost": 35000,
+      "retentionRisk": "medium",
+      "caseComplexityScore": 6
     },
     {
       "id": "miller",
@@ -269,7 +385,10 @@
       "center": "bnj-troy",
       "weeklyHours": 46,
       "overtimeHours": 6,
-      "onCallRotations": 3
+      "onCallRotations": 3,
+      "recruitmentCost": 35000,
+      "retentionRisk": "medium",
+      "caseComplexityScore": 7
     },
     {
       "id": "kim",
@@ -278,7 +397,10 @@
       "center": "bnj-utica",
       "weeklyHours": 43.5,
       "overtimeHours": 3.5,
-      "onCallRotations": 2
+      "onCallRotations": 2,
+      "recruitmentCost": 75000,
+      "retentionRisk": "low",
+      "caseComplexityScore": 7
     },
     {
       "id": "singh",
@@ -287,7 +409,10 @@
       "center": "bnj-utica",
       "weeklyHours": 44,
       "overtimeHours": 4,
-      "onCallRotations": 1
+      "onCallRotations": 1,
+      "recruitmentCost": 75000,
+      "retentionRisk": "low",
+      "caseComplexityScore": 8
     },
     {
       "id": "taylor",
@@ -296,7 +421,10 @@
       "center": "solaris-1",
       "weeklyHours": 46,
       "overtimeHours": 6,
-      "onCallRotations": 3
+      "onCallRotations": 3,
+      "recruitmentCost": 35000,
+      "retentionRisk": "high",
+      "caseComplexityScore": 6
     },
     {
       "id": "moore",
@@ -305,7 +433,10 @@
       "center": "solaris-1",
       "weeklyHours": 44.5,
       "overtimeHours": 4.5,
-      "onCallRotations": 2
+      "onCallRotations": 2,
+      "recruitmentCost": 35000,
+      "retentionRisk": "medium",
+      "caseComplexityScore": 5
     },
     {
       "id": "white",
@@ -314,7 +445,10 @@
       "center": "solaris-1",
       "weeklyHours": 48,
       "overtimeHours": 8,
-      "onCallRotations": 4
+      "onCallRotations": 4,
+      "recruitmentCost": 35000,
+      "retentionRisk": "high",
+      "caseComplexityScore": 7
     },
     {
       "id": "clark",
@@ -323,7 +457,10 @@
       "center": "solaris-1",
       "weeklyHours": 46,
       "overtimeHours": 6,
-      "onCallRotations": 3
+      "onCallRotations": 3,
+      "recruitmentCost": 35000,
+      "retentionRisk": "medium",
+      "caseComplexityScore": 6
     }
   ],
   "costs": {
@@ -341,5 +478,29 @@
     "otReductionPerHire": 17.5,
     "coverageImprovementPerHire": 2.5,
     "weeksPerYear": 52
+  },
+  "stateReimbursementRates": {
+    "Indiana": 850,
+    "Michigan": 920,
+    "Ohio": 880,
+    "Illinois": 940,
+    "Pennsylvania": 900,
+    "Wisconsin": 865,
+    "Kentucky": 820
+  },
+  "marketExpansionCosts": {
+    "recruiting": 50000,
+    "credentialing": 15000,
+    "marketing": 25000,
+    "legal": 10000,
+    "administrativeSetup": 20000
+  },
+  "rcmMetrics": {
+    "currentCleanClaimRate": 85,
+    "targetCleanClaimRate": 95,
+    "emrSystemCost": 75000,
+    "emrAnnualFee": 12000,
+    "vbrcmMonthlyFee": 3500,
+    "denialManagementFTE": 65000
   }
 }

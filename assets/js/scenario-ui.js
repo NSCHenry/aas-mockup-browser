@@ -65,6 +65,31 @@ class ScenarioUI {
     document.getElementById('oncall-value')?.addEventListener('input', () => this.updateDisplay());
     document.getElementById('oncall-provider-type')?.addEventListener('change', () => this.updateDisplay());
 
+    // Contract Profitability inputs
+    document.getElementById('profitability-center')?.addEventListener('change', () => this.updateDisplay());
+    document.getElementById('profitability-volume')?.addEventListener('input', () => this.updateDisplay());
+    document.getElementById('profitability-collection')?.addEventListener('input', () => this.updateDisplay());
+    document.getElementById('profitability-floor')?.addEventListener('input', () => this.updateDisplay());
+
+    // Market Expansion inputs
+    document.getElementById('expansion-state')?.addEventListener('change', () => this.updateDisplay());
+    document.getElementById('expansion-contracts')?.addEventListener('input', () => this.updateDisplay());
+    document.getElementById('expansion-cases')?.addEventListener('input', () => this.updateDisplay());
+    document.getElementById('expansion-timeline')?.addEventListener('input', () => this.updateDisplay());
+
+    // Provider Turnover inputs
+    document.getElementById('turnover-providers')?.addEventListener('change', () => this.updateDisplay());
+    document.getElementById('turnover-timeline')?.addEventListener('input', () => this.updateDisplay());
+    document.querySelectorAll('input[name="coverage-strategy"]').forEach(radio => {
+      radio.addEventListener('change', () => this.updateDisplay());
+    });
+
+    // RCM Optimization inputs
+    document.getElementById('rcm-scope')?.addEventListener('change', () => this.populateRCMCenterOptions());
+    document.getElementById('rcm-denial')?.addEventListener('input', () => this.updateDisplay());
+    document.getElementById('rcm-collection')?.addEventListener('input', () => this.updateDisplay());
+    document.getElementById('rcm-investment')?.addEventListener('input', () => this.updateDisplay());
+
     // Reset button
     document.getElementById('reset-btn')?.addEventListener('click', () => this.resetInputs());
 
@@ -78,7 +103,7 @@ class ScenarioUI {
     // Populate center dropdowns
     const centerSelects = [
       'hiring-center', 'rebal-source', 'rebal-dest',
-      'case-source', 'case-dest'
+      'case-source', 'case-dest', 'profitability-center'
     ];
 
     centerSelects.forEach(selectId => {
@@ -93,6 +118,43 @@ class ScenarioUI {
         });
       }
     });
+
+    // Populate provider turnover multi-select
+    const turnoverSelect = document.getElementById('turnover-providers');
+    if (turnoverSelect) {
+      turnoverSelect.innerHTML = '';
+      this.baseline.providers.forEach(provider => {
+        const option = document.createElement('option');
+        option.value = provider.id;
+        option.textContent = `${provider.name} (${provider.type}) - ${this.baseline.centers.find(c => c.id === provider.center)?.name || ''}`;
+        if (provider.retentionRisk === 'high') {
+          option.textContent += ' ⚠️ High Risk';
+        }
+        option.dataset.retentionRisk = provider.retentionRisk;
+        turnoverSelect.appendChild(option);
+      });
+    }
+
+    // Initialize RCM scope dropdown
+    this.populateRCMCenterOptions();
+  }
+
+  populateRCMCenterOptions() {
+    const select = document.getElementById('rcm-scope');
+    if (!select) return;
+
+    const currentValue = select.value;
+    select.innerHTML = '<option value="all">Network-Wide (All Centers)</option>';
+    select.innerHTML += '<option value="">-- Or Select Single Center --</option>';
+
+    this.baseline.centers.forEach(center => {
+      const option = document.createElement('option');
+      option.value = center.id;
+      option.textContent = center.name;
+      select.appendChild(option);
+    });
+
+    if (currentValue) select.value = currentValue;
   }
 
   populateProviderList() {
@@ -171,6 +233,18 @@ class ScenarioUI {
         case 'onCallPolicy':
           result = this.calculateOnCallPolicyScenario();
           break;
+        case 'contractProfitability':
+          result = this.calculateContractProfitabilityScenario();
+          break;
+        case 'marketExpansion':
+          result = this.calculateMarketExpansionScenario();
+          break;
+        case 'providerTurnover':
+          result = this.calculateProviderTurnoverScenario();
+          break;
+        case 'rcmOptimization':
+          result = this.calculateRCMOptimizationScenario();
+          break;
       }
 
       if (result) {
@@ -224,6 +298,52 @@ class ScenarioUI {
     if (!policyType) return null;
 
     return this.engine.calculateOnCallPolicyScenario(policyType, value, providerType);
+  }
+
+  calculateContractProfitabilityScenario() {
+    const centerId = document.getElementById('profitability-center')?.value;
+    const volumeChange = parseFloat(document.getElementById('profitability-volume')?.value) || 0;
+    const collectionChange = parseFloat(document.getElementById('profitability-collection')?.value) || 0;
+    const floorChange = parseFloat(document.getElementById('profitability-floor')?.value) || 0;
+
+    if (!centerId) return null;
+
+    return this.engine.calculateContractProfitability(centerId, volumeChange, collectionChange, floorChange);
+  }
+
+  calculateMarketExpansionScenario() {
+    const state = document.getElementById('expansion-state')?.value;
+    const contractCount = parseInt(document.getElementById('expansion-contracts')?.value) || 0;
+    const avgCasesPerWeek = parseInt(document.getElementById('expansion-cases')?.value) || 0;
+    const timeline = parseInt(document.getElementById('expansion-timeline')?.value) || 0;
+
+    if (!state || !contractCount || !avgCasesPerWeek) return null;
+
+    return this.engine.calculateMarketExpansion(state, contractCount, avgCasesPerWeek, timeline);
+  }
+
+  calculateProviderTurnoverScenario() {
+    const providerSelect = document.getElementById('turnover-providers');
+    const selectedOptions = Array.from(providerSelect?.selectedOptions || []);
+    const providerIds = selectedOptions.map(opt => opt.value);
+    const replacementMonths = parseInt(document.getElementById('turnover-timeline')?.value) || 3;
+    const strategyRadio = document.querySelector('input[name="coverage-strategy"]:checked');
+    const coverageStrategy = strategyRadio?.value || 'overtime';
+
+    if (providerIds.length === 0) return null;
+
+    return this.engine.calculateProviderTurnover(providerIds, replacementMonths, coverageStrategy);
+  }
+
+  calculateRCMOptimizationScenario() {
+    const scope = document.getElementById('rcm-scope')?.value;
+    const denialReduction = parseFloat(document.getElementById('rcm-denial')?.value) || 0;
+    const collectionImprovement = parseFloat(document.getElementById('rcm-collection')?.value) || 0;
+    const investment = parseFloat(document.getElementById('rcm-investment')?.value) || 0;
+
+    if (!scope || investment === 0) return null;
+
+    return this.engine.calculateRCMOptimization(scope, denialReduction, collectionImprovement, investment);
   }
 
   updateSummaryCards(result) {
@@ -315,8 +435,30 @@ class ScenarioUI {
   }
 
   updateCharts(result) {
-    this.updateOvertimeComparisonChart(result);
-    this.updateCostImpactChart(result);
+    // Route to appropriate chart renderer based on scenario type
+    switch (result.scenario) {
+      case 'hiring':
+      case 'rebalancing':
+      case 'caseRedistribution':
+        this.updateOvertimeComparisonChart(result);
+        this.updateCostImpactChart(result);
+        break;
+      case 'contractProfitability':
+        this.renderContractProfitabilityCharts(result);
+        break;
+      case 'marketExpansion':
+        this.renderMarketExpansionCharts(result);
+        break;
+      case 'providerTurnover':
+        this.renderProviderTurnoverCharts(result);
+        break;
+      case 'rcmOptimization':
+        this.renderRCMOptimizationCharts(result);
+        break;
+      default:
+        this.updateOvertimeComparisonChart(result);
+        this.updateCostImpactChart(result);
+    }
   }
 
   updateOvertimeComparisonChart(result) {
@@ -448,6 +590,425 @@ class ScenarioUI {
         }
       }
     });
+  }
+
+  renderContractProfitabilityCharts(result) {
+    // Chart 1: Waterfall - Revenue Flow to Margin
+    const ctx1 = document.getElementById('overtime-comparison-chart');
+    if (ctx1 && this.charts.overtimeComparison) {
+      this.charts.overtimeComparison.destroy();
+    }
+
+    if (ctx1) {
+      const data = [
+        result.center.revenue.after,
+        -result.center.costs.after,
+        result.center.margin.after
+      ];
+
+      this.charts.overtimeComparison = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['Revenue', 'Costs', 'Net Margin'],
+          datasets: [{
+            label: 'Monthly Flow ($)',
+            data: data,
+            backgroundColor: [
+              'rgba(16, 185, 129, 0.7)',
+              'rgba(239, 68, 68, 0.7)',
+              'rgba(59, 130, 246, 0.7)'
+            ],
+            borderColor: ['#10b981', '#ef4444', '#3b82f6'],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(37,41,64,0.95)',
+              callbacks: {
+                label: (context) => '$' + Math.round(Math.abs(context.parsed.y)).toLocaleString()
+              }
+            }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: {
+                color: '#9aa0a6',
+                callback: v => '$' + (v / 1000).toFixed(0) + 'K'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 2: Subsidy Comparison
+    const ctx2 = document.getElementById('cost-impact-chart');
+    if (ctx2 && this.charts.costImpact) {
+      this.charts.costImpact.destroy();
+    }
+
+    if (ctx2) {
+      this.charts.costImpact = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: ['Current Subsidy', 'New Subsidy', 'Annual Savings'],
+          datasets: [{
+            label: 'Amount ($)',
+            data: [
+              result.center.subsidy.before,
+              result.center.subsidy.after,
+              -result.financial.annualSubsidyChange
+            ],
+            backgroundColor: [
+              'rgba(239, 68, 68, 0.7)',
+              result.center.subsidy.after < result.center.subsidy.before ? 'rgba(16, 185, 129, 0.7)' : 'rgba(239, 68, 68, 0.7)',
+              result.financial.annualSubsidyChange < 0 ? 'rgba(16, 185, 129, 0.7)' : 'rgba(239, 68, 68, 0.7)'
+            ],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: {
+                color: '#9aa0a6',
+                callback: v => '$' + (v / 1000).toFixed(0) + 'K'
+              }
+            }
+          }
+        }
+      });
+    }
+  }
+
+  renderMarketExpansionCharts(result) {
+    // Chart 1: Cumulative Cash Flow Over Time
+    const ctx1 = document.getElementById('overtime-comparison-chart');
+    if (ctx1 && this.charts.overtimeComparison) {
+      this.charts.overtimeComparison.destroy();
+    }
+
+    if (ctx1) {
+      const months = result.timeline.map(t => `M${t.month}`);
+      const cashFlow = result.timeline.map(t => t.cumulativeCashFlow);
+
+      this.charts.overtimeComparison = new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: months,
+          datasets: [{
+            label: 'Cumulative Cash Flow',
+            data: cashFlow,
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3,
+            pointRadius: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: '#e8eaed' } },
+            tooltip: {
+              backgroundColor: 'rgba(37,41,64,0.95)',
+              callbacks: {
+                label: (context) => 'Cash Flow: $' + Math.round(context.parsed.y).toLocaleString()
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: {
+                color: '#9aa0a6',
+                callback: v => '$' + (v / 1000).toFixed(0) + 'K'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 2: Revenue Ramp
+    const ctx2 = document.getElementById('cost-impact-chart');
+    if (ctx2 && this.charts.costImpact) {
+      this.charts.costImpact.destroy();
+    }
+
+    if (ctx2) {
+      const months = result.timeline.slice(0, 13).map(t => `M${t.month}`);
+      const revenue = result.timeline.slice(0, 13).map(t => t.revenue);
+      const costs = result.timeline.slice(0, 13).map(t => t.cost);
+
+      this.charts.costImpact = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: months,
+          datasets: [
+            {
+              label: 'Monthly Revenue',
+              data: revenue,
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16, 185, 129, 0.1)',
+              borderWidth: 2
+            },
+            {
+              label: 'Monthly Costs',
+              data: costs,
+              borderColor: '#ef4444',
+              backgroundColor: 'rgba(239, 68, 68, 0.1)',
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: '#e8eaed' } },
+            tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' }
+          },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: {
+                color: '#9aa0a6',
+                callback: v => '$' + (v / 1000).toFixed(0) + 'K'
+              }
+            }
+          }
+        }
+      });
+    }
+  }
+
+  renderProviderTurnoverCharts(result) {
+    // Chart 1: Cost Breakdown
+    const ctx1 = document.getElementById('overtime-comparison-chart');
+    if (ctx1 && this.charts.overtimeComparison) {
+      this.charts.overtimeComparison.destroy();
+    }
+
+    if (ctx1) {
+      this.charts.overtimeComparison = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['Recruitment', 'Relocation', 'Temp Coverage', 'Total Impact'],
+          datasets: [{
+            label: 'Cost ($)',
+            data: [
+              result.financial.recruitmentCosts,
+              result.financial.relocationCosts,
+              result.financial.temporaryCoverageCost,
+              result.financial.totalCost
+            ],
+            backgroundColor: [
+              'rgba(239, 68, 68, 0.7)',
+              'rgba(251, 191, 36, 0.7)',
+              'rgba(239, 68, 68, 0.7)',
+              'rgba(239, 68, 68, 0.9)'
+            ],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: {
+                color: '#9aa0a6',
+                callback: v => '$' + (v / 1000).toFixed(0) + 'K'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 2: Center Impact
+    const ctx2 = document.getElementById('cost-impact-chart');
+    if (ctx2 && this.charts.costImpact) {
+      this.charts.costImpact.destroy();
+    }
+
+    if (ctx2) {
+      const labels = result.impact.centersAffected.map(c => c.center.name);
+      const before = result.impact.centersAffected.map(c => c.current);
+      const after = result.impact.centersAffected.map(c => c.remaining);
+
+      this.charts.costImpact = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Current Providers',
+              data: before,
+              backgroundColor: 'rgba(59, 130, 246, 0.7)',
+              borderWidth: 2
+            },
+            {
+              label: 'After Turnover',
+              data: after,
+              backgroundColor: 'rgba(239, 68, 68, 0.7)',
+              borderWidth: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: '#e8eaed' } },
+            tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: { color: '#9aa0a6', stepSize: 1 }
+            }
+          }
+        }
+      });
+    }
+  }
+
+  renderRCMOptimizationCharts(result) {
+    // Chart 1: Revenue Improvement by Center
+    const ctx1 = document.getElementById('overtime-comparison-chart');
+    if (ctx1 && this.charts.overtimeComparison) {
+      this.charts.overtimeComparison.destroy();
+    }
+
+    if (ctx1) {
+      const top8 = result.improvements.slice(0, 8);
+      const labels = top8.map(c => c.centerName);
+      const improvements = top8.map(c => c.additionalRevenue);
+
+      this.charts.overtimeComparison = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Additional Annual Revenue',
+            data: improvements,
+            backgroundColor: 'rgba(16, 185, 129, 0.7)',
+            borderColor: '#10b981',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(37,41,64,0.95)',
+              callbacks: {
+                label: (context) => '+$' + Math.round(context.parsed.y).toLocaleString()
+              }
+            }
+          },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: {
+                color: '#9aa0a6',
+                callback: v => '$' + (v / 1000).toFixed(0) + 'K'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Chart 2: ROI Timeline
+    const ctx2 = document.getElementById('cost-impact-chart');
+    if (ctx2 && this.charts.costImpact) {
+      this.charts.costImpact.destroy();
+    }
+
+    if (ctx2) {
+      const months = [];
+      const cumulativeReturn = [];
+      const monthlyReturn = result.financial.totalAdditionalRevenue / 12;
+
+      for (let i = 0; i <= 24; i++) {
+        months.push(`M${i}`);
+        cumulativeReturn.push((i * monthlyReturn) - result.financial.totalInvestment);
+      }
+
+      this.charts.costImpact = new Chart(ctx2, {
+        type: 'line',
+        data: {
+          labels: months,
+          datasets: [{
+            label: 'Net Return',
+            data: cumulativeReturn,
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: '#e8eaed' } },
+            tooltip: {
+              backgroundColor: 'rgba(37,41,64,0.95)',
+              callbacks: {
+                label: (context) => {
+                  const val = context.parsed.y;
+                  return (val >= 0 ? '+' : '') + '$' + Math.round(val).toLocaleString();
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+            y: {
+              grid: { color: 'rgba(255,255,255,0.05)' },
+              ticks: {
+                color: '#9aa0a6',
+                callback: v => '$' + (v / 1000).toFixed(0) + 'K'
+              }
+            }
+          }
+        }
+      });
+    }
   }
 
   updateRecommendation(result) {

@@ -266,6 +266,60 @@
         "y": "85%",
         "title": "Scenario Save & Reset",
         "description": "NEW: Save promising scenarios for later comparison or reset controls to start fresh. Allows exploring multiple variations without losing work. (Note: Save feature is demonstration-only in this mockup.)"
+      },
+      {
+        "x": "35%",
+        "y": "15%",
+        "title": "Contract Profitability Scenario",
+        "description": "NEW: Model how case volume changes, collection rate improvements, and contract floor adjustments impact center profitability and subsidy requirements. Waterfall charts show revenue flow through costs to net margin. Identifies contracts that can become subsidy-free."
+      },
+      {
+        "x": "55%",
+        "y": "15%",
+        "title": "Market Expansion Scenario",
+        "description": "NEW: Evaluate expansion into new states with full financial modeling: startup costs, provider headcount requirements, revenue ramp over time, and break-even analysis. State-specific reimbursement rates ensure accurate projections. Cumulative cash flow chart shows when expansion pays off."
+      },
+      {
+        "x": "75%",
+        "y": "15%",
+        "title": "Provider Turnover Scenario",
+        "description": "NEW: Model impact of losing providers including recruitment costs, replacement timelines, and coverage strategies (overtime, PRN staff, or reduced coverage). Shows which centers face critical understaffing and burnout risks. Cost breakdown reveals total turnover impact."
+      },
+      {
+        "x": "95%",
+        "y": "15%",
+        "title": "RCM Optimization Scenario",
+        "description": "NEW: Calculate ROI of revenue cycle improvements like reduced denials, better collection rates, and improved coding accuracy. Network-wide or center-specific analysis. Shows break-even timeline for RCM investments and annual revenue gains. Identifies which centers benefit most from optimization."
+      },
+      {
+        "x": "15%",
+        "y": "60%",
+        "title": "Contract Profitability Controls",
+        "description": "NEW: Interactive sliders for volume change (-30% to +30%), collection rate improvement, and contract floor adjustments. Real-time modeling shows how operational improvements reduce subsidy requirements. Break-even case volume displayed for each scenario."
+      },
+      {
+        "x": "15%",
+        "y": "70%",
+        "title": "Market Expansion Timeline Slider",
+        "description": "NEW: Project expansion over 6-36 months with contract acquisition ramp. Provider headcount auto-calculated based on target case volume. Each state has unique reimbursement rates (Illinois $940, Michigan $920, etc.) affecting revenue projections."
+      },
+      {
+        "x": "50%",
+        "y": "65%",
+        "title": "Multi-Select Provider Turnover",
+        "description": "NEW: Select multiple departing providers to model cascading impact. High-risk providers (⚠️) highlighted. Choose coverage strategy: overtime (remaining staff), PRN (premium rates), or reduced coverage (revenue loss). Shows time to stabilize operations."
+      },
+      {
+        "x": "85%",
+        "y": "85%",
+        "title": "RCM ROI Timeline",
+        "description": "NEW: 24-month projection showing when RCM investment breaks even. Models EMR system costs, denial management FTE, and VB-RCM monthly fees against improved collection revenue. Annual ROI percentage and payback period calculated automatically."
+      },
+      {
+        "x": "50%",
+        "y": "90%",
+        "title": "Advanced Scenario Modeling",
+        "description": "NEW: Four additional sophisticated scenarios bring total to 8 interactive models covering finance, strategy, operations, and risk. Each scenario uses real baseline data from 11 centers and 20 providers with accurate cost/revenue calculations. Demonstrates enterprise-grade planning capabilities."
       }
     ]
   }

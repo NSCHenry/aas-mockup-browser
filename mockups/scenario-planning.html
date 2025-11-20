@@ -332,6 +332,10 @@ button.secondary:hover {
   <div class="scenario-tab" data-scenario="rebalancing">🔄 Rebalancing</div>
   <div class="scenario-tab" data-scenario="caseRedistribution">📊 Case Redistribution</div>
   <div class="scenario-tab" data-scenario="onCallPolicy">📞 On-Call Policy</div>
+  <div class="scenario-tab" data-scenario="contractProfitability">💰 Contract Profitability</div>
+  <div class="scenario-tab" data-scenario="marketExpansion">🗺️ Market Expansion</div>
+  <div class="scenario-tab" data-scenario="providerTurnover">👥 Provider Turnover</div>
+  <div class="scenario-tab" data-scenario="rcmOptimization">📈 RCM Optimization</div>
 </div>
 
 <div class="dashboard-layout">
@@ -462,6 +466,149 @@ button.secondary:hover {
       </div>
     </div>
 
+    <!-- Contract Profitability Scenario -->
+    <div class="scenario-panel" data-scenario="contractProfitability">
+      <div class="form-group">
+        <label class="form-label">Center</label>
+        <select id="profitability-center">
+          <option value="">Select Center...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Volume Change (%)</label>
+        <input type="range" id="profitability-volume" min="-30" max="30" value="0" step="5">
+        <span class="range-value" id="profitability-volume-display">0%</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Collection Rate Improvement (pts)</label>
+        <input type="number" id="profitability-collection" min="-10" max="10" value="0" step="1" placeholder="0">
+        <p class="help-text">Percentage points to add/subtract from current rate</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Contract Floor Change ($)</label>
+        <input type="number" id="profitability-floor" min="-20000" max="20000" value="0" step="1000" placeholder="0">
+        <p class="help-text">Dollar change to monthly contract floor</p>
+      </div>
+
+      <div class="warning-box">
+        <p>💡 Model how case volume, collections, and subsidy floors impact profitability. Negative subsidies mean the contract is profitable without ASC support.</p>
+      </div>
+    </div>
+
+    <!-- Market Expansion Scenario -->
+    <div class="scenario-panel" data-scenario="marketExpansion">
+      <div class="form-group">
+        <label class="form-label">Target State</label>
+        <select id="expansion-state">
+          <option value="">Select State...</option>
+          <option value="Indiana">Indiana</option>
+          <option value="Michigan">Michigan</option>
+          <option value="Ohio">Ohio</option>
+          <option value="Illinois">Illinois</option>
+          <option value="Pennsylvania">Pennsylvania</option>
+          <option value="Wisconsin">Wisconsin</option>
+          <option value="Kentucky">Kentucky</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Target Contract Count</label>
+        <input type="range" id="expansion-contracts" min="1" max="10" value="3" step="1">
+        <span class="range-value" id="expansion-contracts-display">3</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Average Cases Per Week (per contract)</label>
+        <input type="number" id="expansion-cases" min="10" max="60" value="30" step="5" placeholder="30">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Timeline (months)</label>
+        <input type="range" id="expansion-timeline" min="6" max="36" value="12" step="6">
+        <span class="range-value" id="expansion-timeline-display">12</span>
+      </div>
+
+      <div class="warning-box">
+        <p>💡 Analyze market entry with startup costs, provider headcount, revenue ramp, and break-even timeline. Each state has different reimbursement rates.</p>
+      </div>
+    </div>
+
+    <!-- Provider Turnover Scenario -->
+    <div class="scenario-panel" data-scenario="providerTurnover">
+      <div class="form-group">
+        <label class="form-label">Providers Leaving</label>
+        <select id="turnover-providers" multiple size="6">
+          <option value="">Loading providers...</option>
+        </select>
+        <p class="help-text">Hold Ctrl/Cmd to select multiple providers</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Replacement Timeline (months)</label>
+        <input type="number" id="turnover-timeline" min="1" max="12" value="3" step="1" placeholder="3">
+        <p class="help-text">Time to recruit and onboard replacements</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Coverage Strategy During Gap</label>
+        <div style="margin-top: 8px;">
+          <label style="display: block; margin-bottom: 8px; font-size: 13px; color: #e8eaed;">
+            <input type="radio" name="coverage-strategy" value="overtime" checked style="width: auto; margin-right: 8px;">
+            Overtime for remaining providers
+          </label>
+          <label style="display: block; margin-bottom: 8px; font-size: 13px; color: #e8eaed;">
+            <input type="radio" name="coverage-strategy" value="prn" style="width: auto; margin-right: 8px;">
+            PRN (Per Diem) providers at premium rates
+          </label>
+          <label style="display: block; margin-bottom: 8px; font-size: 13px; color: #e8eaed;">
+            <input type="radio" name="coverage-strategy" value="reduced" style="width: auto; margin-right: 8px;">
+            Reduced coverage (revenue loss)
+          </label>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <p>⚠️ Provider turnover impacts coverage, costs, and team burnout. High-retention-risk providers are most vulnerable.</p>
+      </div>
+    </div>
+
+    <!-- RCM Optimization Scenario -->
+    <div class="scenario-panel" data-scenario="rcmOptimization">
+      <div class="form-group">
+        <label class="form-label">Scope</label>
+        <select id="rcm-scope">
+          <option value="all">Network-Wide (All Centers)</option>
+          <option value="">-- Or Select Single Center --</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Denial Rate Reduction (%)</label>
+        <input type="range" id="rcm-denial" min="0" max="50" value="25" step="5">
+        <span class="range-value" id="rcm-denial-display">25%</span>
+        <p class="help-text">Percent reduction in claim denials</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Collection Rate Improvement (pts)</label>
+        <input type="number" id="rcm-collection" min="0" max="15" value="3" step="1" placeholder="3">
+        <p class="help-text">Percentage points to improve collection rate</p>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Investment in RCM ($)</label>
+        <input type="number" id="rcm-investment" min="0" max="500000" value="150000" step="10000" placeholder="150000">
+        <p class="help-text">One-time + annual costs for EMR, denial mgmt, etc.</p>
+      </div>
+
+      <div class="warning-box">
+        <p>💡 Revenue cycle optimization can reduce subsidies and improve contract profitability. Model ROI of improved coding, denial reduction, and collection rates.</p>
+      </div>
+    </div>
+
     <div class="button-group">
       <button id="reset-btn" class="secondary">Reset</button>
       <button id="save-scenario-btn">Save Scenario</button>
@@ -555,6 +702,23 @@ document.getElementById('hiring-count')?.addEventListener('input', function() {
 
 document.getElementById('case-count')?.addEventListener('input', function() {
   document.getElementById('case-count-display').textContent = this.value;
+});
+
+// New scenario sliders
+document.getElementById('profitability-volume')?.addEventListener('input', function() {
+  document.getElementById('profitability-volume-display').textContent = this.value + '%';
+});
+
+document.getElementById('expansion-contracts')?.addEventListener('input', function() {
+  document.getElementById('expansion-contracts-display').textContent = this.value;
+});
+
+document.getElementById('expansion-timeline')?.addEventListener('input', function() {
+  document.getElementById('expansion-timeline-display').textContent = this.value;
+});
+
+document.getElementById('rcm-denial')?.addEventListener('input', function() {
+  document.getElementById('rcm-denial-display').textContent = this.value + '%';
 });
 </script>
 
