@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Supply & Demand - Provider Analysis</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+body {margin:0;padding:20px;background:#0a0e27;color:#e1e4e8;font-family:system-ui,-apple-system,sans-serif;}
+.header {margin-bottom:24px;}
+.header h1 {margin:0;font-size:28px;font-weight:700;color:#fff;}
+.subtitle {margin-top:8px;font-size:14px;color:#9aa0a6;}
+.metric-bar {display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.metric {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:16px;flex:1;min-width:200px;border-left:3px solid #3b82f6;}
+.metric-label {font-size:12px;color:#9aa0a6;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+.metric-value {font-size:28px;font-weight:700;color:#fff;}
+.metric-change {font-size:12px;margin-top:4px;}
+.value-green {color:#10b981;}
+.value-red {color:#ef4444;}
+.value-yellow {color:#fbbf24;}
+.tile {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:24px;margin-bottom:24px;border-top:3px solid #3b82f6;}
+.tile-title {font-size:18px;font-weight:600;margin-bottom:16px;color:#fff;}
+.chart-container {position:relative;height:400px;margin-top:16px;}
+.grid-2 {display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:24px;}
+.provider-split {display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:16px;}
+.split-card {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:20px;}
+.split-type {font-size:14px;color:#9aa0a6;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;}
+.split-value {font-size:36px;font-weight:700;color:#fff;margin-bottom:4px;}
+.split-pct {font-size:14px;color:#9aa0a6;}
+.split-details {margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.05);}
+.split-detail {display:flex;justify-content:space-between;padding:6px 0;}
+.split-label {font-size:13px;color:#9aa0a6;}
+.split-data {font-size:13px;font-weight:600;color:#fff;}
+.insight-card {background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.3);border-radius:8px;padding:16px;margin-top:16px;}
+.insight-title {font-size:14px;font-weight:600;color:#3b82f6;margin-bottom:8px;}
+.insight-text {font-size:13px;color:#9aa0a6;line-height:1.6;}
+.specialty-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
+.specialty-card {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:6px;padding:12px;}
+.specialty-name {font-size:13px;color:#9aa0a6;margin-bottom:4px;}
+.specialty-value {font-size:20px;font-weight:700;color:#fff;}
+.specialty-status {font-size:11px;margin-top:4px;}
+</style>
+</head><body>
+<div class="header">
+  <h1>Provider Supply & Demand - Provider Type Analysis</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • CRNA vs MD • Specialty Coverage</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Total Providers</div>
+    <div class="metric-value">287</div>
+    <div class="metric-change" style="color:#10b981;">↑ 34 YoY</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">CRNAs</div>
+    <div class="metric-value">198</div>
+    <div class="metric-change" style="color:#9aa0a6;">69% of workforce</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Anesthesiologists (MD)</div>
+    <div class="metric-value">89</div>
+    <div class="metric-change" style="color:#9aa0a6;">31% of workforce</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Specialty Coverage</div>
+    <div class="metric-value value-green">94%</div>
+    <div class="metric-change" style="color:#10b981;">All major specialties</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Provider Stability (Tenure)</div>
+    <div class="metric-value">3.2yr</div>
+    <div class="metric-change" style="color:#10b981;">↑ 0.4yr improvement</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">CRNA vs Anesthesiologist Breakdown</div>
+  <div class="provider-split">
+    <div class="split-card" style="border-left:3px solid #10b981;">
+      <div class="split-type">CRNAs (Certified Registered Nurse Anesthetists)</div>
+      <div class="split-value">198</div>
+      <div class="split-pct">69% of total provider workforce</div>
+      <div class="split-details">
+        <div class="split-detail">
+          <span class="split-label">Michigan</span>
+          <span class="split-data">102 (72%)</span>
+        </div>
+        <div class="split-detail">
+          <span class="split-label">Indiana</span>
+          <span class="split-data">96 (66%)</span>
+        </div>
+        <div class="split-detail">
+          <span class="split-label">Avg Utilization</span>
+          <span class="split-data" style="color:#fbbf24;">74%</span>
+        </div>
+        <div class="split-detail">
+          <span class="split-label">Available Capacity</span>
+          <span class="split-data" style="color:#10b981;">+52 FTE equivalent</span>
+        </div>
+        <div class="split-detail">
+          <span class="split-label">Avg Tenure</span>
+          <span class="split-data">2.8 years</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="split-card" style="border-left:3px solid #3b82f6;">
+      <div class="split-type">Anesthesiologists (MD/DO)</div>
+      <div class="split-value">89</div>
+      <div class="split-pct">31% of total provider workforce</div>
+      <div class="split-details">
+        <div class="split-detail">
+          <span class="split-label">Michigan</span>
+          <span class="split-data">40 (28%)</span>
+        </div>
+        <div class="split-detail">
+          <span class="split-label">Indiana</span>
+          <span class="split-data">49 (34%)</span>
+        </div>
+        <div class="split-detail">
+          <span class="split-label">Avg Utilization</span>
+          <span class="split-data" style="color:#10b981;">86%</span>
+        </div>
+        <div class="split-detail">
+          <span class="split-label">Available Capacity</span>
+          <span class="split-data" style="color:#fbbf24;">+12 FTE equivalent</span>
+        </div>
+        <div class="split-detail">
+          <span class="split-label">Avg Tenure</span>
+          <span class="split-data">4.1 years</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <div class="insight-title">🎯 Strategic Insight: Indiana CRNA Underutilization</div>
+    <div class="insight-text">
+      Indiana has 96 CRNAs with only 66% utilization (vs 74% average), representing approximately 32 FTE of untapped capacity.
+      This is equivalent to supporting 3-4 additional ASCs without new recruitment. Priority markets: Indianapolis South, Fort Wayne, and Evansville.
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Provider Type Mix by Region</div>
+    <div class="chart-container">
+      <canvas id="mix-chart"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Provider Utilization: CRNA vs MD</div>
+    <div class="chart-container">
+      <canvas id="utilization-chart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Clinical Specialty Coverage</div>
+  <div class="specialty-grid">
+    <div class="specialty-card" style="border-left:3px solid #10b981;">
+      <div class="specialty-name">Orthopedic</div>
+      <div class="specialty-value">68</div>
+      <div class="specialty-status" style="color:#10b981;">✓ Excellent coverage</div>
+    </div>
+    <div class="specialty-card" style="border-left:3px solid #10b981;">
+      <div class="specialty-name">GI/Endoscopy</div>
+      <div class="specialty-value">52</div>
+      <div class="specialty-status" style="color:#10b981;">✓ Strong coverage</div>
+    </div>
+    <div class="specialty-card" style="border-left:3px solid #10b981;">
+      <div class="specialty-name">ENT</div>
+      <div class="specialty-value">41</div>
+      <div class="specialty-status" style="color:#10b981;">✓ Strong coverage</div>
+    </div>
+    <div class="specialty-card" style="border-left:3px solid #10b981;">
+      <div class="specialty-name">Ophthalmology</div>
+      <div class="specialty-value">38</div>
+      <div class="specialty-status" style="color:#10b981;">✓ Adequate coverage</div>
+    </div>
+    <div class="specialty-card" style="border-left:3px solid #fbbf24;">
+      <div class="specialty-name">Pain Management</div>
+      <div class="specialty-value">29</div>
+      <div class="specialty-status" style="color:#fbbf24;">⚠ Moderate coverage</div>
+    </div>
+    <div class="specialty-card" style="border-left:3px solid #10b981;">
+      <div class="specialty-name">General Surgery</div>
+      <div class="specialty-value">34</div>
+      <div class="specialty-status" style="color:#10b981;">✓ Strong coverage</div>
+    </div>
+    <div class="specialty-card" style="border-left:3px solid #10b981;">
+      <div class="specialty-name">Podiatry</div>
+      <div class="specialty-value">22</div>
+      <div class="specialty-status" style="color:#10b981;">✓ Adequate coverage</div>
+    </div>
+    <div class="specialty-card" style="border-left:3px solid #f59e0b;">
+      <div class="specialty-name">Cardiac</div>
+      <div class="specialty-value">12</div>
+      <div class="specialty-status" style="color:#f59e0b;">⚠ Limited coverage</div>
+    </div>
+    <div class="specialty-card" style="border-left:3px solid #fbbf24;">
+      <div class="specialty-name">Urology</div>
+      <div class="specialty-value">18</div>
+      <div class="specialty-status" style="color:#fbbf24;">⚠ Growing demand</div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Provider Recruitment Needs by Region</div>
+    <div class="chart-container">
+      <canvas id="recruitment-chart"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Provider Tenure & Stability</div>
+    <div class="chart-container">
+      <canvas id="tenure-chart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Specialty Gap Analysis - Target Markets</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px;">
+    <div>
+      <div style="font-weight:600;margin-bottom:12px;color:#10b981;">✓ Well-Covered Specialties (Ready for Expansion)</div>
+      <div style="font-size:13px;color:#9aa0a6;line-height:1.8;">
+        • <span style="color:#fff;">Orthopedic</span> - 68 providers (24% of workforce) - Can support 6-8 new ASCs<br>
+        • <span style="color:#fff;">GI/Endoscopy</span> - 52 providers (18%) - High volume specialty, 4-6 ASCs<br>
+        • <span style="color:#fff;">ENT</span> - 41 providers (14%) - Strong MI/IN coverage, 3-5 ASCs<br>
+        • <span style="color:#fff;">General Surgery</span> - 34 providers (12%) - Versatile, 3-4 ASCs<br>
+        • <span style="color:#fff;">Ophthalmology</span> - 38 providers (13%) - Adequate for current demand
+      </div>
+    </div>
+    <div>
+      <div style="font-weight:600;margin-bottom:12px;color:#fbbf24;">⚠ Specialty Gaps (Recruitment Priority)</div>
+      <div style="font-size:13px;color:#9aa0a6;line-height:1.8;">
+        • <span style="color:#f59e0b;">Cardiac</span> - Only 12 providers - Need +8-10 for cardiac ASC expansion<br>
+        • <span style="color:#fbbf24;">Pain Management</span> - 29 providers - Growing demand, need +6-8<br>
+        • <span style="color:#fbbf24;">Urology</span> - 18 providers - Expanding specialty, need +5-7<br>
+        • <span style="color:#fbbf24;">Pediatrics</span> - Limited coverage - Need +4-6 for children's centers<br>
+        • <span style="color:#fbbf24;">OB/GYN</span> - Minimal coverage - Potential specialty, need assessment
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      labels: { color: '#9aa0a6' }
+    },
+    tooltip: {
+      backgroundColor: 'rgba(26,32,53,0.95)',
+      titleColor: '#fff',
+      bodyColor: '#e1e4e8'
+    }
+  }
+};
+
+new Chart(document.getElementById('mix-chart'), {
+  type: 'bar',
+  data: {
+    labels: ['Michigan Metro', 'Indiana Central', 'Michigan West', 'Indiana Northern', 'Indiana Southern'],
+    datasets: [
+      { label: 'CRNAs', data: [102, 68, 24, 28, 18], backgroundColor: '#10b981' },
+      { label: 'MDs', data: [40, 30, 14, 19, 8], backgroundColor: '#3b82f6' }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { stacked: true, grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('utilization-chart'), {
+  type: 'bar',
+  data: {
+    labels: ['Michigan\nCRNA', 'Michigan\nMD', 'Indiana\nCRNA', 'Indiana\nMD'],
+    datasets: [{
+      label: 'Utilization %',
+      data: [79, 88, 66, 84],
+      backgroundColor: ['#fbbf24', '#10b981', '#ef4444', '#10b981']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, max: 100 }
+    }
+  }
+});
+
+new Chart(document.getElementById('recruitment-chart'), {
+  type: 'bar',
+  data: {
+    labels: ['Indianapolis South', 'Fort Wayne', 'Grand Rapids', 'Columbus', 'Toledo', 'Lansing', 'Evansville'],
+    datasets: [
+      { label: 'CRNAs Needed', data: [8, 6, 10, 12, 8, 7, 5], backgroundColor: '#10b981' },
+      { label: 'MDs Needed', data: [3, 2, 4, 5, 3, 3, 2], backgroundColor: '#3b82f6' }
+    ]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    scales: {
+      x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { stacked: true, grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('tenure-chart'), {
+  type: 'bar',
+  data: {
+    labels: ['<1 year', '1-2 years', '2-3 years', '3-5 years', '5+ years'],
+    datasets: [
+      { label: 'CRNAs', data: [28, 52, 48, 42, 28], backgroundColor: '#10b981' },
+      { label: 'MDs', data: [8, 15, 18, 28, 20], backgroundColor: '#3b82f6' }
+    ]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, title: { display: true, text: 'Number of Providers', color: '#9aa0a6' } }
+    }
+  }
+});
+</script>
+</body></html>

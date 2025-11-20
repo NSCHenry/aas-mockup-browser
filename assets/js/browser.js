@@ -33,7 +33,10 @@ const AppState = {
                 { id: 'option1-funnel', name: 'Funnel View', file: 'growth-pipeline-option1-funnel.html' },
                 { id: 'option2-timeline', name: 'Timeline View', file: 'growth-pipeline-option2-timeline.html' },
                 { id: 'option3-crm', name: 'CRM Style', file: 'growth-pipeline-option3-crm.html' },
-                { id: 'option4-geographic', name: 'Geographic Expansion', file: 'geographic-expansion.html' }
+                { id: 'option4-geographic', name: 'Geographic Expansion', file: 'geographic-expansion.html' },
+                { id: 'option5-supply-demand-geo', name: 'Supply & Demand - Geographic', file: 'growth-pipeline-option5-supply-demand-geo.html' },
+                { id: 'option6-supply-demand-providers', name: 'Supply & Demand - Providers', file: 'growth-pipeline-option6-supply-demand-providers.html' },
+                { id: 'option7-supply-demand-competition', name: 'Supply & Demand - Competition', file: 'growth-pipeline-option7-supply-demand-competition.html' }
             ]
         },
         {

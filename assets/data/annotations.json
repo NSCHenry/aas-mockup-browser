@@ -66,6 +66,60 @@
     ]
   },
   {
+    "categoryId": "executive-overview",
+    "optionId": "option3-executive",
+    "markers": [
+      {
+        "x": "30%",
+        "y": "25%",
+        "title": "Executive Summary Cards",
+        "description": "High-level KPIs optimized for C-suite. Focus on business outcomes rather than operational details. Large numbers with clear trend indicators."
+      },
+      {
+        "x": "65%",
+        "y": "50%",
+        "title": "Strategic Insights",
+        "description": "Narrative-focused insights that tell the story behind the numbers. Designed for board presentations and executive briefings."
+      }
+    ]
+  },
+  {
+    "categoryId": "financial-deepdive",
+    "optionId": "option2-full-width",
+    "markers": [
+      {
+        "x": "50%",
+        "y": "35%",
+        "title": "Full-Width Financial Charts",
+        "description": "Maximized chart area for detailed financial analysis. Wide format allows more data points and better visibility of trends over extended time periods."
+      },
+      {
+        "x": "75%",
+        "y": "65%",
+        "title": "Comparative Analysis",
+        "description": "Side-by-side comparison of financial metrics across centers, time periods, or business units. Makes variance analysis intuitive."
+      }
+    ]
+  },
+  {
+    "categoryId": "financial-deepdive",
+    "optionId": "option3-tabbed",
+    "markers": [
+      {
+        "x": "20%",
+        "y": "15%",
+        "title": "Financial Category Tabs",
+        "description": "Organized financial data into logical tabs (Revenue, Expenses, Profitability, Cash Flow). Reduces clutter while keeping all data accessible."
+      },
+      {
+        "x": "60%",
+        "y": "50%",
+        "title": "Context-Specific Visualizations",
+        "description": "Each tab contains charts and metrics specific to that financial category. Optimized layouts for each data type."
+      }
+    ]
+  },
+  {
     "categoryId": "growth-pipeline",
     "optionId": "option1-funnel",
     "markers": [
@@ -80,6 +134,150 @@
         "y": "25%",
         "title": "Conversion Metrics",
         "description": "Stage-by-stage conversion rates and drop-off analysis. Helps identify where prospects are lost and where to focus improvement efforts."
+      }
+    ]
+  },
+  {
+    "categoryId": "growth-pipeline",
+    "optionId": "option2-timeline",
+    "markers": [
+      {
+        "x": "50%",
+        "y": "40%",
+        "title": "Pipeline Timeline View",
+        "description": "Chronological view of all opportunities in the pipeline. Shows expected close dates, deal stages, and revenue projections over time."
+      },
+      {
+        "x": "80%",
+        "y": "60%",
+        "title": "Revenue Forecast",
+        "description": "Projected revenue based on pipeline stages and historical close rates. Helps with capacity planning and resource allocation."
+      }
+    ]
+  },
+  {
+    "categoryId": "growth-pipeline",
+    "optionId": "option3-crm",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "35%",
+        "title": "CRM-Style Pipeline Grid",
+        "description": "Familiar CRM layout showing all deals with key fields: contact, value, stage, close date. Sortable and filterable for quick analysis."
+      },
+      {
+        "x": "85%",
+        "y": "45%",
+        "title": "Deal Activity Feed",
+        "description": "Recent activities and interactions for each opportunity. Tracks communication history and next steps for follow-up."
+      }
+    ]
+  },
+  {
+    "categoryId": "growth-pipeline",
+    "optionId": "option4-geographic",
+    "markers": [
+      {
+        "x": "50%",
+        "y": "35%",
+        "title": "Geographic Expansion Map",
+        "description": "Visual map showing current coverage and expansion opportunities. Color-coded by market maturity and potential."
+      },
+      {
+        "x": "80%",
+        "y": "60%",
+        "title": "Market Analysis",
+        "description": "Detailed metrics for each geographic market: population, competition, regulatory environment, and projected ROI."
+      }
+    ]
+  },
+  {
+    "categoryId": "growth-pipeline",
+    "optionId": "option5-supply-demand-geo",
+    "markers": [
+      {
+        "x": "35%",
+        "y": "30%",
+        "title": "Regional Supply & Demand Cards",
+        "description": "Michigan Metro, Indiana Central, and Indiana Northern analyzed for provider availability, ASC coverage, and expansion capacity. Provider:ASC ratios show where resources exist. Indiana Northern's 58% utilization = major opportunity."
+      },
+      {
+        "x": "50%",
+        "y": "55%",
+        "title": "Provider Density Analysis",
+        "description": "Providers per 100k population by state. Michigan (14.2) and Indiana (11.8) show strong supply vs Ohio/Illinois border markets. Scatter plot shows relationship between provider availability and ASC coverage."
+      },
+      {
+        "x": "70%",
+        "y": "75%",
+        "title": "Target Expansion Markets",
+        "description": "Prioritized market list with provider availability: Indianapolis South (24 available, 0 served), Fort Wayne (18 available, low util), Grand Rapids (32 available). Green = high priority, yellow = recruitment needed."
+      },
+      {
+        "x": "85%",
+        "y": "50%",
+        "title": "Growth Potential Scores",
+        "description": "Composite scoring (0-100) combining provider supply, market demand, competition level, and compensation rates. Indianapolis South scores 92—ideal first target for immediate expansion."
+      }
+    ]
+  },
+  {
+    "categoryId": "growth-pipeline",
+    "optionId": "option6-supply-demand-providers",
+    "markers": [
+      {
+        "x": "30%",
+        "y": "35%",
+        "title": "CRNA vs MD Breakdown",
+        "description": "Split cards show 198 CRNAs (69%) vs 89 MDs (31%) across Michigan and Indiana. Critical insight: Indiana CRNAs at 66% utilization = 32 FTE untapped capacity. Can support 3-4 new ASCs without recruitment."
+      },
+      {
+        "x": "50%",
+        "y": "55%",
+        "title": "Provider Mix by Region",
+        "description": "Stacked bar charts showing CRNA/MD distribution by market. Identifies where provider types are concentrated and where gaps exist for balanced coverage."
+      },
+      {
+        "x": "70%",
+        "y": "70%",
+        "title": "Clinical Specialty Coverage",
+        "description": "9-specialty grid: Orthopedic (68 providers) and GI (52) have excellent coverage. Cardiac (12) and Urology (18) are gaps requiring targeted recruitment for specialty ASC expansion."
+      },
+      {
+        "x": "85%",
+        "y": "45%",
+        "title": "Specialty Gap Analysis",
+        "description": "Well-covered specialties ready for expansion vs gaps requiring recruitment. Orthopedic can support 6-8 new ASCs immediately. Cardiac needs +8-10 providers before expanding."
+      }
+    ]
+  },
+  {
+    "categoryId": "growth-pipeline",
+    "optionId": "option7-supply-demand-competition",
+    "markers": [
+      {
+        "x": "35%",
+        "y": "40%",
+        "title": "Target Market Competitive Intelligence",
+        "description": "6 market cards with detailed competitor analysis: Indianapolis South (1 weak competitor, below-market comp), Fort Wayne (Summit Health struggling), Grand Rapids (moderate competition). Color-coded: green=opportunity, yellow=competitive, red=saturated."
+      },
+      {
+        "x": "70%",
+        "y": "45%",
+        "title": "Competitor Financial Health",
+        "description": "Real competitive intel: Summit Health lost 2 ASCs in 2025, 28% turnover. RegionalMed has flat growth, below-market compensation. These struggling competitors create expansion openings."
+      },
+      {
+        "x": "50%",
+        "y": "70%",
+        "title": "Compensation Advantage",
+        "description": "AAS pays $186K CRNA vs $172K market avg (+8%). $312K MD vs $289K avg (+8%). In Indianapolis South, competitors pay $168K—giving AAS massive recruiting advantage in key expansion markets."
+      },
+      {
+        "x": "85%",
+        "y": "75%",
+        "title": "3-Tier Strategic Recommendations",
+        "description": "Tier 1 (Q1 2026): Indianapolis South, Fort Wayne, Lansing—weak competition, high supply. Tier 2 (Q2-Q3): Grand Rapids, Kalamazoo—moderate competition. Tier 3: Columbus, Ann Arbor—avoid due to saturation."
       }
     ]
   },
@@ -157,6 +355,24 @@
   },
   {
     "categoryId": "revenue-cycle",
+    "optionId": "option1-process",
+    "markers": [
+      {
+        "x": "50%",
+        "y": "40%",
+        "title": "Revenue Cycle Process Flow",
+        "description": "Visual workflow showing patient registration through final payment collection. Identifies handoff points and potential bottlenecks in the revenue cycle."
+      },
+      {
+        "x": "75%",
+        "y": "60%",
+        "title": "Stage Metrics",
+        "description": "Key performance indicators at each process stage. Shows where claims get delayed or denied, guiding process improvement efforts."
+      }
+    ]
+  },
+  {
+    "categoryId": "revenue-cycle",
     "optionId": "option2-metrics",
     "markers": [
       {
@@ -170,6 +386,24 @@
         "y": "40%",
         "title": "Collection Rate",
         "description": "Percentage of billed amounts successfully collected. Tracks effectiveness of revenue cycle processes and identifies improvement opportunities."
+      }
+    ]
+  },
+  {
+    "categoryId": "revenue-cycle",
+    "optionId": "option3-comparison",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "35%",
+        "title": "Center-by-Center Comparison",
+        "description": "Revenue cycle metrics compared across all ASC locations. Identifies top performers and locations needing support in billing and collections."
+      },
+      {
+        "x": "70%",
+        "y": "55%",
+        "title": "Benchmark Analysis",
+        "description": "Compare AAS performance against industry benchmarks. Shows where we excel and where improvements would have the biggest financial impact."
       }
     ]
   },
@@ -192,6 +426,48 @@
     ]
   },
   {
+    "categoryId": "provider-management",
+    "optionId": "option2-analytics",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "35%",
+        "title": "Provider Analytics Dashboard",
+        "description": "Aggregate analytics across provider workforce: utilization rates, productivity trends, compensation analysis. Identifies patterns and optimization opportunities."
+      },
+      {
+        "x": "70%",
+        "y": "55%",
+        "title": "Workforce Planning Insights",
+        "description": "Predictive analytics for staffing needs, turnover risk, and capacity planning. Helps anticipate gaps before they become problems."
+      }
+    ]
+  },
+  {
+    "categoryId": "provider-management",
+    "optionId": "option3-recruitment",
+    "markers": [
+      {
+        "x": "35%",
+        "y": "40%",
+        "title": "Recruitment Pipeline",
+        "description": "Track candidates from initial contact through onboarding. Shows stage, timeline, credential status, and next steps for each candidate."
+      },
+      {
+        "x": "75%",
+        "y": "50%",
+        "title": "Time-to-Fill Metrics",
+        "description": "Track recruiting efficiency: days to hire, candidate quality, offer acceptance rates. Identifies bottlenecks in the hiring process."
+      },
+      {
+        "x": "50%",
+        "y": "70%",
+        "title": "Market Demand Analysis",
+        "description": "Shows where provider shortages exist and recruitment priorities. Links staffing needs to business expansion plans."
+      }
+    ]
+  },
+  {
     "categoryId": "client-satisfaction",
     "optionId": "option1-scorecard",
     "markers": [
@@ -199,19 +475,295 @@
         "x": "40%",
         "y": "25%",
         "title": "NPS Score",
-        "description": "Net Promoter Score with historical trend. Primary measure of client satisfaction and loyalty, tracked over time to measure improvement."
+        "description": "Net Promoter Score with historical trend. Primary measure of ASC client satisfaction and loyalty, tracked over time to measure improvement."
       },
       {
         "x": "65%",
         "y": "50%",
         "title": "Satisfaction Drivers",
-        "description": "Breakdown of factors influencing client satisfaction. Helps prioritize improvement initiatives by identifying what matters most to clients."
+        "description": "Breakdown of factors influencing ASC client satisfaction. Helps prioritize improvement initiatives by identifying what matters most to clients."
       },
       {
         "x": "50%",
         "y": "75%",
         "title": "Client Feedback",
-        "description": "Recent client comments and survey responses. Qualitative data provides context and specific insights beyond numerical scores."
+        "description": "Recent ASC administrator comments and survey responses. Qualitative data provides context and specific insights beyond numerical scores."
+      }
+    ]
+  },
+  {
+    "categoryId": "client-satisfaction",
+    "optionId": "option2-risk",
+    "markers": [
+      {
+        "x": "30%",
+        "y": "45%",
+        "title": "At-Risk ASC Details",
+        "description": "Critical view: Solaris 3 (satisfaction declined 1.8 points, 3 coverage gaps, billing disputes), Solaris 2 (late callouts), Solaris 1 (weekend challenges). Red=critical, yellow=high risk. Total $3.2M revenue at risk."
+      },
+      {
+        "x": "85%",
+        "y": "40%",
+        "title": "Churn Risk Indicators",
+        "description": "Coverage gaps (8.2/10 risk) and billing issues (7.5/10) are top churn drivers. Communication (4.2) and response time (3.5) are strengths. Focus improvement on operational reliability."
+      },
+      {
+        "x": "50%",
+        "y": "85%",
+        "title": "Action Items by Risk Level",
+        "description": "Solaris 3: Executive meeting by Nov 30, address billing by Dec 5, assign dedicated account manager. Solaris 2: QBR Dec 8, backup protocol. Solaris 1: Weekend staffing plan, credentialing review."
+      }
+    ]
+  },
+  {
+    "categoryId": "client-satisfaction",
+    "optionId": "option3-timeline",
+    "markers": [
+      {
+        "x": "50%",
+        "y": "30%",
+        "title": "24-Month Satisfaction Trend",
+        "description": "Overall satisfaction improved from 8.0 (Dec 2023) to 8.7 (Nov 2025). Steady upward trend shows consistent service improvements. +0.5 YoY, +0.3 last 6 months."
+      },
+      {
+        "x": "30%",
+        "y": "55%",
+        "title": "ASC System Trends",
+        "description": "Mini sparklines for major clients: IU Health +0.4 (7 ASCs), Corewell +0.2 (5 ASCs), Beaumont NJ flat (4 ASCs), Solaris -1.2 (3 ASCs). Visual trend identification at a glance."
+      },
+      {
+        "x": "70%",
+        "y": "60%",
+        "title": "Recent Events & Impact",
+        "description": "Timeline of key events: IU Health renewal (positive), Corewell coverage improvement (positive), Solaris QBR (neutral), weekend failure (negative). Links events to satisfaction changes."
+      },
+      {
+        "x": "50%",
+        "y": "75%",
+        "title": "12-Month System Comparison",
+        "description": "Line chart shows IU Health climbing to 8.9, Corewell stable at 8.7, Beaumont NJ flat at 8.4, Solaris declining from 9.0 to 7.8. Identifies which relationships need attention."
+      }
+    ]
+  },
+  {
+    "categoryId": "patient-satisfaction",
+    "optionId": "option1-scorecard",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "25%",
+        "title": "Patient Satisfaction Metrics",
+        "description": "Overall 4.8/5.0 satisfaction with 68% survey response rate and 96% would recommend. Higher than national average for ASC anesthesia care."
+      },
+      {
+        "x": "60%",
+        "y": "45%",
+        "title": "Satisfaction Trends",
+        "description": "12-month trend shows consistent 4.7-4.9 range. By procedure: Orthopedic (4.9), GI (4.8), ENT (4.7). Identifies which specialties excel in patient experience."
+      },
+      {
+        "x": "50%",
+        "y": "70%",
+        "title": "Patient Comment Themes",
+        "description": "Aggregate sentiment analysis: 82% positive, 14% neutral, 4% improvement areas. No individual names—only aggregate data maintains HIPAA compliance while providing insights."
+      }
+    ]
+  },
+  {
+    "categoryId": "patient-satisfaction",
+    "optionId": "option2-by-location",
+    "markers": [
+      {
+        "x": "35%",
+        "y": "40%",
+        "title": "Location Performance Cards",
+        "description": "ASC-by-ASC comparison: Corewell Dearborn leads at 4.9, IU Health West at 4.8. Shows survey volume, trend direction, and key strengths/weaknesses for each location."
+      },
+      {
+        "x": "70%",
+        "y": "45%",
+        "title": "Satisfaction by ASC Chart",
+        "description": "Bar chart ranking all 29 ASC locations. Color-coded: green >4.7, yellow 4.5-4.7, red <4.5. Helps identify which locations need support vs which are models."
+      },
+      {
+        "x": "50%",
+        "y": "75%",
+        "title": "Geographic Patterns",
+        "description": "Michigan ASCs average 4.8, Indiana 4.7. Regional differences may reflect local culture, case mix, or operational variations. Informs best practice sharing."
+      }
+    ]
+  },
+  {
+    "categoryId": "patient-satisfaction",
+    "optionId": "option3-quality",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "35%",
+        "title": "Quality Performance Indicators",
+        "description": "Pre-op assessment 99.8%, antibiotic timing 98.5%, airway management 99.9%, PACU handoff 100%, emergency equipment 100%, medication errors 0.02%. All exceed ASA national benchmarks."
+      },
+      {
+        "x": "50%",
+        "y": "55%",
+        "title": "Patient Safety Metrics",
+        "description": "Safety score 99.2%, zero adverse events 98.7%, pain control 4.8/5.0. Line chart shows safety improving from 98.8% to 99.2% over 12 months. Exceeds industry benchmark by 1.8%."
+      },
+      {
+        "x": "70%",
+        "y": "70%",
+        "title": "Post-Op Satisfaction Drivers",
+        "description": "Most valued: Provider explained risks (4.9), felt safe (4.9), pain managed (4.8). Improvement opportunities: Post-op nausea (4.5), recovery room comfort (4.5), pre-op wait (4.4)."
+      },
+      {
+        "x": "50%",
+        "y": "85%",
+        "title": "Adverse Event Rate",
+        "description": "AAS rate declining from 2.1 to 1.5 per 1000 cases. National average flat at 3.1. Shows AAS commitment to safety improvement with measurable results."
+      }
+    ]
+  },
+  {
+    "categoryId": "compliance",
+    "optionId": "credentialing",
+    "markers": [
+      {
+        "x": "35%",
+        "y": "35%",
+        "title": "Credentialing Status Dashboard",
+        "description": "Real-time view of all provider credentials: licenses, board certifications, DEA, malpractice insurance. Red alerts for expiring within 30 days, yellow for 60 days."
+      },
+      {
+        "x": "70%",
+        "y": "50%",
+        "title": "Expiration Tracking",
+        "description": "Automated tracking prevents expired credentials. Shows renewal dates, required documents, and workflow status for each provider across all states."
+      },
+      {
+        "x": "50%",
+        "y": "75%",
+        "title": "Multi-State Compliance",
+        "description": "Complex tracking for providers working in multiple states. Each state has unique requirements—dashboard ensures nothing falls through cracks."
+      }
+    ]
+  },
+  {
+    "categoryId": "compliance",
+    "optionId": "billing-coding",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "30%",
+        "title": "Coding Accuracy Metrics",
+        "description": "Track coding accuracy rates, denial reasons, and compliance with CMS guidelines. Identifies providers or centers needing additional training."
+      },
+      {
+        "x": "65%",
+        "y": "55%",
+        "title": "Audit Risk Indicators",
+        "description": "Monitors patterns that could trigger audits: upcoding flags, modifier usage, documentation gaps. Proactive risk management reduces audit likelihood."
+      },
+      {
+        "x": "50%",
+        "y": "80%",
+        "title": "Denial Analysis",
+        "description": "Break down denials by reason code, payer, and provider. Links billing compliance to revenue cycle performance. Informs targeted education."
+      }
+    ]
+  },
+  {
+    "categoryId": "compliance",
+    "optionId": "contract-risk",
+    "markers": [
+      {
+        "x": "35%",
+        "y": "40%",
+        "title": "Contract Compliance Tracking",
+        "description": "Monitor adherence to contract terms: coverage requirements, response times, quality metrics, billing terms. Red flags non-compliance before it becomes breach."
+      },
+      {
+        "x": "70%",
+        "y": "45%",
+        "title": "Regulatory Risk Assessment",
+        "description": "Track regulatory changes (Stark Law, Anti-Kickback, state regulations) and assess impact on operations. Ensures proactive compliance adjustments."
+      },
+      {
+        "x": "50%",
+        "y": "75%",
+        "title": "Renewal Calendar",
+        "description": "Contract expiration dates with renewal timeline milestones. Prevents last-minute scrambles and allows strategic renegotiation planning."
+      }
+    ]
+  },
+  {
+    "categoryId": "compliance",
+    "optionId": "phi-security",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "35%",
+        "title": "PHI Access Audit Log",
+        "description": "HIPAA-required audit trail of who accessed patient data, when, and why. Detects unusual access patterns that may indicate breach or misuse."
+      },
+      {
+        "x": "70%",
+        "y": "50%",
+        "title": "Security Compliance Score",
+        "description": "Overall HIPAA Security Rule compliance: technical safeguards, administrative policies, physical security. Dashboard shows gaps requiring remediation."
+      },
+      {
+        "x": "50%",
+        "y": "75%",
+        "title": "Access Control Management",
+        "description": "Role-based access controls showing who has access to what data. Ensures minimum necessary access principle and tracks terminations."
+      }
+    ]
+  },
+  {
+    "categoryId": "compliance",
+    "optionId": "vendor-baa",
+    "markers": [
+      {
+        "x": "35%",
+        "y": "40%",
+        "title": "Business Associate Agreements",
+        "description": "Track all vendors handling PHI: BAA signed status, expiration dates, compliance attestations. HIPAA requires BAAs with every vendor touching patient data."
+      },
+      {
+        "x": "70%",
+        "y": "50%",
+        "title": "Vendor Risk Ratings",
+        "description": "Risk assessment for each vendor: security posture, breach history, access level. Prioritizes vendors needing security reviews or contract updates."
+      },
+      {
+        "x": "50%",
+        "y": "75%",
+        "title": "BAA Renewal Workflow",
+        "description": "Automated reminders for expiring BAAs. Tracks signature status, legal review, and filing. Prevents gaps in HIPAA coverage."
+      }
+    ]
+  },
+  {
+    "categoryId": "compliance",
+    "optionId": "phi-training",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "35%",
+        "title": "PHI Incident Tracking",
+        "description": "Log of all potential PHI breaches or security incidents. Tracks investigation status, notification requirements, and corrective actions. Required for HIPAA breach notification."
+      },
+      {
+        "x": "70%",
+        "y": "50%",
+        "title": "Training Compliance Dashboard",
+        "description": "Annual HIPAA training completion tracking for all workforce members. Shows completion rates, overdue individuals, and training scores. HIPAA requires annual training."
+      },
+      {
+        "x": "50%",
+        "y": "75%",
+        "title": "Incident Response Metrics",
+        "description": "Track time-to-detect, time-to-respond, and time-to-remediate for security incidents. Measures incident response program effectiveness."
       }
     ]
   },

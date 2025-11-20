@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Supply & Demand - Geographic Analysis</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+body {margin:0;padding:20px;background:#0a0e27;color:#e1e4e8;font-family:system-ui,-apple-system,sans-serif;}
+.header {margin-bottom:24px;}
+.header h1 {margin:0;font-size:28px;font-weight:700;color:#fff;}
+.subtitle {margin-top:8px;font-size:14px;color:#9aa0a6;}
+.metric-bar {display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.metric {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:16px;flex:1;min-width:200px;border-left:3px solid #3b82f6;}
+.metric-label {font-size:12px;color:#9aa0a6;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+.metric-value {font-size:28px;font-weight:700;color:#fff;}
+.metric-change {font-size:12px;margin-top:4px;}
+.value-green {color:#10b981;}
+.value-red {color:#ef4444;}
+.value-yellow {color:#fbbf24;}
+.tile {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:24px;margin-bottom:24px;border-top:3px solid #3b82f6;}
+.tile-title {font-size:18px;font-weight:600;margin-bottom:16px;color:#fff;}
+.chart-container {position:relative;height:400px;margin-top:16px;}
+.grid-2 {display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:24px;}
+.grid-3 {display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.region-card {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:16px;border-left:3px solid #3b82f6;}
+.region-card.high-supply {border-left-color:#10b981;}
+.region-card.low-supply {border-left-color:#ef4444;}
+.region-card.balanced {border-left-color:#fbbf24;}
+.region-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.region-name {font-size:16px;font-weight:600;color:#fff;}
+.region-score {font-size:20px;font-weight:700;}
+.region-detail {display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.region-detail:last-child {border-bottom:none;}
+.region-label {font-size:13px;color:#9aa0a6;}
+.region-value {font-size:13px;font-weight:600;color:#fff;}
+.legend {display:flex;gap:24px;margin-top:16px;font-size:12px;}
+.legend-item {display:flex;align-items:center;gap:8px;}
+.legend-color {width:16px;height:16px;border-radius:4px;}
+</style>
+</head><body>
+<div class="header">
+  <h1>Provider Supply & Demand - Geographic Analysis</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Strategic Expansion Planning</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Total Active Providers</div>
+    <div class="metric-value">287</div>
+    <div class="metric-change" style="color:#10b981;">↑ 12% YoY</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">ASCs Served</div>
+    <div class="metric-value">29</div>
+    <div class="metric-change" style="color:#10b981;">↑ 3 new</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Avg Provider:ASC Ratio</div>
+    <div class="metric-value">9.9:1</div>
+    <div class="metric-change" style="color:#10b981;">Target: 8-12:1</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Underserved Markets</div>
+    <div class="metric-value value-yellow">8</div>
+    <div class="metric-change" style="color:#fbbf24;">Expansion opportunity</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Provider Utilization</div>
+    <div class="metric-value">78%</div>
+    <div class="metric-change" style="color:#fbbf24;">22% capacity available</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Regional Supply & Demand Analysis</div>
+  <div class="grid-3">
+    <div class="region-card high-supply">
+      <div class="region-header">
+        <div class="region-name">Michigan (Metro Detroit)</div>
+        <div class="region-score" style="color:#10b981;">High Supply</div>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Active Providers</span>
+        <span class="region-value">142</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">ASCs Served</span>
+        <span class="region-value">15</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Provider:ASC Ratio</span>
+        <span class="region-value" style="color:#10b981;">9.5:1</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Utilization Rate</span>
+        <span class="region-value">82%</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Expansion Capacity</span>
+        <span class="region-value" style="color:#10b981;">+2-3 ASCs</span>
+      </div>
+    </div>
+
+    <div class="region-card balanced">
+      <div class="region-header">
+        <div class="region-name">Indiana (Central)</div>
+        <div class="region-score" style="color:#fbbf24;">Balanced</div>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Active Providers</span>
+        <span class="region-value">98</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">ASCs Served</span>
+        <span class="region-value">11</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Provider:ASC Ratio</span>
+        <span class="region-value" style="color:#fbbf24;">8.9:1</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Utilization Rate</span>
+        <span class="region-value">71%</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Expansion Capacity</span>
+        <span class="region-value" style="color:#10b981;">+3-4 ASCs</span>
+      </div>
+    </div>
+
+    <div class="region-card balanced">
+      <div class="region-header">
+        <div class="region-name">Indiana (Northern)</div>
+        <div class="region-score" style="color:#fbbf24;">Balanced</div>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Active Providers</span>
+        <span class="region-value">47</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">ASCs Served</span>
+        <span class="region-value">3</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Provider:ASC Ratio</span>
+        <span class="region-value" style="color:#10b981;">15.7:1</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Utilization Rate</span>
+        <span class="region-value" style="color:#ef4444;">58%</span>
+      </div>
+      <div class="region-detail">
+        <span class="region-label">Expansion Capacity</span>
+        <span class="region-value" style="color:#10b981;">+4-6 ASCs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background:#10b981;"></div>
+      <span>High Supply (>10:1 ratio) - Strong expansion potential</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#fbbf24;"></div>
+      <span>Balanced (8-10:1 ratio) - Moderate expansion with recruitment</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background:#ef4444;"></div>
+      <span>Low Supply (<8:1 ratio) - Requires significant recruitment</span>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Provider Density by State</div>
+    <div class="chart-container">
+      <canvas id="density-chart"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">ASC Coverage vs Provider Availability</div>
+    <div class="chart-container">
+      <canvas id="coverage-chart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Target Expansion Markets</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px;">
+    <div>
+      <div style="font-weight:600;margin-bottom:12px;color:#10b981;">✓ High Priority Markets (Adequate Supply)</div>
+      <div style="font-size:13px;color:#9aa0a6;line-height:1.8;">
+        1. <span style="color:#fff;">Indianapolis South (IN)</span> - 24 available providers, 0 ASCs served<br>
+        2. <span style="color:#fff;">Fort Wayne (IN)</span> - 18 available providers, 1 ASC (low utilization)<br>
+        3. <span style="color:#fff;">Grand Rapids (MI)</span> - 32 available providers, 2 ASCs<br>
+        4. <span style="color:#fff;">Lansing (MI)</span> - 22 available providers, 1 ASC<br>
+        5. <span style="color:#fff;">Kalamazoo (MI)</span> - 19 available providers, 0 ASCs served
+      </div>
+    </div>
+    <div>
+      <div style="font-weight:600;margin-bottom:12px;color:#fbbf24;">⏳ Medium Priority (Recruitment Needed)</div>
+      <div style="font-size:13px;color:#9aa0a6;line-height:1.8;">
+        1. <span style="color:#fff;">Columbus (OH)</span> - 12 available providers, 0 ASCs (border market)<br>
+        2. <span style="color:#fff;">Toledo (OH)</span> - 9 available providers, 0 ASCs (border market)<br>
+        3. <span style="color:#fff;">Evansville (IN)</span> - 8 available providers, 0 ASCs<br>
+        4. <span style="color:#fff;">South Bend West (IN)</span> - 6 available providers, 1 ASC served<br>
+        5. <span style="color:#fff;">Ann Arbor Extended (MI)</span> - 11 available providers, 3 ASCs (saturated)
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Underutilized Provider Markets</div>
+    <div class="chart-container">
+      <canvas id="utilization-chart"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Growth Potential Score by Region</div>
+    <div class="chart-container">
+      <canvas id="growth-score"></canvas>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      labels: { color: '#9aa0a6' }
+    },
+    tooltip: {
+      backgroundColor: 'rgba(26,32,53,0.95)',
+      titleColor: '#fff',
+      bodyColor: '#e1e4e8'
+    }
+  }
+};
+
+new Chart(document.getElementById('density-chart'), {
+  type: 'bar',
+  data: {
+    labels: ['Michigan', 'Indiana', 'Ohio (Border)', 'Illinois (Border)', 'Wisconsin (Border)'],
+    datasets: [{
+      label: 'Providers per 100k Population',
+      data: [14.2, 11.8, 9.2, 8.5, 7.1],
+      backgroundColor: ['#10b981', '#10b981', '#fbbf24', '#f59e0b', '#f59e0b']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, beginAtZero: true }
+    }
+  }
+});
+
+new Chart(document.getElementById('coverage-chart'), {
+  type: 'scatter',
+  data: {
+    datasets: [{
+      label: 'Michigan Markets',
+      data: [{x: 15, y: 142}, {x: 8, y: 65}, {x: 5, y: 38}],
+      backgroundColor: '#10b981',
+      pointRadius: 8
+    }, {
+      label: 'Indiana Markets',
+      data: [{x: 11, y: 98}, {x: 3, y: 47}, {x: 2, y: 22}],
+      backgroundColor: '#3b82f6',
+      pointRadius: 8
+    }, {
+      label: 'Target Markets',
+      data: [{x: 0, y: 24}, {x: 0, y: 32}, {x: 1, y: 18}, {x: 0, y: 22}],
+      backgroundColor: '#fbbf24',
+      pointRadius: 8
+    }]
+  },
+  options: {
+    ...cfg,
+    scales: {
+      x: {
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        ticks: { color: '#9aa0a6' },
+        title: { display: true, text: 'ASCs Served', color: '#9aa0a6' }
+      },
+      y: {
+        grid: { color: 'rgba(255,255,255,0.05)' },
+        ticks: { color: '#9aa0a6' },
+        title: { display: true, text: 'Available Providers', color: '#9aa0a6' }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('utilization-chart'), {
+  type: 'bar',
+  data: {
+    labels: ['Indiana Northern', 'Indiana Southern', 'Michigan West', 'Michigan Metro', 'Indiana Central'],
+    datasets: [{
+      label: 'Provider Utilization %',
+      data: [58, 62, 71, 82, 71],
+      backgroundColor: ['#ef4444', '#f59e0b', '#fbbf24', '#10b981', '#fbbf24']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + '%' }, max: 100 },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('growth-score'), {
+  type: 'bar',
+  data: {
+    labels: ['Indianapolis South', 'Fort Wayne', 'Grand Rapids', 'Lansing', 'Kalamazoo', 'Columbus', 'Toledo', 'Evansville'],
+    datasets: [{
+      label: 'Growth Score (0-100)',
+      data: [92, 88, 85, 82, 79, 74, 71, 68],
+      backgroundColor: ['#10b981', '#10b981', '#10b981', '#10b981', '#10b981', '#fbbf24', '#fbbf24', '#fbbf24']
+    }]
+  },
+  options: {
+    ...cfg,
+    indexAxis: 'y',
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' }, max: 100 },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6' } }
+    }
+  }
+});
+</script>
+</body></html>

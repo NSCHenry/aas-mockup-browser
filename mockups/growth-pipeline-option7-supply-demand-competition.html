@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8"><title>AAS - Supply & Demand - Market Competition</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+body {margin:0;padding:20px;background:#0a0e27;color:#e1e4e8;font-family:system-ui,-apple-system,sans-serif;}
+.header {margin-bottom:24px;}
+.header h1 {margin:0;font-size:28px;font-weight:700;color:#fff;}
+.subtitle {margin-top:8px;font-size:14px;color:#9aa0a6;}
+.metric-bar {display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+.metric {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:16px;flex:1;min-width:200px;border-left:3px solid #3b82f6;}
+.metric-label {font-size:12px;color:#9aa0a6;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+.metric-value {font-size:28px;font-weight:700;color:#fff;}
+.metric-change {font-size:12px;margin-top:4px;}
+.value-green {color:#10b981;}
+.value-red {color:#ef4444;}
+.value-yellow {color:#fbbf24;}
+.tile {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:24px;margin-bottom:24px;border-top:3px solid #3b82f6;}
+.tile-title {font-size:18px;font-weight:600;margin-bottom:16px;color:#fff;}
+.chart-container {position:relative;height:400px;margin-top:16px;}
+.grid-2 {display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:24px;}
+.grid-3 {display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.market-card {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:8px;padding:16px;border-left:3px solid #3b82f6;}
+.market-card.opportunity {border-left-color:#10b981;}
+.market-card.competitive {border-left-color:#fbbf24;}
+.market-card.saturated {border-left-color:#ef4444;}
+.market-name {font-size:16px;font-weight:600;color:#fff;margin-bottom:8px;}
+.market-detail {display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.market-detail:last-child {border-bottom:none;}
+.market-label {font-size:12px;color:#9aa0a6;}
+.market-value {font-size:12px;font-weight:600;color:#fff;}
+.comp-grid {display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px;}
+.comp-card {background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:6px;padding:12px;text-align:center;}
+.comp-name {font-size:11px;color:#9aa0a6;margin-bottom:4px;text-transform:uppercase;}
+.comp-value {font-size:18px;font-weight:700;color:#fff;}
+.comp-status {font-size:10px;margin-top:4px;}
+.insight-box {background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:16px;margin-top:16px;}
+.insight-title {font-size:14px;font-weight:600;color:#10b981;margin-bottom:8px;}
+.insight-text {font-size:13px;color:#9aa0a6;line-height:1.6;}
+</style>
+</head><body>
+<div class="header">
+  <h1>Market Competition & Opportunities</h1>
+  <div class="subtitle">AAS Dashboard • November 2025 • Competitive Analysis • Provider Compensation</div>
+</div>
+
+<div class="metric-bar">
+  <div class="metric">
+    <div class="metric-label">Competitive Markets</div>
+    <div class="metric-value">12</div>
+    <div class="metric-change" style="color:#9aa0a6;">MI/IN footprint</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">AAS Market Share</div>
+    <div class="metric-value">34%</div>
+    <div class="metric-change" style="color:#10b981;">↑ 3% YoY</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Competitor ASC Groups</div>
+    <div class="metric-value">8</div>
+    <div class="metric-change" style="color:#9aa0a6;">Active in region</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Opportunity Markets</div>
+    <div class="metric-value value-green">5</div>
+    <div class="metric-change" style="color:#10b981;">Weak competition</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Avg Comp Premium</div>
+    <div class="metric-value value-green">+8%</div>
+    <div class="metric-change" style="color:#10b981;">vs market avg</div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Target Market Analysis - Competitive Intelligence</div>
+  <div class="grid-3">
+    <div class="market-card opportunity">
+      <div class="market-name">Indianapolis South</div>
+      <div style="font-size:12px;color:#10b981;margin-bottom:12px;font-weight:600;">✓ HIGH OPPORTUNITY</div>
+      <div class="market-detail">
+        <span class="market-label">Competitor Presence</span>
+        <span class="market-value" style="color:#10b981;">Low (1)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Available ASCs</span>
+        <span class="market-value">8 facilities</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Market Leader</span>
+        <span class="market-value">RegionalMed (22%)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">CRNA Comp (avg)</span>
+        <span class="market-value" style="color:#10b981;">$168K (below avg)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">MD Comp (avg)</span>
+        <span class="market-value" style="color:#10b981;">$285K (below avg)</span>
+      </div>
+    </div>
+
+    <div class="market-card opportunity">
+      <div class="market-name">Fort Wayne</div>
+      <div style="font-size:12px;color:#10b981;margin-bottom:12px;font-weight:600;">✓ GOOD OPPORTUNITY</div>
+      <div class="market-detail">
+        <span class="market-label">Competitor Presence</span>
+        <span class="market-value" style="color:#10b981;">Low (1)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Available ASCs</span>
+        <span class="market-value">5 facilities</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Market Leader</span>
+        <span class="market-value">Summit Health (31%)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">CRNA Comp (avg)</span>
+        <span class="market-value">$172K (below avg)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">MD Comp (avg)</span>
+        <span class="market-value" style="color:#fbbf24;">$295K (at avg)</span>
+      </div>
+    </div>
+
+    <div class="market-card opportunity">
+      <div class="market-name">Grand Rapids</div>
+      <div style="font-size:12px;color:#10b981;margin-bottom:12px;font-weight:600;">✓ SOLID OPPORTUNITY</div>
+      <div class="market-detail">
+        <span class="market-label">Competitor Presence</span>
+        <span class="market-value" style="color:#fbbf24;">Moderate (2)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Available ASCs</span>
+        <span class="market-value">7 facilities</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Market Leader</span>
+        <span class="market-value">Spectrum Health (28%)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">CRNA Comp (avg)</span>
+        <span class="market-value" style="color:#fbbf24;">$182K (at avg)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">MD Comp (avg)</span>
+        <span class="market-value" style="color:#fbbf24;">$298K (at avg)</span>
+      </div>
+    </div>
+
+    <div class="market-card competitive">
+      <div class="market-name">Columbus (OH)</div>
+      <div style="font-size:12px;color:#fbbf24;margin-bottom:12px;font-weight:600;">⚠ COMPETITIVE</div>
+      <div class="market-detail">
+        <span class="market-label">Competitor Presence</span>
+        <span class="market-value" style="color:#f59e0b;">High (4)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Available ASCs</span>
+        <span class="market-value">12 facilities</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Market Leader</span>
+        <span class="market-value">OhioHealth (35%)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">CRNA Comp (avg)</span>
+        <span class="market-value" style="color:#ef4444;">$195K (above avg)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">MD Comp (avg)</span>
+        <span class="market-value" style="color:#ef4444;">$315K (above avg)</span>
+      </div>
+    </div>
+
+    <div class="market-card competitive">
+      <div class="market-name">Ann Arbor Extended</div>
+      <div style="font-size:12px;color:#f59e0b;margin-bottom:12px;font-weight:600;">⚠ SATURATED</div>
+      <div class="market-detail">
+        <span class="market-label">Competitor Presence</span>
+        <span class="market-value" style="color:#ef4444;">Very High (5)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Available ASCs</span>
+        <span class="market-value">4 facilities</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Market Leader</span>
+        <span class="market-value">Michigan Medicine (42%)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">CRNA Comp (avg)</span>
+        <span class="market-value" style="color:#ef4444;">$198K (above avg)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">MD Comp (avg)</span>
+        <span class="market-value" style="color:#ef4444;">$325K (high)</span>
+      </div>
+    </div>
+
+    <div class="market-card opportunity">
+      <div class="market-name">Lansing</div>
+      <div style="font-size:12px;color:#10b981;margin-bottom:12px;font-weight:600;">✓ EMERGING OPPORTUNITY</div>
+      <div class="market-detail">
+        <span class="market-label">Competitor Presence</span>
+        <span class="market-value" style="color:#10b981;">Low (1)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Available ASCs</span>
+        <span class="market-value">4 facilities</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">Market Leader</span>
+        <span class="market-value">Sparrow Health (38%)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">CRNA Comp (avg)</span>
+        <span class="market-value" style="color:#10b981;">$175K (below avg)</span>
+      </div>
+      <div class="market-detail">
+        <span class="market-label">MD Comp (avg)</span>
+        <span class="market-value">$288K (below avg)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">Competitor Market Share</div>
+    <div class="chart-container">
+      <canvas id="market-share"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">Competitor Financial Health Indicators</div>
+    <div style="margin-top:24px;">
+      <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:8px;margin-bottom:12px;border-left:3px solid #ef4444;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#fff;">Summit Health (IN)</div>
+            <div style="font-size:12px;color:#9aa0a6;margin-top:4px;">Fort Wayne market leader</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:12px;color:#9aa0a6;">Status</div>
+            <div style="font-size:14px;font-weight:600;color:#ef4444;">Struggling</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:#9aa0a6;">
+          Lost 2 ASCs in 2025 • Provider turnover: 28% • Coverage gaps reported
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:8px;margin-bottom:12px;border-left:3px solid #fbbf24;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#fff;">RegionalMed Anesthesia</div>
+            <div style="font-size:12px;color:#9aa0a6;margin-top:4px;">Indianapolis market leader</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:12px;color:#9aa0a6;">Status</div>
+            <div style="font-size:14px;font-weight:600;color:#fbbf24;">Weakening</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:#9aa0a6;">
+          Flat growth • Below-market compensation • Limited specialty coverage
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:8px;margin-bottom:12px;border-left:3px solid #10b981;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#fff;">Sparrow Anesthesiology (MI)</div>
+            <div style="font-size:12px;color:#9aa0a6;margin-top:4px;">Lansing market</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:12px;color:#9aa0a6;">Status</div>
+            <div style="font-size:14px;font-weight:600;color:#10b981;">Stable</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:#9aa0a6;">
+          Hospital-employed • Limited ASC focus • Opportunity to capture ASC market
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.02);padding:16px;border-radius:8px;border-left:3px solid #fbbf24;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:14px;font-weight:600;color:#fff;">Spectrum Anesthesia Group</div>
+            <div style="font-size:12px;color:#9aa0a6;margin-top:4px;">Grand Rapids market</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:12px;color:#9aa0a6;">Status</div>
+            <div style="font-size:14px;font-weight:600;color:#fbbf24;">Moderate</div>
+          </div>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:#9aa0a6;">
+          Strong presence but 2 ASCs seeking alternatives • Pricing pressure
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Provider Compensation Analysis - Market Comps</div>
+  <div class="comp-grid">
+    <div class="comp-card" style="border-left:3px solid #10b981;">
+      <div class="comp-name">AAS CRNA</div>
+      <div class="comp-value">$186K</div>
+      <div class="comp-status" style="color:#10b981;">+8% vs market</div>
+    </div>
+    <div class="comp-card" style="border-left:3px solid #9aa0a6;">
+      <div class="comp-name">Market Avg CRNA</div>
+      <div class="comp-value">$172K</div>
+      <div class="comp-status" style="color:#9aa0a6;">Regional average</div>
+    </div>
+    <div class="comp-card" style="border-left:3px solid #10b981;">
+      <div class="comp-name">AAS MD</div>
+      <div class="comp-value">$312K</div>
+      <div class="comp-status" style="color:#10b981;">+8% vs market</div>
+    </div>
+    <div class="comp-card" style="border-left:3px solid #9aa0a6;">
+      <div class="comp-name">Market Avg MD</div>
+      <div class="comp-value">$289K</div>
+      <div class="comp-status" style="color:#9aa0a6;">Regional average</div>
+    </div>
+  </div>
+
+  <div class="insight-box">
+    <div class="insight-title">💡 Competitive Advantage: Compensation Strategy</div>
+    <div class="insight-text">
+      AAS maintains an 8% compensation premium over regional averages for both CRNAs and MDs, positioning us favorably for recruitment in target markets.
+      In Indianapolis South and Fort Wayne, where competitors pay below-market rates ($168K CRNA vs our $186K), we have significant recruiting advantage.
+      This premium enables rapid market entry with minimal provider acquisition challenges.
+    </div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="tile">
+    <div class="tile-title">CRNA Compensation by Market</div>
+    <div class="chart-container">
+      <canvas id="crna-comp"></canvas>
+    </div>
+  </div>
+  <div class="tile">
+    <div class="tile-title">MD Compensation by Market</div>
+    <div class="chart-container">
+      <canvas id="md-comp"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="tile">
+  <div class="tile-title">Strategic Recommendations - Market Entry Prioritization</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px;">
+    <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:16px;">
+      <div style="font-size:14px;font-weight:600;color:#10b981;margin-bottom:8px;">🎯 Tier 1: Immediate Entry (Q1 2026)</div>
+      <div style="font-size:13px;color:#9aa0a6;line-height:1.8;">
+        1. Indianapolis South - Weak competition, high provider availability, low comp market<br>
+        2. Fort Wayne - Summit Health struggling, below-market comp, available providers<br>
+        3. Lansing - Hospital-employed competitor, untapped ASC market
+      </div>
+    </div>
+    <div style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:8px;padding:16px;">
+      <div style="font-size:14px;font-weight:600;color:#fbbf24;margin-bottom:8px;">⏳ Tier 2: Strategic Entry (Q2-Q3 2026)</div>
+      <div style="font-size:13px;color:#9aa0a6;line-height:1.8;">
+        1. Grand Rapids - Moderate competition, good provider supply, some pricing pressure<br>
+        2. Kalamazoo - Underserved market, need provider recruitment<br>
+        3. Toledo - Border market, minimal AAS presence
+      </div>
+    </div>
+    <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:16px;">
+      <div style="font-size:14px;font-weight:600;color:#ef4444;margin-bottom:8px;">⚠ Tier 3: Future Consideration</div>
+      <div style="font-size:13px;color:#9aa0a6;line-height:1.8;">
+        1. Columbus - Highly competitive, above-market comp required<br>
+        2. Ann Arbor Extended - Saturated market, premium pricing<br>
+        3. Chicago suburbs - Distant, high competition
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cfg = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      labels: { color: '#9aa0a6' }
+    },
+    tooltip: {
+      backgroundColor: 'rgba(26,32,53,0.95)',
+      titleColor: '#fff',
+      bodyColor: '#e1e4e8'
+    }
+  }
+};
+
+new Chart(document.getElementById('market-share'), {
+  type: 'doughnut',
+  data: {
+    labels: ['AAS', 'Summit Health', 'RegionalMed', 'Spectrum', 'OhioHealth', 'Sparrow', 'Michigan Medicine', 'Others'],
+    datasets: [{
+      data: [34, 12, 9, 8, 7, 6, 5, 19],
+      backgroundColor: ['#10b981', '#ef4444', '#fbbf24', '#f59e0b', '#3b82f6', '#8b5cf6', '#ec4899', '#6b7280']
+    }]
+  },
+  options: { ...cfg }
+});
+
+new Chart(document.getElementById('crna-comp'), {
+  type: 'bar',
+  data: {
+    labels: ['AAS', 'Indy South', 'Fort Wayne', 'Lansing', 'Grand Rapids', 'Columbus', 'Ann Arbor'],
+    datasets: [{
+      label: 'CRNA Avg Compensation',
+      data: [186, 168, 172, 175, 182, 195, 198],
+      backgroundColor: ['#10b981', '#fbbf24', '#fbbf24', '#fbbf24', '#f59e0b', '#ef4444', '#ef4444']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$' + v + 'K' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('md-comp'), {
+  type: 'bar',
+  data: {
+    labels: ['AAS', 'Indy South', 'Fort Wayne', 'Lansing', 'Grand Rapids', 'Columbus', 'Ann Arbor'],
+    datasets: [{
+      label: 'MD Avg Compensation',
+      data: [312, 285, 295, 288, 298, 315, 325],
+      backgroundColor: ['#10b981', '#fbbf24', '#f59e0b', '#fbbf24', '#f59e0b', '#ef4444', '#ef4444']
+    }]
+  },
+  options: {
+    ...cfg,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
+      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => '$' + v + 'K' } }
+    }
+  }
+});
+</script>
+</body></html>
