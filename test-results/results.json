@@ -67,13 +67,13 @@
   },
   "suites": [
     {
-      "title": "test-all-tabs.spec.js",
-      "file": "test-all-tabs.spec.js",
+      "title": "test-scenario-descriptions.spec.js",
+      "file": "test-scenario-descriptions.spec.js",
       "column": 0,
       "line": 0,
       "specs": [
         {
-          "title": "Click through all 8 scenario tabs and verify meaningful data",
+          "title": "Scenario descriptions update when clicking tabs",
           "ok": true,
           "tags": [],
           "tests": [
@@ -88,91 +88,64 @@
                   "workerIndex": 0,
                   "parallelIndex": 0,
                   "status": "passed",
-                  "duration": 6636,
+                  "duration": 4866,
                   "errors": [],
                   "stdout": [
                     {
-                      "text": "\n=== TESTING ALL 8 SCENARIOS ===\n\n"
+                      "text": "\n=== TESTING SCENARIO DESCRIPTIONS ===\n\n"
                     },
                     {
-                      "text": "1. HIRING ANALYSIS\n"
+                      "text": "1. Hiring Analysis\n"
                     },
                     {
-                      "text": "   Cards: Overtime Hours/Week, Annual Net Impact, Coverage Rate, Provider Workload\n"
+                      "text": "   Title: Hiring Analysis\n"
                     },
                     {
-                      "text": "   Values: 119 hrs, -326,116$, 100%, Balanced\n"
+                      "text": "   Text: Model the impact of hiring additional providers on overtime ...\n"
                     },
                     {
-                      "text": "\n2. REBALANCING\n"
+                      "text": "\n2. Contract Profitability\n"
                     },
                     {
-                      "text": "   Cards: Overtime Hours/Week, Annual Net Impact, Coverage Rate, Provider Workload\n"
+                      "text": "   Title: Contract Profitability\n"
                     },
                     {
-                      "text": "   Values: 119 hrs, -326,116$, 100%, Balanced\n"
+                      "text": "   Text: Assess how changes in case volume, collection rates, and con...\n"
                     },
                     {
-                      "text": "\n3. CASE REDISTRIBUTION\n"
+                      "text": "\n3. Market Expansion\n"
                     },
                     {
-                      "text": "   Cards: Overtime Hours/Week, Annual Net Impact, Coverage Rate, Provider Workload\n"
+                      "text": "   Title: Market Expansion\n"
                     },
                     {
-                      "text": "   Values: 130 hrs, 27,372$, 0%, Balanced\n"
+                      "text": "   Text: Project startup costs, provider staffing needs, revenue ramp...\n"
                     },
                     {
-                      "text": "\n4. ON-CALL POLICY\n"
+                      "text": "\n4. Provider Turnover\n"
                     },
                     {
-                      "text": "   Cards: Total Rotations, Annual Cost, Fairness Score, Provider Impact\n"
+                      "text": "   Title: Provider Turnover\n"
                     },
                     {
-                      "text": "   Values: 40/mo, 960,000$, 88/100, Moderate Improvement\n"
+                      "text": "   Text: Calculate the true cost of provider departures including rec...\n"
                     },
                     {
-                      "text": "\n5. CONTRACT PROFITABILITY\n"
+                      "text": "\n5. RCM Optimization\n"
                     },
                     {
-                      "text": "   Cards: Monthly Revenue, Monthly Margin, Subsidy Amount, Margin %\n"
+                      "text": "   Title: RCM Optimization\n"
                     },
                     {
-                      "text": "   Values: 126,696$, 59,088$, 0$, 47%\n"
+                      "text": "   Text: Model revenue cycle improvements through better coding, deni...\n"
                     },
                     {
-                      "text": "\n6. MARKET EXPANSION\n"
-                    },
-                    {
-                      "text": "   Cards: Total Investment, Break-Even, Year 1 Revenue, 3-Year ROI\n"
-                    },
-                    {
-                      "text": "   Values: 1,220,000$, 4, 3,497,947$, 1,093%\n"
-                    },
-                    {
-                      "text": "\n7. PROVIDER TURNOVER\n"
-                    },
-                    {
-                      "text": "   Cards: Total Cost, Recruitment, Temp Coverage, Time to Stabilize\n"
-                    },
-                    {
-                      "text": "   Values: 217,486$, 75,000$, 137,486$, 5 mo\n"
-                    },
-                    {
-                      "text": "\n8. RCM OPTIMIZATION\n"
-                    },
-                    {
-                      "text": "   Cards: Additional Revenue, Annual ROI, Payback Period, Contracts Improved\n"
-                    },
-                    {
-                      "text": "   Values: 44,193,456$, 29,462%, 1 mo, 11\n"
-                    },
-                    {
-                      "text": "\n✅ All 8 scenarios display data correctly!\n\n"
+                      "text": "\n✅ All scenario descriptions update correctly!\n\n"
                     }
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-11-20T02:05:27.164Z",
+                  "startTime": "2025-11-20T02:16:38.987Z",
                   "annotations": [],
                   "attachments": []
                 }
@@ -180,8 +153,8 @@
               "status": "expected"
             }
           ],
-          "id": "a1d66535077f375efd3a-95b76754fbca0c673002",
-          "file": "test-all-tabs.spec.js",
+          "id": "65c35bdf080453de295e-fc04e1ad6f23ad398521",
+          "file": "test-scenario-descriptions.spec.js",
           "line": 3,
           "column": 5
         }
@@ -190,8 +163,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-11-20T02:05:26.120Z",
-    "duration": 7904.633000000001,
+    "startTime": "2025-11-20T02:16:37.907Z",
+    "duration": 6371.246,
     "expected": 1,
     "skipped": 0,
     "unexpected": 0,

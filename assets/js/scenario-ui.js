@@ -187,10 +187,65 @@ class ScenarioUI {
       panel.style.display = panel.dataset.scenario === scenarioType ? 'block' : 'none';
     });
 
+    // Update scenario description
+    this.updateScenarioDescription(scenarioType);
+
     // Set default values for scenario controls
     this.setDefaultValues(scenarioType);
 
     this.updateDisplay();
+  }
+
+  updateScenarioDescription(scenarioType) {
+    const descriptions = {
+      hiring: {
+        icon: '💼',
+        title: 'Hiring Analysis',
+        text: 'Model the impact of hiring additional providers on overtime costs, coverage rates, and workload distribution across centers.'
+      },
+      rebalancing: {
+        icon: '🔄',
+        title: 'Rebalancing',
+        text: 'Analyze the effects of redistributing providers between centers to optimize coverage, reduce overtime, and balance workload across your network.'
+      },
+      caseRedistribution: {
+        icon: '📊',
+        title: 'Case Redistribution',
+        text: 'Simulate shifting case volumes between centers to level workload, reduce burnout in high-volume locations, and utilize available capacity.'
+      },
+      onCallPolicy: {
+        icon: '📞',
+        title: 'On-Call Policy',
+        text: 'Evaluate different on-call policies including premium pay, balanced rotations, and reduced frequency to improve provider satisfaction and retention.'
+      },
+      contractProfitability: {
+        icon: '💰',
+        title: 'Contract Profitability',
+        text: 'Assess how changes in case volume, collection rates, and contract floors impact revenue, margins, and subsidy requirements for each center.'
+      },
+      marketExpansion: {
+        icon: '🗺️',
+        title: 'Market Expansion',
+        text: 'Project startup costs, provider staffing needs, revenue ramp, break-even timeline, and ROI for entering new markets or expanding to new states.'
+      },
+      providerTurnover: {
+        icon: '👥',
+        title: 'Provider Turnover',
+        text: 'Calculate the true cost of provider departures including recruitment expenses, temporary coverage costs, and time to stabilize operations.'
+      },
+      rcmOptimization: {
+        icon: '📈',
+        title: 'RCM Optimization',
+        text: 'Model revenue cycle improvements through better coding, denial reduction, and collection rate optimization to increase profitability and reduce subsidies.'
+      }
+    };
+
+    const scenario = descriptions[scenarioType];
+    if (scenario) {
+      document.getElementById('scenario-icon').textContent = scenario.icon;
+      document.getElementById('scenario-title').textContent = scenario.title;
+      document.getElementById('scenario-text').textContent = scenario.text;
+    }
   }
 
   setDefaultValues(scenarioType) {

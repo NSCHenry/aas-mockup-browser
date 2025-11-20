@@ -54,6 +54,42 @@ h1 {
   color: #3b82f6;
 }
 
+/* Scenario Description */
+.scenario-description {
+  background: linear-gradient(145deg, #1c1f2e 0%, #252940 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: start;
+  gap: 12px;
+}
+
+.scenario-description-icon {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.scenario-description-content {
+  flex: 1;
+}
+
+.scenario-description-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #3b82f6;
+  margin-bottom: 6px;
+}
+
+.scenario-description-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #9aa0a6;
+  margin: 0;
+}
+
 /* Layout */
 .dashboard-layout {
   display: grid;
@@ -336,6 +372,15 @@ button.secondary:hover {
   <div class="scenario-tab" data-scenario="marketExpansion">🗺️ Market Expansion</div>
   <div class="scenario-tab" data-scenario="providerTurnover">👥 Provider Turnover</div>
   <div class="scenario-tab" data-scenario="rcmOptimization">📈 RCM Optimization</div>
+</div>
+
+<!-- Scenario Description -->
+<div class="scenario-description" id="scenario-description">
+  <div class="scenario-description-icon" id="scenario-icon">💼</div>
+  <div class="scenario-description-content">
+    <div class="scenario-description-title" id="scenario-title">Hiring Analysis</div>
+    <p class="scenario-description-text" id="scenario-text">Model the impact of hiring additional providers on overtime costs, coverage rates, and workload distribution across centers.</p>
+  </div>
 </div>
 
 <div class="dashboard-layout">
@@ -691,8 +736,8 @@ button.secondary:hover {
 
 </div>
 
-<script src="../assets/js/scenario-engine.js?v=2"></script>
-<script src="../assets/js/scenario-ui.js?v=2"></script>
+<script src="../assets/js/scenario-engine.js?v=3"></script>
+<script src="../assets/js/scenario-ui.js?v=3"></script>
 
 <script>
 // Update range display values
