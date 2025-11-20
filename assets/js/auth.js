@@ -8,13 +8,40 @@ const AUTH_CONFIG = {
     // Change this password to update access credentials
     PASSWORD: 'aas2024',
     SESSION_KEY: 'aas_mockup_session',
-    SESSION_DURATION: 24 * 60 * 60 * 1000 // 24 hours in milliseconds
+    SESSION_DURATION: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+    // Test bypass for automated testing (e.g., Playwright)
+    TEST_BYPASS_TOKEN: 'playwright_test_bypass_2024'
 };
+
+/**
+ * Check for test bypass token in URL parameters
+ * For automated testing (Playwright, etc.)
+ */
+function checkTestBypass() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const bypassToken = urlParams.get('test_bypass');
+
+    if (bypassToken === AUTH_CONFIG.TEST_BYPASS_TOKEN) {
+        createSession();
+        // Remove bypass parameter from URL to avoid exposing it
+        const url = new URL(window.location);
+        url.searchParams.delete('test_bypass');
+        window.history.replaceState({}, '', url);
+        return true;
+    }
+
+    return false;
+}
 
 /**
  * Check if user has a valid session
  */
 function isAuthenticated() {
+    // Check for test bypass first
+    if (checkTestBypass()) {
+        return true;
+    }
+
     const session = localStorage.getItem(AUTH_CONFIG.SESSION_KEY);
 
     if (!session) {
