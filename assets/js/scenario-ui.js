@@ -347,81 +347,253 @@ class ScenarioUI {
   }
 
   updateSummaryCards(result) {
-    // Update OT Hours card
-    this.updateCard('ot-hours', result);
+    const cards = [
+      { id: 'ot-hours', data: this.getCardData(0, result) },
+      { id: 'annual-cost', data: this.getCardData(1, result) },
+      { id: 'coverage-rate', data: this.getCardData(2, result) },
+      { id: 'provider-load', data: this.getCardData(3, result) }
+    ];
 
-    // Update Cost card
-    this.updateCard('annual-cost', result);
-
-    // Update Coverage card (if applicable)
-    this.updateCard('coverage-rate', result);
-
-    // Update Provider Load card (if applicable)
-    this.updateCard('provider-load', result);
+    cards.forEach(({ id, data }) => {
+      if (data) this.updateCard(id, data);
+    });
   }
 
-  updateCard(cardId, result) {
-    const card = document.getElementById(`${cardId}-card`);
-    if (!card) return;
+  getCardData(cardIndex, result) {
+    const scenario = result.scenario;
 
-    let before, after, delta, unit = '';
-
-    switch (cardId) {
-      case 'ot-hours':
-        if (result.network?.overtimeHoursWeekly) {
-          before = result.network.overtimeHoursWeekly.before;
-          after = result.network.overtimeHoursWeekly.after;
-          delta = result.network.overtimeHoursWeekly.delta;
-          unit = ' hrs/wk';
-        }
-        break;
-
-      case 'annual-cost':
-        if (result.financial) {
-          if (result.financial.netAnnualImpact !== undefined) {
-            before = 0;
-            after = result.financial.netAnnualImpact;
-            delta = result.financial.netAnnualImpact;
-            unit = '';
-          } else if (result.financial.annualOTImpact !== undefined) {
-            before = 0;
-            after = result.financial.annualOTImpact;
-            delta = result.financial.annualOTImpact;
-            unit = '';
+    // Different card configurations for each scenario type
+    switch (scenario) {
+      case 'contractProfitability':
+        const profitCards = [
+          {
+            label: 'Monthly Revenue',
+            before: result.center.revenue.before,
+            after: result.center.revenue.after,
+            delta: result.center.revenue.delta,
+            unit: '$',
+            inverse: false
+          },
+          {
+            label: 'Monthly Margin',
+            before: result.center.margin.before,
+            after: result.center.margin.after,
+            delta: result.center.margin.delta,
+            unit: '$',
+            inverse: false
+          },
+          {
+            label: 'Subsidy Amount',
+            before: result.center.subsidy.before,
+            after: result.center.subsidy.after,
+            delta: result.center.subsidy.delta,
+            unit: '$',
+            inverse: true
+          },
+          {
+            label: 'Margin %',
+            before: result.center.marginPercent.before,
+            after: result.center.marginPercent.after,
+            delta: result.center.marginPercent.delta,
+            unit: '%',
+            inverse: false
           }
-        }
-        break;
+        ];
+        return profitCards[cardIndex];
 
-      case 'coverage-rate':
-        if (result.center?.coverageRate) {
-          before = result.center.coverageRate.before;
-          after = result.center.coverageRate.after;
-          delta = result.center.coverageRate.delta;
-          unit = '%';
-        } else if (result.network) {
-          const baseline = this.engine.getBaselineMetrics();
-          before = baseline.coverageRate;
-          after = baseline.coverageRate;
-          delta = 0;
-          unit = '%';
-        }
-        break;
+      case 'marketExpansion':
+        const expansionCards = [
+          {
+            label: 'Total Investment',
+            before: 0,
+            after: result.financial.totalInvestment,
+            delta: result.financial.totalInvestment,
+            unit: '$',
+            inverse: true
+          },
+          {
+            label: 'Break-Even',
+            before: 0,
+            after: result.financial.breakEvenMonth === 'Not within timeframe' ? 999 : result.financial.breakEvenMonth,
+            delta: 0,
+            unit: ' mo',
+            inverse: false,
+            displayValue: result.financial.breakEvenMonth
+          },
+          {
+            label: 'Year 1 Revenue',
+            before: 0,
+            after: result.financial.projectedAnnualRevenue,
+            delta: result.financial.projectedAnnualRevenue,
+            unit: '$',
+            inverse: false
+          },
+          {
+            label: '3-Year ROI',
+            before: 0,
+            after: result.financial.roi,
+            delta: result.financial.roi,
+            unit: '%',
+            inverse: false
+          }
+        ];
+        return expansionCards[cardIndex];
+
+      case 'providerTurnover':
+        const turnoverCards = [
+          {
+            label: 'Total Cost',
+            before: 0,
+            after: result.financial.totalCost,
+            delta: result.financial.totalCost,
+            unit: '$',
+            inverse: true
+          },
+          {
+            label: 'Recruitment',
+            before: 0,
+            after: result.financial.recruitmentCosts,
+            delta: result.financial.recruitmentCosts,
+            unit: '$',
+            inverse: true
+          },
+          {
+            label: 'Temp Coverage',
+            before: 0,
+            after: result.financial.temporaryCoverageCost,
+            delta: result.financial.temporaryCoverageCost,
+            unit: '$',
+            inverse: true
+          },
+          {
+            label: 'Time to Stabilize',
+            before: 0,
+            after: result.financial.timeToStabilize,
+            delta: 0,
+            unit: ' mo',
+            inverse: false
+          }
+        ];
+        return turnoverCards[cardIndex];
+
+      case 'rcmOptimization':
+        const rcmCards = [
+          {
+            label: 'Additional Revenue',
+            before: 0,
+            after: result.financial.totalAdditionalRevenue,
+            delta: result.financial.totalAdditionalRevenue,
+            unit: '$',
+            inverse: false
+          },
+          {
+            label: 'Annual ROI',
+            before: 0,
+            after: result.financial.annualROI,
+            delta: result.financial.annualROI,
+            unit: '%',
+            inverse: false
+          },
+          {
+            label: 'Payback Period',
+            before: 0,
+            after: result.financial.paybackMonths,
+            delta: 0,
+            unit: ' mo',
+            inverse: false
+          },
+          {
+            label: 'Contracts Improved',
+            before: 0,
+            after: result.financial.contractsImproved,
+            delta: 0,
+            unit: '',
+            inverse: false
+          }
+        ];
+        return rcmCards[cardIndex];
+
+      default:
+        // Original scenarios (hiring, rebalancing, caseRedistribution, onCallPolicy)
+        const defaultCards = [
+          {
+            label: 'Overtime Hours/Week',
+            before: result.network?.overtimeHoursWeekly?.before,
+            after: result.network?.overtimeHoursWeekly?.after,
+            delta: result.network?.overtimeHoursWeekly?.delta,
+            unit: ' hrs',
+            inverse: true
+          },
+          {
+            label: 'Annual Net Impact',
+            before: 0,
+            after: result.financial?.netAnnualImpact || result.financial?.annualOTImpact || 0,
+            delta: result.financial?.netAnnualImpact || result.financial?.annualOTImpact || 0,
+            unit: '$',
+            inverse: true
+          },
+          {
+            label: 'Coverage Rate',
+            before: result.center?.coverageRate?.before || 0,
+            after: result.center?.coverageRate?.after || 0,
+            delta: result.center?.coverageRate?.delta || 0,
+            unit: '%',
+            inverse: false
+          },
+          {
+            label: 'Provider Workload',
+            before: 0,
+            after: 0,
+            delta: 0,
+            unit: '',
+            inverse: false,
+            displayValue: 'Balanced'
+          }
+        ];
+        return defaultCards[cardIndex];
+    }
+  }
+
+  updateCard(cardId, data) {
+    const card = document.getElementById(`${cardId}-card`);
+    if (!card || !data) return;
+
+    const { label, before, after, delta, unit, inverse, displayValue } = data;
+
+    // Update label
+    const labelElem = card.querySelector('.card-label');
+    if (labelElem) labelElem.textContent = label;
+
+    // Update values
+    const beforeSpan = card.querySelector('.before-value');
+    const afterSpan = card.querySelector('.after-value');
+    const deltaSpan = card.querySelector('.delta-value');
+
+    if (beforeSpan) beforeSpan.textContent = this.formatValue(before, unit);
+    if (afterSpan) {
+      afterSpan.textContent = displayValue || this.formatValue(after, unit);
     }
 
-    if (before !== undefined && after !== undefined) {
-      const beforeSpan = card.querySelector('.before-value');
-      const afterSpan = card.querySelector('.after-value');
-      const deltaSpan = card.querySelector('.delta-value');
-
-      if (beforeSpan) beforeSpan.textContent = this.formatValue(before, unit);
-      if (afterSpan) afterSpan.textContent = this.formatValue(after, unit);
-
-      if (deltaSpan) {
+    if (deltaSpan && delta !== undefined) {
+      if (displayValue) {
+        deltaSpan.textContent = '—';
+        deltaSpan.className = 'delta-value neutral';
+      } else {
         const arrow = delta > 0 ? '↑' : delta < 0 ? '↓' : '→';
         const pct = before !== 0 ? Math.abs(Math.round((delta / before) * 100)) : 0;
-        deltaSpan.textContent = `${arrow} ${pct}%`;
+        deltaSpan.textContent = `${arrow} ${pct > 0 ? pct + '%' : '—'}`;
         deltaSpan.className = 'delta-value';
-        deltaSpan.classList.add(delta > 0 ? 'positive' : delta < 0 ? 'negative' : 'neutral');
+
+        // Determine color: inverse means negative delta is good (e.g., costs going down)
+        let colorClass;
+        if (delta === 0) {
+          colorClass = 'neutral';
+        } else if (inverse) {
+          colorClass = delta < 0 ? 'positive' : 'negative';
+        } else {
+          colorClass = delta > 0 ? 'positive' : 'negative';
+        }
+        deltaSpan.classList.add(colorClass);
       }
     }
   }
