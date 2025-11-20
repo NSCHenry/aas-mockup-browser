@@ -345,7 +345,7 @@ button {
 
 /* Top Bar */
 .top-bar {
-    background: #1e293b;
+    background: var(--sidebar-bg);
     padding: var(--spacing-md) var(--spacing-lg);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
@@ -359,20 +359,23 @@ button {
     align-items: center;
     gap: var(--spacing-sm);
     font-size: var(--font-size-sm);
-    color: #94a3b8;
+    color: var(--sidebar-text);
+    opacity: 0.7;
 }
 
 .breadcrumb-separator {
-    color: #64748b;
+    opacity: 0.5;
 }
 
 #currentCategory {
     font-weight: 600;
-    color: #e2e8f0;
+    color: var(--sidebar-text);
+    opacity: 1;
 }
 
 #currentOption {
-    color: #94a3b8;
+    color: var(--sidebar-text);
+    opacity: 0.7;
 }
 
 .top-bar-actions {
@@ -389,7 +392,7 @@ button {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius);
-    color: #e2e8f0;
+    color: var(--sidebar-text);
 }
 
 .theme-selector svg {
@@ -399,7 +402,7 @@ button {
 .theme-dropdown {
     background: transparent;
     border: none;
-    color: #e2e8f0;
+    color: var(--sidebar-text);
     font-size: var(--font-size-sm);
     font-weight: 500;
     cursor: pointer;
@@ -408,8 +411,8 @@ button {
 }
 
 .theme-dropdown option {
-    background: #1e293b;
-    color: #e2e8f0;
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
 }
 
 .btn-toggle {
@@ -421,7 +424,7 @@ button {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius);
     font-size: var(--font-size-sm);
-    color: #e2e8f0;
+    color: var(--sidebar-text);
     transition: all var(--transition-fast);
 }
 
@@ -430,24 +433,26 @@ button {
 }
 
 .btn-toggle.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--sidebar-active);
+    border-color: var(--sidebar-active);
     color: white;
 }
 
 .toggle-indicator {
     font-size: 12px;
     font-weight: 600;
-    color: #94a3b8;
+    color: var(--sidebar-text);
+    opacity: 0.7;
 }
 
 .btn-toggle.active .toggle-indicator {
     color: rgba(255, 255, 255, 0.9);
+    opacity: 1;
 }
 
 /* Option Tabs */
 .option-tabs {
-    background: #1e293b;
+    background: var(--sidebar-bg);
     padding: 0 var(--spacing-lg);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
@@ -460,7 +465,8 @@ button {
     background: transparent;
     border: none;
     border-bottom: 2px solid transparent;
-    color: #94a3b8;
+    color: var(--sidebar-text);
+    opacity: 0.6;
     font-size: var(--font-size-sm);
     font-weight: 500;
     white-space: nowrap;
@@ -469,13 +475,14 @@ button {
 }
 
 .option-tab:hover {
-    color: #e2e8f0;
+    opacity: 0.9;
     background: rgba(255, 255, 255, 0.05);
 }
 
 .option-tab.active {
-    color: #60a5fa;
-    border-bottom-color: #60a5fa;
+    opacity: 1;
+    color: var(--sidebar-text);
+    border-bottom-color: var(--sidebar-active);
 }
 
 /* Viewer Container */
@@ -721,12 +728,13 @@ button {
 }
 
 .top-bar .btn-icon {
-    color: #94a3b8;
+    color: var(--sidebar-text);
+    opacity: 0.7;
 }
 
 .top-bar .btn-icon:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: #e2e8f0;
+    opacity: 1;
 }
 
 .btn-icon-small {

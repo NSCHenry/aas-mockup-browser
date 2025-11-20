@@ -78,11 +78,6 @@ const ThemeSystem = {
                 --primary-color: #d97706 !important;
                 --primary-hover: #b45309 !important;
                 --success-color: #16a34a !important;
-                --chart-color-1: #d97706 !important;
-                --chart-color-2: #f59e0b !important;
-                --chart-color-3: #dc2626 !important;
-                --chart-color-4: #92400e !important;
-                --chart-color-5: #ea580c !important;
             }
 
             body[data-theme="thanksgiving"] .dashboard-container {
@@ -90,13 +85,29 @@ const ThemeSystem = {
             }
 
             body[data-theme="thanksgiving"] .metric-card,
-            body[data-theme="thanksgiving"] .card {
-                background: rgba(254, 243, 199, 0.3) !important;
-                border: 1px solid rgba(217, 119, 6, 0.2) !important;
+            body[data-theme="thanksgiving"] .card,
+            body[data-theme="thanksgiving"] .insight-card,
+            body[data-theme="thanksgiving"] .region-card,
+            body[data-theme="thanksgiving"] .market-card,
+            body[data-theme="thanksgiving"] .split-card,
+            body[data-theme="thanksgiving"] .specialty-card,
+            body[data-theme="thanksgiving"] .comp-card {
+                background: rgba(254, 243, 199, 0.4) !important;
+                border: 1px solid rgba(217, 119, 6, 0.3) !important;
             }
 
             body[data-theme="thanksgiving"] .tile {
                 border-left-color: #d97706 !important;
+            }
+
+            body[data-theme="thanksgiving"] .metric-value,
+            body[data-theme="thanksgiving"] .status-badge.active,
+            body[data-theme="thanksgiving"] .badge.primary {
+                color: #d97706 !important;
+            }
+
+            body[data-theme="thanksgiving"] canvas {
+                filter: hue-rotate(-30deg) saturate(1.2);
             }
 
             /* Christmas Theme */
@@ -104,11 +115,6 @@ const ThemeSystem = {
                 --primary-color: #dc2626 !important;
                 --primary-hover: #b91c1c !important;
                 --success-color: #16a34a !important;
-                --chart-color-1: #dc2626 !important;
-                --chart-color-2: #16a34a !important;
-                --chart-color-3: #eab308 !important;
-                --chart-color-4: #b91c1c !important;
-                --chart-color-5: #15803d !important;
             }
 
             body[data-theme="christmas"] .dashboard-container {
@@ -116,9 +122,15 @@ const ThemeSystem = {
             }
 
             body[data-theme="christmas"] .metric-card,
-            body[data-theme="christmas"] .card {
-                background: rgba(240, 253, 244, 0.5) !important;
-                border: 1px solid rgba(22, 163, 74, 0.2) !important;
+            body[data-theme="christmas"] .card,
+            body[data-theme="christmas"] .insight-card,
+            body[data-theme="christmas"] .region-card,
+            body[data-theme="christmas"] .market-card,
+            body[data-theme="christmas"] .split-card,
+            body[data-theme="christmas"] .specialty-card,
+            body[data-theme="christmas"] .comp-card {
+                background: rgba(240, 253, 244, 0.6) !important;
+                border: 1px solid rgba(22, 163, 74, 0.3) !important;
             }
 
             body[data-theme="christmas"] .tile {
@@ -127,6 +139,19 @@ const ThemeSystem = {
 
             body[data-theme="christmas"] .metric-card:nth-child(even) .tile {
                 border-left-color: #16a34a !important;
+            }
+
+            body[data-theme="christmas"] .metric-value {
+                color: #dc2626 !important;
+            }
+
+            body[data-theme="christmas"] .status-badge.active,
+            body[data-theme="christmas"] .badge.primary {
+                background: #dc2626 !important;
+            }
+
+            body[data-theme="christmas"] canvas {
+                filter: hue-rotate(60deg) saturate(1.3);
             }
         `;
 
