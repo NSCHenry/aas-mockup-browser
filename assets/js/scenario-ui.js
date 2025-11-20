@@ -196,6 +196,62 @@ class ScenarioUI {
   setDefaultValues(scenarioType) {
     // Set default dropdown selections to show meaningful data immediately
     switch (scenarioType) {
+      case 'hiring':
+        const hiringCenter = document.getElementById('hiring-center');
+        if (hiringCenter && hiringCenter.options.length > 1 && !hiringCenter.value) {
+          hiringCenter.selectedIndex = 1; // Select first center
+        }
+        const hiringType = document.getElementById('hiring-type');
+        if (hiringType && hiringType.options.length > 1 && !hiringType.value) {
+          hiringType.selectedIndex = 1; // Select MDA
+        }
+        break;
+
+      case 'rebalancing':
+        const rebalSource = document.getElementById('rebal-source');
+        if (rebalSource && rebalSource.options.length > 1 && !rebalSource.value) {
+          rebalSource.selectedIndex = 1; // Select first center
+          this.populateProviderList(); // Populate provider list
+        }
+        const rebalDest = document.getElementById('rebal-dest');
+        if (rebalDest && rebalDest.options.length > 2 && !rebalDest.value) {
+          rebalDest.selectedIndex = 2; // Select second center (different from source)
+        }
+        // Auto-select first provider after source is selected
+        setTimeout(() => {
+          const rebalProviders = document.getElementById('rebal-providers');
+          if (rebalProviders && rebalProviders.options.length > 0 && rebalProviders.selectedOptions.length === 0) {
+            rebalProviders.options[0].selected = true;
+          }
+        }, 100);
+        break;
+
+      case 'caseRedistribution':
+        const caseSource = document.getElementById('case-source');
+        if (caseSource && caseSource.options.length > 1 && !caseSource.value) {
+          caseSource.selectedIndex = 1; // Select first center
+        }
+        const caseDest = document.getElementById('case-dest');
+        if (caseDest && caseDest.options.length > 2 && !caseDest.value) {
+          caseDest.selectedIndex = 2; // Select second center (different from source)
+        }
+        break;
+
+      case 'onCallPolicy':
+        const oncallPolicy = document.getElementById('oncall-policy');
+        if (oncallPolicy && oncallPolicy.options.length > 1 && !oncallPolicy.value) {
+          oncallPolicy.selectedIndex = 1; // Select first policy (Add On-Call Premium)
+          this.updateOnCallInputs(); // Update inputs based on policy
+          // Ensure value is set after updateOnCallInputs
+          setTimeout(() => {
+            const oncallValue = document.getElementById('oncall-value');
+            if (oncallValue && !oncallValue.value) {
+              oncallValue.value = '500'; // Default premium
+            }
+          }, 50);
+        }
+        break;
+
       case 'contractProfitability':
         const profitabilityCenter = document.getElementById('profitability-center');
         if (profitabilityCenter && profitabilityCenter.options.length > 1 && !profitabilityCenter.value) {
@@ -597,6 +653,44 @@ class ScenarioUI {
           }
         ];
         return rcmCards[cardIndex];
+
+      case 'onCallPolicy':
+        const oncallCards = [
+          {
+            label: 'Total Rotations',
+            before: 0,
+            after: result.distribution.totalRotations,
+            delta: 0,
+            unit: '/mo',
+            inverse: false
+          },
+          {
+            label: 'Annual Cost',
+            before: 0,
+            after: result.financial.annualPremiumCost || result.financial.cost || 0,
+            delta: result.financial.annualPremiumCost || result.financial.cost || 0,
+            unit: '$',
+            inverse: true
+          },
+          {
+            label: 'Fairness Score',
+            before: result.distribution.fairnessScore.before,
+            after: result.distribution.fairnessScore.after,
+            delta: result.distribution.fairnessScore.delta,
+            unit: '/100',
+            inverse: false
+          },
+          {
+            label: 'Provider Impact',
+            before: 0,
+            after: 0,
+            delta: 0,
+            unit: '',
+            inverse: false,
+            displayValue: result.impact.providerSatisfaction || 'Positive'
+          }
+        ];
+        return oncallCards[cardIndex];
 
       default:
         // Original scenarios (hiring, rebalancing, caseRedistribution, onCallPolicy)
