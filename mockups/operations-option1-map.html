@@ -51,12 +51,12 @@ h1 { font-size: 28px; margin-bottom: 8px; }
     <div class="metric-value value-blue">199</div>
   </div>
   <div class="metric">
-    <div class="metric-label">Cases This Week</div>
-    <div class="metric-value">1,847</div>
+    <div class="metric-label">Overtime Hours</div>
+    <div class="metric-value" style="color: #fbbf24;">127.5</div>
   </div>
   <div class="metric">
-    <div class="metric-label">Avg Utilization</div>
-    <div class="metric-value value-green">87.3%</div>
+    <div class="metric-label">On-Call Active</div>
+    <div class="metric-value value-green">18</div>
   </div>
 </div>
 
@@ -200,15 +200,15 @@ h1 { font-size: 28px; margin-bottom: 8px; }
 
 <div class="grid-2">
   <div class="tile">
-    <div class="tile-title">Case Volume by Day (Last 30 Days)</div>
+    <div class="tile-title">Overtime Hours by Center (This Week)</div>
     <div class="chart-container">
-      <canvas id="volume"></canvas>
+      <canvas id="overtime"></canvas>
     </div>
   </div>
   <div class="tile">
-    <div class="tile-title">Provider Allocation by Geography</div>
+    <div class="tile-title">On-Call Coverage by Provider Type</div>
     <div class="chart-container">
-      <canvas id="allocation"></canvas>
+      <canvas id="oncall"></canvas>
     </div>
   </div>
 </div>
@@ -223,33 +223,40 @@ h1 { font-size: 28px; margin-bottom: 8px; }
 <script>
 const cfg = { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#e8eaed' } }, tooltip: { backgroundColor: 'rgba(37,41,64,0.95)' } } };
 
-new Chart(document.getElementById('volume'), {
+new Chart(document.getElementById('overtime'), {
   type: 'bar',
   data: {
-    labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    labels: ['IU-1','IU-2','IU-3','Core-1','Core-2','Rive','BNJ-T','BNJ-U','Sol-1','Sol-2','Sol-3'],
     datasets: [{
-      label: 'Avg Cases/Day',
-      data: [385, 412, 398, 405, 390, 142, 18],
-      backgroundColor: ['#3b82f6','#3b82f6','#3b82f6','#3b82f6','#3b82f6','#10b981','#9aa0a6']
+      label: 'Overtime Hours',
+      data: [8.5, 12.0, 6.5, 4.0, 5.5, 18.5, 9.0, 7.5, 24.5, 19.0, 12.5],
+      backgroundColor: function(context) {
+        const value = context.parsed.y;
+        if (value >= 20) return '#ef4444';
+        if (value >= 15) return '#fbbf24';
+        if (value >= 10) return '#f59e0b';
+        return '#10b981';
+      }
     }]
   },
   options: {
     ...cfg,
+    indexAxis: 'y',
     plugins: { legend: { display: false } },
     scales: {
-      x: { grid: { display: false }, ticks: { color: '#9aa0a6' } },
-      y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6' } }
+      x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#9aa0a6', callback: v => v + ' hrs' } },
+      y: { grid: { display: false }, ticks: { color: '#9aa0a6', font: { size: 11 } } }
     }
   }
 });
 
-new Chart(document.getElementById('allocation'), {
+new Chart(document.getElementById('oncall'), {
   type: 'doughnut',
   data: {
-    labels: ['Michigan MDAs (34)', 'Michigan CRNAs (92)', 'Indiana MDAs (18)', 'Indiana CRNAs (55)'],
+    labels: ['MDAs On-Call (8)', 'CRNAs On-Call (10)', 'Available MDAs (44)', 'Available CRNAs (137)'],
     datasets: [{
-      data: [34, 92, 18, 55],
-      backgroundColor: ['#3b82f6', '#60a5fa', '#10b981', '#34d399']
+      data: [8, 10, 44, 137],
+      backgroundColor: ['#3b82f6', '#10b981', 'rgba(59,130,246,0.3)', 'rgba(16,185,129,0.3)']
     }]
   },
   options: { ...cfg }

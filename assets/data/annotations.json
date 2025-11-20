@@ -85,25 +85,73 @@
   },
   {
     "categoryId": "operations",
+    "optionId": "option1-map",
+    "markers": [
+      {
+        "x": "12%",
+        "y": "12%",
+        "title": "Overtime Hours Metric",
+        "description": "NEW: Total overtime hours across all centers this week. Provides quick visibility into labor cost overruns and potential staffing issues."
+      },
+      {
+        "x": "30%",
+        "y": "62%",
+        "title": "Overtime by Center Chart",
+        "description": "NEW: Color-coded bar chart showing overtime hours by center. Red indicates high overtime (20+ hrs), yellow indicates moderate (15-20 hrs), helping identify centers that may need additional staffing."
+      },
+      {
+        "x": "70%",
+        "y": "62%",
+        "title": "On-Call Coverage Distribution",
+        "description": "NEW: Doughnut chart showing current on-call providers by type. Tracks who's actively on-call vs available, ensuring adequate emergency coverage across both MDAs and CRNAs."
+      }
+    ]
+  },
+  {
+    "categoryId": "operations",
     "optionId": "option2-status",
     "markers": [
       {
-        "x": "30%",
-        "y": "25%",
-        "title": "Status Indicators",
-        "description": "Real-time operational status dashboard with color-coded health indicators. Red, yellow, green system makes it easy to spot issues requiring attention."
+        "x": "40%",
+        "y": "40%",
+        "title": "Provider Allocation with OT Badges",
+        "description": "Weekly provider schedule showing who's working where. NEW: Red 'OT' badges highlight providers approaching overtime thresholds (Dr. Thompson at 48.5 hrs)."
       },
       {
-        "x": "65%",
-        "y": "55%",
-        "title": "Activity Feed",
-        "description": "Live feed of operational events and alerts. Chronological view helps teams track what's happening across the organization in real-time."
+        "x": "85%",
+        "y": "35%",
+        "title": "Current On-Call Roster",
+        "description": "NEW: Real-time view of who's currently on-call by region and provider type. Shows when their on-call shift started for rotation tracking and fairness."
       },
       {
-        "x": "45%",
-        "y": "75%",
-        "title": "Resource Utilization",
-        "description": "Visual representation of capacity and resource allocation. Helps operations managers balance workload and identify over/under-utilized resources."
+        "x": "85%",
+        "y": "65%",
+        "title": "Overtime Alerts Panel",
+        "description": "NEW: Active alerts for providers approaching or exceeding weekly hour thresholds. Red alerts (⚠) for critical, yellow (●) for watch list. Helps prevent burnout and compliance issues."
+      }
+    ]
+  },
+  {
+    "categoryId": "operations",
+    "optionId": "option3-calendar",
+    "markers": [
+      {
+        "x": "40%",
+        "y": "35%",
+        "title": "On-Call Badges on Calendar",
+        "description": "NEW: Yellow 'ON-CALL' badges show which providers are on emergency call rotation while working their regular shifts. Helps schedulers avoid double-booking on-call providers."
+      },
+      {
+        "x": "60%",
+        "y": "42%",
+        "title": "Overtime Indicators",
+        "description": "NEW: Red 'OT' tags mark shifts where providers are accumulating overtime hours. Visible directly on calendar entries (Dr. Thompson at Riverview) for at-a-glance overtime tracking."
+      },
+      {
+        "x": "88%",
+        "y": "45%",
+        "title": "On-Call Rotation Schedule",
+        "description": "NEW: Sidebar panel showing the week's on-call rotation by provider and region. Color-coded by provider type (MDA blue, CRNA green) with next rotation time clearly indicated."
       }
     ]
   },

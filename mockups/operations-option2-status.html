@@ -30,6 +30,7 @@ h1 { font-size: 28px; margin-bottom: 8px; }
 .stat-item { padding: 14px; background: rgba(255,255,255,0.02); border-radius: 6px; }
 .stat-label { font-size: 11px; color: #9aa0a6; margin-bottom: 6px; }
 .stat-value { font-size: 20px; font-weight: 600; }
+.ot-badge { display: inline-block; background: rgba(239,68,68,0.2); color: #ef4444; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 600; margin-left: 6px; }
 </style>
 </head><body>
 <div class="header">
@@ -78,10 +79,10 @@ h1 { font-size: 28px; margin-bottom: 8px; }
         <div class="provider-cell crna"><div class="provider-name">Brown CRNA</div><div class="provider-type">CRNA • 7 cases</div></div>
 
         <div class="grid-label">Riverview</div>
-        <div class="provider-cell mda"><div class="provider-name">Dr. Thompson</div><div class="provider-type">MDA • 10 cases</div></div>
-        <div class="provider-cell mda"><div class="provider-name">Dr. Thompson</div><div class="provider-type">MDA • 11 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Thompson<span class="ot-badge">OT</span></div><div class="provider-type">MDA • 10 cases • 48.5 hrs</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Thompson<span class="ot-badge">OT</span></div><div class="provider-type">MDA • 11 cases • 48.5 hrs</div></div>
         <div class="provider-cell mda"><div class="provider-name">Dr. Rodriguez</div><div class="provider-type">MDA • 9 cases</div></div>
-        <div class="provider-cell mda"><div class="provider-name">Dr. Thompson</div><div class="provider-type">MDA • 10 cases</div></div>
+        <div class="provider-cell mda"><div class="provider-name">Dr. Thompson<span class="ot-badge">OT</span></div><div class="provider-type">MDA • 10 cases • 48.5 hrs</div></div>
         <div class="provider-cell mda"><div class="provider-name">Dr. Rodriguez</div><div class="provider-type">MDA • 8 cases</div></div>
 
         <div class="grid-label">BNJ Troy</div>
@@ -148,39 +149,42 @@ h1 { font-size: 28px; margin-bottom: 8px; }
     </div>
 
     <div class="tile">
-      <div class="tile-title">Key Metrics This Week</div>
-      <div class="stat-grid">
-        <div class="stat-item">
-          <div class="stat-label">Total Cases</div>
-          <div class="stat-value value-green">1,847</div>
+      <div class="tile-title">Current On-Call Roster</div>
+      <div style="font-size: 11px; color: #9aa0a6; margin-bottom: 12px;">Active Now • Updated 2 min ago</div>
+      <div style="display: grid; gap: 10px;">
+        <div style="padding: 12px; background: rgba(59,130,246,0.15); border-left: 3px solid #3b82f6; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">Dr. Anderson (MDA)</div>
+          <div style="font-size: 10px; color: #9aa0a6;">Michigan Region • Since Nov 18 6:00 PM</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-label">Coverage Rate</div>
-          <div class="stat-value value-green">98.7%</div>
+        <div style="padding: 12px; background: rgba(59,130,246,0.15); border-left: 3px solid #3b82f6; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">Dr. Kim (MDA)</div>
+          <div style="font-size: 10px; color: #9aa0a6;">Indiana Region • Since Nov 18 6:00 PM</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-label">Avg Cases/Provider</div>
-          <div class="stat-value">9.3</div>
+        <div style="padding: 12px; background: rgba(16,185,129,0.15); border-left: 3px solid #10b981; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">Martinez CRNA</div>
+          <div style="font-size: 10px; color: #9aa0a6;">Michigan Region • Since Nov 18 6:00 PM</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-label">On-Time Starts</div>
-          <div class="stat-value value-green">94.2%</div>
+        <div style="padding: 12px; background: rgba(16,185,129,0.15); border-left: 3px solid #10b981; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 13px; margin-bottom: 4px;">Davis CRNA</div>
+          <div style="font-size: 10px; color: #9aa0a6;">Indiana Region • Since Nov 18 6:00 PM</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-label">MI Cases</div>
-          <div class="stat-value">1,128</div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">Overtime Alerts</div>
+      <div style="display: grid; gap: 8px;">
+        <div style="padding: 10px; background: rgba(239,68,68,0.1); border-left: 3px solid #ef4444; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 12px; color: #ef4444; margin-bottom: 3px;">⚠ Dr. Thompson</div>
+          <div style="font-size: 10px; color: #9aa0a6;">48.5 hrs this week • Approaching limit</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-label">IN Cases</div>
-          <div class="stat-value">719</div>
+        <div style="padding: 10px; background: rgba(239,68,68,0.1); border-left: 3px solid #ef4444; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 12px; color: #ef4444; margin-bottom: 3px;">⚠ Garcia CRNA</div>
+          <div style="font-size: 10px; color: #9aa0a6;">46.0 hrs this week • Riverview OT spike</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-label">Avg Case Duration</div>
-          <div class="stat-value">47 min</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">Room Turnover</div>
-          <div class="stat-value">12 min</div>
+        <div style="padding: 10px; background: rgba(251,191,36,0.1); border-left: 3px solid #fbbf24; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 12px; color: #fbbf24; margin-bottom: 3px;">● Moore CRNA</div>
+          <div style="font-size: 10px; color: #9aa0a6;">44.5 hrs this week • Monitor closely</div>
         </div>
       </div>
     </div>

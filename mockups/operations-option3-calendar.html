@@ -27,6 +27,8 @@ h1 { font-size: 28px; margin-bottom: 8px; }
 .event-mda { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
 .event-crna { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
 .event-urgent { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); }
+.oncall-badge { position: absolute; top: 2px; right: 2px; background: #fbbf24; color: #1a1d2e; font-size: 8px; padding: 2px 4px; border-radius: 3px; font-weight: 700; }
+.overtime-indicator { display: inline-block; background: rgba(239,68,68,0.2); color: #ef4444; padding: 1px 4px; border-radius: 2px; font-size: 8px; font-weight: 600; margin-left: 3px; }
 .metric { padding: 16px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 16px; }
 .metric-label { font-size: 11px; color: #9aa0a6; text-transform: uppercase; margin-bottom: 6px; }
 .metric-value { font-size: 28px; font-weight: 700; }
@@ -87,13 +89,15 @@ h1 { font-size: 28px; margin-bottom: 8px; }
 
         <div class="time-label">IU Health 1</div>
         <div class="cal-cell">
-          <div class="cal-event event-mda">
+          <div class="cal-event event-mda" style="position: relative;">
+            <span class="oncall-badge">ON-CALL</span>
             <div class="event-name">Dr. Anderson</div>
             <div class="event-time">7:00 AM - 4:00 PM</div>
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-event event-mda">
+          <div class="cal-event event-mda" style="position: relative;">
+            <span class="oncall-badge">ON-CALL</span>
             <div class="event-name">Dr. Anderson</div>
             <div class="event-time">7:00 AM - 4:00 PM</div>
           </div>
@@ -126,7 +130,8 @@ h1 { font-size: 28px; margin-bottom: 8px; }
 
         <div class="time-label">IU Health 2</div>
         <div class="cal-cell">
-          <div class="cal-event event-crna">
+          <div class="cal-event event-crna" style="position: relative;">
+            <span class="oncall-badge">ON-CALL</span>
             <div class="event-name">Martinez CRNA</div>
             <div class="event-time">6:30 AM - 3:30 PM</div>
           </div>
@@ -138,13 +143,15 @@ h1 { font-size: 28px; margin-bottom: 8px; }
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-event event-crna">
+          <div class="cal-event event-crna" style="position: relative;">
+            <span class="oncall-badge">ON-CALL</span>
             <div class="event-name">Martinez CRNA</div>
             <div class="event-time">6:30 AM - 3:30 PM</div>
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-event event-crna">
+          <div class="cal-event event-crna" style="position: relative;">
+            <span class="oncall-badge">ON-CALL</span>
             <div class="event-name">Lee CRNA</div>
             <div class="event-time">7:00 AM - 3:00 PM</div>
           </div>
@@ -199,14 +206,14 @@ h1 { font-size: 28px; margin-bottom: 8px; }
 
         <div class="time-label">Riverview</div>
         <div class="cal-cell">
-          <div class="cal-event event-mda">
-            <div class="event-name">Dr. Thompson</div>
+          <div class="cal-event event-mda" style="position: relative;">
+            <div class="event-name">Dr. Thompson <span class="overtime-indicator">OT</span></div>
             <div class="event-time">6:30 AM - 4:30 PM</div>
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-event event-mda">
-            <div class="event-name">Dr. Thompson</div>
+          <div class="cal-event event-mda" style="position: relative;">
+            <div class="event-name">Dr. Thompson <span class="overtime-indicator">OT</span></div>
             <div class="event-time">6:30 AM - 5:00 PM</div>
           </div>
         </div>
@@ -217,8 +224,8 @@ h1 { font-size: 28px; margin-bottom: 8px; }
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-event event-mda">
-            <div class="event-name">Dr. Thompson</div>
+          <div class="cal-event event-mda" style="position: relative;">
+            <div class="event-name">Dr. Thompson <span class="overtime-indicator">OT</span></div>
             <div class="event-time">6:30 AM - 4:30 PM</div>
           </div>
         </div>
@@ -229,7 +236,8 @@ h1 { font-size: 28px; margin-bottom: 8px; }
           </div>
         </div>
         <div class="cal-cell">
-          <div class="cal-event event-mda">
+          <div class="cal-event event-mda" style="position: relative;">
+            <span class="oncall-badge">ON-CALL</span>
             <div class="event-name">Dr. Kim</div>
             <div class="event-time">8:00 AM - 2:00 PM</div>
           </div>
@@ -327,12 +335,38 @@ h1 { font-size: 28px; margin-bottom: 8px; }
         <div class="metric-value value-green">1,094</div>
       </div>
       <div class="metric">
-        <div class="metric-label">Coverage Rate</div>
-        <div class="metric-value value-green">98.7%</div>
+        <div class="metric-label">Overtime Hours</div>
+        <div class="metric-value" style="color: #fbbf24;">127.5</div>
       </div>
       <div class="metric">
-        <div class="metric-label">Active Providers</div>
-        <div class="metric-value">199</div>
+        <div class="metric-label">On-Call Active</div>
+        <div class="metric-value value-green">18</div>
+      </div>
+    </div>
+
+    <div class="tile">
+      <div class="tile-title">On-Call Rotation</div>
+      <div style="font-size: 11px; color: #9aa0a6; margin-bottom: 12px;">This Week • Nov 18-24</div>
+      <div style="display: grid; gap: 8px;">
+        <div style="padding: 10px; background: rgba(59,130,246,0.1); border-left: 3px solid #3b82f6; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 12px; margin-bottom: 3px;">Mon-Wed: Dr. Anderson</div>
+          <div style="font-size: 10px; color: #9aa0a6;">Michigan MDA • 6 PM - 6 AM</div>
+        </div>
+        <div style="padding: 10px; background: rgba(59,130,246,0.1); border-left: 3px solid #3b82f6; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 12px; margin-bottom: 3px;">Thu-Sun: Dr. Kim</div>
+          <div style="font-size: 10px; color: #9aa0a6;">Indiana MDA • 6 PM - 6 AM</div>
+        </div>
+        <div style="padding: 10px; background: rgba(16,185,129,0.1); border-left: 3px solid #10b981; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 12px; margin-bottom: 3px;">Mon-Thu: Martinez CRNA</div>
+          <div style="font-size: 10px; color: #9aa0a6;">Michigan CRNA • 6 PM - 6 AM</div>
+        </div>
+        <div style="padding: 10px; background: rgba(16,185,129,0.1); border-left: 3px solid #10b981; border-radius: 6px;">
+          <div style="font-weight: 600; font-size: 12px; margin-bottom: 3px;">Fri-Sun: Davis CRNA</div>
+          <div style="font-size: 10px; color: #9aa0a6;">Indiana CRNA • 6 PM - 6 AM</div>
+        </div>
+      </div>
+      <div style="font-size: 10px; color: #9aa0a6; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.05);">
+        Next Rotation: Nov 25 at 6:00 PM
       </div>
     </div>
 
