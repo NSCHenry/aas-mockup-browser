@@ -1,0 +1,345 @@
+{
+  "centers": [
+    {
+      "id": "iu-health-1",
+      "name": "IU Health 1",
+      "region": "Indiana",
+      "overtimeHours": 8.5,
+      "providers": {
+        "mda": 2,
+        "crna": 0
+      },
+      "casesPerWeek": 38,
+      "coverageRate": 100,
+      "capacity": 45
+    },
+    {
+      "id": "iu-health-2",
+      "name": "IU Health 2",
+      "region": "Indiana",
+      "overtimeHours": 12.0,
+      "providers": {
+        "mda": 0,
+        "crna": 3
+      },
+      "casesPerWeek": 31,
+      "coverageRate": 98,
+      "capacity": 35
+    },
+    {
+      "id": "iu-health-3",
+      "name": "IU Health 3",
+      "region": "Indiana",
+      "overtimeHours": 6.5,
+      "providers": {
+        "mda": 2,
+        "crna": 0
+      },
+      "casesPerWeek": 35,
+      "coverageRate": 97,
+      "capacity": 40
+    },
+    {
+      "id": "corewell-1",
+      "name": "Corewell 1",
+      "region": "Michigan",
+      "overtimeHours": 4.0,
+      "providers": {
+        "mda": 0,
+        "crna": 3
+      },
+      "casesPerWeek": 33,
+      "coverageRate": 100,
+      "capacity": 42
+    },
+    {
+      "id": "corewell-2",
+      "name": "Corewell 2",
+      "region": "Michigan",
+      "overtimeHours": 5.5,
+      "providers": {
+        "mda": 0,
+        "crna": 2
+      },
+      "casesPerWeek": 28,
+      "coverageRate": 98,
+      "capacity": 35
+    },
+    {
+      "id": "riverview",
+      "name": "Riverview",
+      "region": "Michigan",
+      "overtimeHours": 18.5,
+      "providers": {
+        "mda": 2,
+        "crna": 0
+      },
+      "casesPerWeek": 48,
+      "coverageRate": 88,
+      "capacity": 50
+    },
+    {
+      "id": "bnj-troy",
+      "name": "BNJ Troy",
+      "region": "Michigan",
+      "overtimeHours": 9.0,
+      "providers": {
+        "mda": 0,
+        "crna": 3
+      },
+      "casesPerWeek": 24,
+      "coverageRate": 96,
+      "capacity": 30
+    },
+    {
+      "id": "bnj-utica",
+      "name": "BNJ Utica",
+      "region": "Michigan",
+      "overtimeHours": 7.5,
+      "providers": {
+        "mda": 2,
+        "crna": 0
+      },
+      "casesPerWeek": 29,
+      "coverageRate": 95,
+      "capacity": 35
+    },
+    {
+      "id": "solaris-1",
+      "name": "Solaris 1",
+      "region": "Michigan",
+      "overtimeHours": 24.5,
+      "providers": {
+        "mda": 0,
+        "crna": 4
+      },
+      "casesPerWeek": 24,
+      "coverageRate": 88.5,
+      "capacity": 35
+    },
+    {
+      "id": "solaris-2",
+      "name": "Solaris 2",
+      "region": "Michigan",
+      "overtimeHours": 19.0,
+      "providers": {
+        "mda": 0,
+        "crna": 3
+      },
+      "casesPerWeek": 27,
+      "coverageRate": 87,
+      "capacity": 35
+    },
+    {
+      "id": "solaris-3",
+      "name": "Solaris 3",
+      "region": "Michigan",
+      "overtimeHours": 12.5,
+      "providers": {
+        "mda": 0,
+        "crna": 3
+      },
+      "casesPerWeek": 28,
+      "coverageRate": 89,
+      "capacity": 35
+    }
+  ],
+  "providers": [
+    {
+      "id": "anderson",
+      "name": "Dr. Anderson",
+      "type": "MDA",
+      "center": "iu-health-1",
+      "weeklyHours": 42,
+      "overtimeHours": 2,
+      "onCallRotations": 2
+    },
+    {
+      "id": "chen",
+      "name": "Dr. Chen",
+      "type": "MDA",
+      "center": "iu-health-1",
+      "weeklyHours": 46.5,
+      "overtimeHours": 6.5,
+      "onCallRotations": 1
+    },
+    {
+      "id": "martinez",
+      "name": "Martinez CRNA",
+      "type": "CRNA",
+      "center": "iu-health-2",
+      "weeklyHours": 44,
+      "overtimeHours": 4,
+      "onCallRotations": 4
+    },
+    {
+      "id": "johnson",
+      "name": "Johnson CRNA",
+      "type": "CRNA",
+      "center": "iu-health-2",
+      "weeklyHours": 42,
+      "overtimeHours": 2,
+      "onCallRotations": 2
+    },
+    {
+      "id": "lee",
+      "name": "Lee CRNA",
+      "type": "CRNA",
+      "center": "iu-health-2",
+      "weeklyHours": 46,
+      "overtimeHours": 6,
+      "onCallRotations": 3
+    },
+    {
+      "id": "patel",
+      "name": "Dr. Patel",
+      "type": "MDA",
+      "center": "iu-health-3",
+      "weeklyHours": 41,
+      "overtimeHours": 1,
+      "onCallRotations": 2
+    },
+    {
+      "id": "williams",
+      "name": "Dr. Williams",
+      "type": "MDA",
+      "center": "iu-health-3",
+      "weeklyHours": 45.5,
+      "overtimeHours": 5.5,
+      "onCallRotations": 1
+    },
+    {
+      "id": "davis",
+      "name": "Davis CRNA",
+      "type": "CRNA",
+      "center": "corewell-1",
+      "weeklyHours": 41,
+      "overtimeHours": 1,
+      "onCallRotations": 2
+    },
+    {
+      "id": "brown",
+      "name": "Brown CRNA",
+      "type": "CRNA",
+      "center": "corewell-1",
+      "weeklyHours": 42,
+      "overtimeHours": 2,
+      "onCallRotations": 2
+    },
+    {
+      "id": "wilson",
+      "name": "Wilson CRNA",
+      "type": "CRNA",
+      "center": "corewell-1",
+      "weeklyHours": 41,
+      "overtimeHours": 1,
+      "onCallRotations": 1
+    },
+    {
+      "id": "thompson",
+      "name": "Dr. Thompson",
+      "type": "MDA",
+      "center": "riverview",
+      "weeklyHours": 48.5,
+      "overtimeHours": 8.5,
+      "onCallRotations": 0
+    },
+    {
+      "id": "rodriguez",
+      "name": "Dr. Rodriguez",
+      "type": "MDA",
+      "center": "riverview",
+      "weeklyHours": 50,
+      "overtimeHours": 10,
+      "onCallRotations": 0
+    },
+    {
+      "id": "garcia",
+      "name": "Garcia CRNA",
+      "type": "CRNA",
+      "center": "bnj-troy",
+      "weeklyHours": 43,
+      "overtimeHours": 3,
+      "onCallRotations": 2
+    },
+    {
+      "id": "miller",
+      "name": "Miller CRNA",
+      "type": "CRNA",
+      "center": "bnj-troy",
+      "weeklyHours": 46,
+      "overtimeHours": 6,
+      "onCallRotations": 3
+    },
+    {
+      "id": "kim",
+      "name": "Dr. Kim",
+      "type": "MDA",
+      "center": "bnj-utica",
+      "weeklyHours": 43.5,
+      "overtimeHours": 3.5,
+      "onCallRotations": 2
+    },
+    {
+      "id": "singh",
+      "name": "Dr. Singh",
+      "type": "MDA",
+      "center": "bnj-utica",
+      "weeklyHours": 44,
+      "overtimeHours": 4,
+      "onCallRotations": 1
+    },
+    {
+      "id": "taylor",
+      "name": "Taylor CRNA",
+      "type": "CRNA",
+      "center": "solaris-1",
+      "weeklyHours": 46,
+      "overtimeHours": 6,
+      "onCallRotations": 3
+    },
+    {
+      "id": "moore",
+      "name": "Moore CRNA",
+      "type": "CRNA",
+      "center": "solaris-1",
+      "weeklyHours": 44.5,
+      "overtimeHours": 4.5,
+      "onCallRotations": 2
+    },
+    {
+      "id": "white",
+      "name": "White CRNA",
+      "type": "CRNA",
+      "center": "solaris-1",
+      "weeklyHours": 48,
+      "overtimeHours": 8,
+      "onCallRotations": 4
+    },
+    {
+      "id": "clark",
+      "name": "Clark CRNA",
+      "type": "CRNA",
+      "center": "solaris-1",
+      "weeklyHours": 46,
+      "overtimeHours": 6,
+      "onCallRotations": 3
+    }
+  ],
+  "costs": {
+    "mdaSalary": 350000,
+    "crnaSalary": 180000,
+    "benefitsMultiplier": 1.25,
+    "overtimeMultiplier": 1.5,
+    "mdaHourlyRate": 168,
+    "crnaHourlyRate": 86,
+    "onCallPremiumPerShift": 500,
+    "relocationCost": 5000
+  },
+  "assumptions": {
+    "hoursPerProviderPerWeek": 40,
+    "otReductionPerHire": 17.5,
+    "coverageImprovementPerHire": 2.5,
+    "weeksPerYear": 52
+  }
+}

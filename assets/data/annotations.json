@@ -214,5 +214,59 @@
         "description": "Recent client comments and survey responses. Qualitative data provides context and specific insights beyond numerical scores."
       }
     ]
+  },
+  {
+    "categoryId": "scenario-planning",
+    "optionId": "what-if-analysis",
+    "markers": [
+      {
+        "x": "15%",
+        "y": "15%",
+        "title": "Scenario Type Tabs",
+        "description": "NEW: Switch between four scenario types: Hiring Analysis (adding new providers), Rebalancing (moving providers between centers), Case Redistribution (shifting workload), and On-Call Policy changes. Each scenario has unique controls and impact modeling."
+      },
+      {
+        "x": "15%",
+        "y": "45%",
+        "title": "Interactive Controls Panel",
+        "description": "NEW: Fully interactive scenario builder with center selection, provider type choice, and parameter sliders. Changes update in real-time across all visualizations. Each scenario has context-specific controls optimized for that analysis type."
+      },
+      {
+        "x": "50%",
+        "y": "30%",
+        "title": "Impact Summary Cards",
+        "description": "NEW: Before/after comparison cards showing key metrics: Overtime Hours/Week, Annual Net Impact ($), Coverage Rate, and Provider Workload balance. Delta indicators use color coding (green=improvement, red=concern, gray=neutral) with percentage changes."
+      },
+      {
+        "x": "50%",
+        "y": "55%",
+        "title": "Overtime Comparison Chart",
+        "description": "NEW: Bar chart showing current vs projected overtime hours by center. Red bars show current state, green bars show projected state after implementing the scenario. Makes impact visually obvious for quick decision-making."
+      },
+      {
+        "x": "50%",
+        "y": "80%",
+        "title": "Financial Impact Over Time",
+        "description": "NEW: Line chart showing cumulative financial impact over 24 months. Accounts for both costs (hiring, relocation) and savings (reduced OT). Break-even point clearly visible where line crosses zero."
+      },
+      {
+        "x": "85%",
+        "y": "35%",
+        "title": "Auto-Generated Recommendations",
+        "description": "NEW: AI-style recommendation engine analyzes scenario parameters and generates specific guidance. Considers ROI, break-even timeline, feasibility, and risk factors. Updates dynamically as you adjust controls."
+      },
+      {
+        "x": "85%",
+        "y": "70%",
+        "title": "Financial Summary",
+        "description": "NEW: Detailed breakdown of net annual impact and break-even period. Shows exact dollar amounts for decision approval. Color-coded to highlight positive (green) vs negative (red) financial outcomes."
+      },
+      {
+        "x": "15%",
+        "y": "85%",
+        "title": "Scenario Save & Reset",
+        "description": "NEW: Save promising scenarios for later comparison or reset controls to start fresh. Allows exploring multiple variations without losing work. (Note: Save feature is demonstration-only in this mockup.)"
+      }
+    ]
   }
 ]

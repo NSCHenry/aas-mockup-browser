@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AAS - Scenario Planning</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #1a1d2e;
+  color: #e8eaed;
+  padding: 20px;
+  min-width: 1024px;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+.subtitle {
+  color: #9aa0a6;
+  font-size: 14px;
+}
+
+/* Scenario Tabs */
+.scenario-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+  padding-bottom: 0;
+}
+.scenario-tab {
+  padding: 12px 24px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+}
+.scenario-tab:hover {
+  background: rgba(255,255,255,0.08);
+}
+.scenario-tab.active {
+  background: linear-gradient(145deg, #252940 0%, #2d3348 100%);
+  border-bottom-color: #3b82f6;
+  color: #3b82f6;
+}
+
+/* Layout */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 30% 45% 25%;
+  gap: 20px;
+}
+
+.panel {
+  background: linear-gradient(145deg, #252940 0%, #2d3348 100%);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.panel-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #e8eaed;
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 12px;
+  color: #9aa0a6;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+select, input[type="number"] {
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  color: #e8eaed;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+select:focus, input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: rgba(255,255,255,0.08);
+}
+
+select option {
+  background: #252940;
+  color: #e8eaed;
+}
+
+input[type="range"] {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: #3b82f6;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.range-value {
+  display: block;
+  text-align: right;
+  color: #3b82f6;
+  font-weight: 600;
+  font-size: 16px;
+  margin-top: 4px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+button {
+  flex: 1;
+  padding: 10px 16px;
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid #3b82f6;
+  border-radius: 6px;
+  color: #3b82f6;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+button:hover {
+  background: rgba(59, 130, 246, 0.3);
+}
+
+button.secondary {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.2);
+  color: #9aa0a6;
+}
+
+button.secondary:hover {
+  background: rgba(255,255,255,0.08);
+  color: #e8eaed;
+}
+
+/* Summary Cards */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summary-card {
+  background: rgba(255,255,255,0.03);
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 3px solid #3b82f6;
+}
+
+.card-label {
+  font-size: 11px;
+  color: #9aa0a6;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.card-values {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.before-value {
+  font-size: 18px;
+  color: #9aa0a6;
+  text-decoration: line-through;
+}
+
+.arrow {
+  color: #9aa0a6;
+  font-size: 14px;
+}
+
+.after-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #e8eaed;
+}
+
+.delta-value {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.delta-value.positive {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.delta-value.negative {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.delta-value.neutral {
+  background: rgba(154, 160, 166, 0.2);
+  color: #9aa0a6;
+}
+
+/* Charts */
+.chart-container {
+  position: relative;
+  height: 280px;
+  margin-bottom: 20px;
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e8eaed;
+  margin-bottom: 12px;
+}
+
+/* Recommendation Panel */
+.recommendation-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #e8eaed;
+  margin-bottom: 20px;
+  white-space: pre-line;
+}
+
+.financial-summary {
+  background: rgba(255,255,255,0.03);
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.financial-summary h4 {
+  font-size: 13px;
+  color: #9aa0a6;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 13px;
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+/* Scenario-specific panels */
+.scenario-panel {
+  display: none;
+}
+
+.scenario-panel.active {
+  display: block;
+}
+
+.help-text {
+  font-size: 12px;
+  color: #9aa0a6;
+  margin-top: 8px;
+  font-style: italic;
+}
+
+.warning-box {
+  background: rgba(251, 191, 36, 0.1);
+  border-left: 3px solid #fbbf24;
+  padding: 12px;
+  border-radius: 6px;
+  margin: 16px 0;
+}
+
+.warning-box p {
+  font-size: 13px;
+  color: #fbbf24;
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Scenario Planning & What-If Analysis</h1>
+  <div class="subtitle">AAS Dashboard • Interactive Impact Modeling</div>
+</div>
+
+<!-- Scenario Type Tabs -->
+<div class="scenario-tabs">
+  <div class="scenario-tab active" data-scenario="hiring">💼 Hiring Analysis</div>
+  <div class="scenario-tab" data-scenario="rebalancing">🔄 Rebalancing</div>
+  <div class="scenario-tab" data-scenario="caseRedistribution">📊 Case Redistribution</div>
+  <div class="scenario-tab" data-scenario="onCallPolicy">📞 On-Call Policy</div>
+</div>
+
+<div class="dashboard-layout">
+
+  <!-- LEFT PANEL: Inputs -->
+  <div class="panel">
+    <div class="panel-title">Scenario Controls</div>
+
+    <!-- Hiring Scenario -->
+    <div class="scenario-panel active" data-scenario="hiring">
+      <div class="form-group">
+        <label class="form-label">Center</label>
+        <select id="hiring-center">
+          <option value="">Select Center...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Provider Type</label>
+        <select id="hiring-type">
+          <option value="">Select Type...</option>
+          <option value="MDA">MDA (Anesthesiologist)</option>
+          <option value="CRNA">CRNA (Nurse Anesthetist)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Number to Hire</label>
+        <input type="range" id="hiring-count" min="0" max="5" value="1" step="1">
+        <span class="range-value" id="hiring-count-display">1</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Annual Salary ($)</label>
+        <input type="number" id="hiring-salary" placeholder="Leave blank for default">
+        <p class="help-text">Default: MDA $350K, CRNA $180K</p>
+      </div>
+
+      <div class="warning-box">
+        <p>💡 Each hire is estimated to reduce overtime by 17-18 hrs/week at the target center.</p>
+      </div>
+    </div>
+
+    <!-- Rebalancing Scenario -->
+    <div class="scenario-panel" data-scenario="rebalancing">
+      <div class="form-group">
+        <label class="form-label">Source Center (Losing Providers)</label>
+        <select id="rebal-source">
+          <option value="">Select Center...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Destination Center (Gaining Providers)</label>
+        <select id="rebal-dest">
+          <option value="">Select Center...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Providers to Move</label>
+        <select id="rebal-providers" multiple size="5">
+          <option value="">Select source center first...</option>
+        </select>
+        <p class="help-text">Hold Ctrl/Cmd to select multiple</p>
+      </div>
+
+      <div class="warning-box">
+        <p>⚠️ Moving providers impacts both source and destination coverage. Monitor both carefully.</p>
+      </div>
+    </div>
+
+    <!-- Case Redistribution Scenario -->
+    <div class="scenario-panel" data-scenario="caseRedistribution">
+      <div class="form-group">
+        <label class="form-label">Source Center (High OT)</label>
+        <select id="case-source">
+          <option value="">Select Center...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Destination Center (Low OT)</label>
+        <select id="case-dest">
+          <option value="">Select Center...</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Cases Per Week to Shift</label>
+        <input type="range" id="case-count" min="0" max="50" value="10" step="5">
+        <span class="range-value" id="case-count-display">10</span>
+      </div>
+
+      <div class="warning-box">
+        <p>💡 Feasibility depends on destination capacity. Red flags appear if over capacity.</p>
+      </div>
+    </div>
+
+    <!-- On-Call Policy Scenario -->
+    <div class="scenario-panel" data-scenario="onCallPolicy">
+      <div class="form-group">
+        <label class="form-label">Policy Change Type</label>
+        <select id="oncall-policy">
+          <option value="">Select Policy...</option>
+          <option value="addPremium">Add On-Call Premium Pay</option>
+          <option value="balanceRotations">Mandate Balanced Rotations</option>
+          <option value="reduceFrequency">Reduce Rotation Frequency</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" id="oncall-value-label">Value</label>
+        <input type="number" id="oncall-value" placeholder="500">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Apply To</label>
+        <select id="oncall-provider-type">
+          <option value="all">All Providers</option>
+          <option value="MDA">MDAs Only</option>
+          <option value="CRNA">CRNAs Only</option>
+        </select>
+      </div>
+
+      <div class="warning-box">
+        <p>💡 On-call policies impact provider satisfaction and retention more than immediate costs.</p>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button id="reset-btn" class="secondary">Reset</button>
+      <button id="save-scenario-btn">Save Scenario</button>
+    </div>
+  </div>
+
+  <!-- CENTER PANEL: Visualizations -->
+  <div class="panel">
+    <div class="panel-title">Impact Analysis</div>
+
+    <!-- Summary Cards -->
+    <div class="summary-grid">
+      <div class="summary-card" id="ot-hours-card">
+        <div class="card-label">Overtime Hours/Week</div>
+        <div class="card-values">
+          <span class="before-value">127.5</span>
+          <span class="arrow">→</span>
+          <span class="after-value">127.5</span>
+        </div>
+        <div class="delta-value neutral">→ 0%</div>
+      </div>
+
+      <div class="summary-card" id="annual-cost-card">
+        <div class="card-label">Annual Net Impact</div>
+        <div class="card-values">
+          <span class="before-value">$0</span>
+          <span class="arrow">→</span>
+          <span class="after-value">$0</span>
+        </div>
+        <div class="delta-value neutral">→ 0%</div>
+      </div>
+
+      <div class="summary-card" id="coverage-rate-card">
+        <div class="card-label">Coverage Rate</div>
+        <div class="card-values">
+          <span class="before-value">98.7%</span>
+          <span class="arrow">→</span>
+          <span class="after-value">98.7%</span>
+        </div>
+        <div class="delta-value neutral">→ 0%</div>
+      </div>
+
+      <div class="summary-card" id="provider-load-card">
+        <div class="card-label">Provider Workload</div>
+        <div class="card-values">
+          <span class="before-value">--</span>
+          <span class="arrow">→</span>
+          <span class="after-value">--</span>
+        </div>
+        <div class="delta-value neutral">Balanced</div>
+      </div>
+    </div>
+
+    <!-- Chart 1: Overtime Comparison -->
+    <div>
+      <div class="chart-title">Overtime Hours: Before vs After</div>
+      <div class="chart-container">
+        <canvas id="overtime-comparison-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart 2: Cost Impact Over Time -->
+    <div>
+      <div class="chart-title">Financial Impact Over Time</div>
+      <div class="chart-container">
+        <canvas id="cost-impact-chart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL: Recommendations -->
+  <div class="panel">
+    <div class="panel-title">Analysis & Recommendations</div>
+    <div id="recommendation-panel">
+      <div class="recommendation-text">
+        Select a scenario and adjust parameters to see impact analysis and recommendations.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="../assets/js/scenario-engine.js"></script>
+<script src="../assets/js/scenario-ui.js"></script>
+
+<script>
+// Update range display values
+document.getElementById('hiring-count')?.addEventListener('input', function() {
+  document.getElementById('hiring-count-display').textContent = this.value;
+});
+
+document.getElementById('case-count')?.addEventListener('input', function() {
+  document.getElementById('case-count-display').textContent = this.value;
+});
+</script>
+
+</body>
+</html>

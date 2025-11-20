@@ -70,6 +70,13 @@ const AppState = {
                 { id: 'option2-risk', name: 'Risk Analysis', file: 'client-satisfaction-option2-risk.html' },
                 { id: 'option3-timeline', name: 'Timeline View', file: 'client-satisfaction-option3-timeline.html' }
             ]
+        },
+        {
+            id: 'scenario-planning',
+            name: 'Scenario Planning',
+            options: [
+                { id: 'what-if-analysis', name: 'Interactive What-If Analysis', file: 'scenario-planning.html' }
+            ]
         }
     ]
 };
