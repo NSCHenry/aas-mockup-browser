@@ -78,7 +78,6 @@ const ThemeSystem = {
                 --primary-color: #d97706 !important;
                 --primary-hover: #b45309 !important;
                 --success-color: #16a34a !important;
-                background: #fef6e7 !important;
             }
 
             body[data-theme="thanksgiving"] .dashboard-container {
@@ -93,33 +92,18 @@ const ThemeSystem = {
             body[data-theme="thanksgiving"] .split-card,
             body[data-theme="thanksgiving"] .specialty-card,
             body[data-theme="thanksgiving"] .comp-card {
-                background: #fffbf0 !important;
-                border: 2px solid #fbbf24 !important;
-                box-shadow: 0 2px 4px rgba(180, 83, 9, 0.1) !important;
+                background: rgba(254, 243, 199, 0.4) !important;
+                border: 1px solid rgba(217, 119, 6, 0.3) !important;
             }
 
             body[data-theme="thanksgiving"] .tile {
-                background: #fffbf0 !important;
-                border-left: 4px solid #d97706 !important;
-            }
-
-            body[data-theme="thanksgiving"] .metrics-grid,
-            body[data-theme="thanksgiving"] .card-grid,
-            body[data-theme="thanksgiving"] .region-grid,
-            body[data-theme="thanksgiving"] .market-grid {
-                background: transparent !important;
+                border-left-color: #d97706 !important;
             }
 
             body[data-theme="thanksgiving"] .metric-value,
             body[data-theme="thanksgiving"] .status-badge.active,
             body[data-theme="thanksgiving"] .badge.primary {
-                color: #b45309 !important;
-            }
-
-            body[data-theme="thanksgiving"] h1,
-            body[data-theme="thanksgiving"] h2,
-            body[data-theme="thanksgiving"] h3 {
-                color: #78350f !important;
+                color: #d97706 !important;
             }
 
             body[data-theme="thanksgiving"] canvas {
@@ -131,7 +115,6 @@ const ThemeSystem = {
                 --primary-color: #dc2626 !important;
                 --primary-hover: #b91c1c !important;
                 --success-color: #16a34a !important;
-                background: #f7fef9 !important;
             }
 
             body[data-theme="christmas"] .dashboard-container {
@@ -146,26 +129,16 @@ const ThemeSystem = {
             body[data-theme="christmas"] .split-card,
             body[data-theme="christmas"] .specialty-card,
             body[data-theme="christmas"] .comp-card {
-                background: #ffffff !important;
-                border: 2px solid #86efac !important;
-                box-shadow: 0 2px 4px rgba(22, 163, 74, 0.1) !important;
+                background: rgba(240, 253, 244, 0.6) !important;
+                border: 1px solid rgba(22, 163, 74, 0.3) !important;
             }
 
             body[data-theme="christmas"] .tile {
-                background: #ffffff !important;
-                border-left: 4px solid #dc2626 !important;
+                border-left-color: #dc2626 !important;
             }
 
-            body[data-theme="christmas"] .metric-card:nth-child(even) .tile,
-            body[data-theme="christmas"] .card:nth-child(even) .tile {
+            body[data-theme="christmas"] .metric-card:nth-child(even) .tile {
                 border-left-color: #16a34a !important;
-            }
-
-            body[data-theme="christmas"] .metrics-grid,
-            body[data-theme="christmas"] .card-grid,
-            body[data-theme="christmas"] .region-grid,
-            body[data-theme="christmas"] .market-grid {
-                background: transparent !important;
             }
 
             body[data-theme="christmas"] .metric-value {
@@ -175,12 +148,6 @@ const ThemeSystem = {
             body[data-theme="christmas"] .status-badge.active,
             body[data-theme="christmas"] .badge.primary {
                 background: #dc2626 !important;
-            }
-
-            body[data-theme="christmas"] h1,
-            body[data-theme="christmas"] h2,
-            body[data-theme="christmas"] h3 {
-                color: #14532d !important;
             }
 
             body[data-theme="christmas"] canvas {
