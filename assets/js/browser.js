@@ -285,6 +285,11 @@ function loadMockup(filename) {
             elements.loadingState.classList.remove('visible');
             elements.iframeWrapper.classList.add('visible');
 
+            // Apply current theme to iframe
+            if (window.ThemeSystem) {
+                window.ThemeSystem.applyThemeToIframe();
+            }
+
             // Trigger annotation reload for new mockup
             if (window.AnnotationSystem && window.AnnotationSystem.isActive()) {
                 window.AnnotationSystem.loadAnnotations();

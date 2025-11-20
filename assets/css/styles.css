@@ -4,7 +4,7 @@
 
 /* CSS Variables */
 :root {
-    /* Colors */
+    /* Colors - Standard Theme */
     --primary-color: #2563eb;
     --primary-hover: #1d4ed8;
     --primary-light: #dbeafe;
@@ -56,6 +56,42 @@
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
     --transition-slow: 350ms ease;
+}
+
+/* Thanksgiving Theme */
+body[data-theme="thanksgiving"] {
+    --primary-color: #d97706;
+    --primary-hover: #b45309;
+    --primary-light: #fef3c7;
+
+    --success-color: #16a34a;
+    --error-color: #dc2626;
+    --warning-color: #ea580c;
+
+    --sidebar-bg: #78350f;
+    --sidebar-text: #fef3c7;
+    --sidebar-hover: #92400e;
+    --sidebar-active: #f59e0b;
+
+    --bg-secondary: #fef3c7;
+}
+
+/* Christmas Theme */
+body[data-theme="christmas"] {
+    --primary-color: #dc2626;
+    --primary-hover: #b91c1c;
+    --primary-light: #fecaca;
+
+    --success-color: #16a34a;
+    --error-color: #dc2626;
+    --warning-color: #eab308;
+
+    --sidebar-bg: #14532d;
+    --sidebar-text: #f0fdf4;
+    --sidebar-hover: #166534;
+    --sidebar-active: #dc2626;
+
+    --bg-secondary: #f0fdf4;
 }
 
 /* ==========================================================================
@@ -343,6 +379,37 @@ button {
     display: flex;
     gap: var(--spacing-sm);
     align-items: center;
+}
+
+.theme-selector {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    color: #e2e8f0;
+}
+
+.theme-selector svg {
+    flex-shrink: 0;
+}
+
+.theme-dropdown {
+    background: transparent;
+    border: none;
+    color: #e2e8f0;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+
+.theme-dropdown option {
+    background: #1e293b;
+    color: #e2e8f0;
 }
 
 .btn-toggle {
