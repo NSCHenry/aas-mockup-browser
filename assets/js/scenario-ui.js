@@ -187,7 +187,36 @@ class ScenarioUI {
       panel.style.display = panel.dataset.scenario === scenarioType ? 'block' : 'none';
     });
 
+    // Set default values for scenario controls
+    this.setDefaultValues(scenarioType);
+
     this.updateDisplay();
+  }
+
+  setDefaultValues(scenarioType) {
+    // Set default dropdown selections to show meaningful data immediately
+    switch (scenarioType) {
+      case 'contractProfitability':
+        const profitabilityCenter = document.getElementById('profitability-center');
+        if (profitabilityCenter && profitabilityCenter.options.length > 1 && !profitabilityCenter.value) {
+          profitabilityCenter.selectedIndex = 1; // Select first real center (skip placeholder)
+        }
+        break;
+
+      case 'marketExpansion':
+        const expansionState = document.getElementById('expansion-state');
+        if (expansionState && expansionState.options.length > 1 && !expansionState.value) {
+          expansionState.selectedIndex = 1; // Select first state (skip placeholder)
+        }
+        break;
+
+      case 'providerTurnover':
+        const turnoverProviders = document.getElementById('turnover-providers');
+        if (turnoverProviders && turnoverProviders.options.length > 0 && turnoverProviders.selectedOptions.length === 0) {
+          turnoverProviders.options[0].selected = true; // Select first provider
+        }
+        break;
+    }
   }
 
   updateOnCallInputs() {
