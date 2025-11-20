@@ -309,9 +309,9 @@ button {
 
 /* Top Bar */
 .top-bar {
-    background: var(--bg-primary);
+    background: #1e293b;
     padding: var(--spacing-md) var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -323,20 +323,20 @@ button {
     align-items: center;
     gap: var(--spacing-sm);
     font-size: var(--font-size-sm);
-    color: var(--text-secondary);
+    color: #94a3b8;
 }
 
 .breadcrumb-separator {
-    color: var(--text-muted);
+    color: #64748b;
 }
 
 #currentCategory {
     font-weight: 600;
-    color: var(--text-primary);
+    color: #e2e8f0;
 }
 
 #currentOption {
-    color: var(--text-secondary);
+    color: #94a3b8;
 }
 
 .top-bar-actions {
@@ -350,16 +350,16 @@ button {
     align-items: center;
     gap: var(--spacing-sm);
     padding: 8px 16px;
-    background: var(--bg-tertiary);
-    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius);
     font-size: var(--font-size-sm);
-    color: var(--text-primary);
+    color: #e2e8f0;
     transition: all var(--transition-fast);
 }
 
 .btn-toggle:hover {
-    background: var(--border-color);
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .btn-toggle.active {
@@ -371,7 +371,7 @@ button {
 .toggle-indicator {
     font-size: 12px;
     font-weight: 600;
-    color: var(--text-muted);
+    color: #94a3b8;
 }
 
 .btn-toggle.active .toggle-indicator {
@@ -380,9 +380,9 @@ button {
 
 /* Option Tabs */
 .option-tabs {
-    background: var(--bg-primary);
+    background: #1e293b;
     padding: 0 var(--spacing-lg);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     gap: var(--spacing-sm);
     overflow-x: auto;
@@ -393,7 +393,7 @@ button {
     background: transparent;
     border: none;
     border-bottom: 2px solid transparent;
-    color: var(--text-secondary);
+    color: #94a3b8;
     font-size: var(--font-size-sm);
     font-weight: 500;
     white-space: nowrap;
@@ -402,13 +402,13 @@ button {
 }
 
 .option-tab:hover {
-    color: var(--text-primary);
-    background: var(--bg-secondary);
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .option-tab.active {
-    color: var(--primary-color);
-    border-bottom-color: var(--primary-color);
+    color: #60a5fa;
+    border-bottom-color: #60a5fa;
 }
 
 /* Viewer Container */
@@ -651,6 +651,15 @@ button {
 .btn-icon-small:hover {
     background: var(--bg-tertiary);
     color: var(--text-primary);
+}
+
+.top-bar .btn-icon {
+    color: #94a3b8;
+}
+
+.top-bar .btn-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
 }
 
 .btn-icon-small {
