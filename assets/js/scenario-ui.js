@@ -306,7 +306,20 @@ class ScenarioUI {
     const collectionChange = parseFloat(document.getElementById('profitability-collection')?.value) || 0;
     const floorChange = parseFloat(document.getElementById('profitability-floor')?.value) || 0;
 
-    if (!centerId) return null;
+    if (!centerId) {
+      // Return placeholder result to update card labels
+      return {
+        scenario: 'contractProfitability',
+        center: {
+          revenue: { before: 0, after: 0, delta: 0 },
+          margin: { before: 0, after: 0, delta: 0 },
+          subsidy: { before: 0, after: 0, delta: 0 },
+          marginPercent: { before: 0, after: 0, delta: 0 }
+        },
+        financial: { annualSubsidyChange: 0 },
+        recommendation: 'Select a center to analyze contract profitability and subsidy impact.'
+      };
+    }
 
     return this.engine.calculateContractProfitability(centerId, volumeChange, collectionChange, floorChange);
   }
@@ -317,7 +330,20 @@ class ScenarioUI {
     const avgCasesPerWeek = parseInt(document.getElementById('expansion-cases')?.value) || 0;
     const timeline = parseInt(document.getElementById('expansion-timeline')?.value) || 0;
 
-    if (!state || !contractCount || !avgCasesPerWeek) return null;
+    if (!state || !contractCount || !avgCasesPerWeek) {
+      // Return placeholder result to update card labels
+      return {
+        scenario: 'marketExpansion',
+        financial: {
+          totalInvestment: 0,
+          breakEvenMonth: 'Not calculated',
+          projectedAnnualRevenue: 0,
+          roi: 0
+        },
+        timeline: [],
+        recommendation: 'Select a state and enter contract details to analyze market expansion opportunity.'
+      };
+    }
 
     return this.engine.calculateMarketExpansion(state, contractCount, avgCasesPerWeek, timeline);
   }
@@ -330,7 +356,23 @@ class ScenarioUI {
     const strategyRadio = document.querySelector('input[name="coverage-strategy"]:checked');
     const coverageStrategy = strategyRadio?.value || 'overtime';
 
-    if (providerIds.length === 0) return null;
+    if (providerIds.length === 0) {
+      // Return placeholder result to update card labels
+      return {
+        scenario: 'providerTurnover',
+        financial: {
+          totalCost: 0,
+          recruitmentCosts: 0,
+          relocationCosts: 0,
+          temporaryCoverageCost: 0,
+          timeToStabilize: 0
+        },
+        impact: {
+          centersAffected: []
+        },
+        recommendation: 'Select one or more providers to analyze turnover impact and replacement costs.'
+      };
+    }
 
     return this.engine.calculateProviderTurnover(providerIds, replacementMonths, coverageStrategy);
   }
@@ -341,7 +383,21 @@ class ScenarioUI {
     const collectionImprovement = parseFloat(document.getElementById('rcm-collection')?.value) || 0;
     const investment = parseFloat(document.getElementById('rcm-investment')?.value) || 0;
 
-    if (!scope || investment === 0) return null;
+    if (!scope || investment === 0) {
+      // Return placeholder result to update card labels
+      return {
+        scenario: 'rcmOptimization',
+        financial: {
+          totalAdditionalRevenue: 0,
+          annualROI: 0,
+          paybackMonths: 0,
+          contractsImproved: 0,
+          totalInvestment: 0
+        },
+        improvements: [],
+        recommendation: 'Enter investment amount to analyze RCM optimization potential and revenue recovery.'
+      };
+    }
 
     return this.engine.calculateRCMOptimization(scope, denialReduction, collectionImprovement, investment);
   }
